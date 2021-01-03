@@ -1,0 +1,18 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+name: Compat (Debian)
+file_extensions:
+  - compat
+scope: source.debian.compat
+
+variables:
+  integer: '(?:[-+]?\d+)'
+
+contexts:
+  main:
+    - include: compat-version
+
+  compat-version:
+    - match: '{{integer}}'
+      scope: constant.numeric.integer.debian

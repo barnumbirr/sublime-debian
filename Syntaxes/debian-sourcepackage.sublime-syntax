@@ -1,0 +1,58 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+name: Source Package (Debian)
+file_extensions:
+  - .dsc
+scope: source.debian.sourcepackage
+
+variables:
+  # https://www.debian.org/doc/debian-policy/ch-controlfields.html#source-package-control-files-debian-control
+  allowed_fields: |-
+    ^(
+      |Format|Source|Binary|Architecture|Version|Maintainer|Uploaders|Homepage|
+      |Vcs-(Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)|Testsuite|Dgit|
+      |Standards-Version|Build-Depends(-Arch|-Indep)?|
+      |Build-Conflicts(-Arch|-Indep)?|Package-List|Checksums-(Sha1|Sha256)|
+      |Files|Hash|
+    )
+
+contexts:
+  main:
+    - include: email-address
+    - include: fields
+    - include: pgp-signatures
+    - include: other-signatures
+
+  email-address:
+    - match: <.+@.+[.].+>|<.+?at.+?dot.+?>
+      scope: variable.language.debian
+
+  fields:
+    - match: '{{allowed_fields}}'
+      scope: keyword.control.debian
+
+  pgp-signatures:
+    - match: ^(\-+)(BEGIN PGP SIGNATURE)(\-+)\n
+      captures:
+        1: punctuation.definition.section.begin.debian
+        2: entity.name.section.debian
+        3: punctuation.definition.section.end.debian
+      push: pgp-signature-body
+
+  pgp-signature-body:
+    - meta_scope: markup.raw.block.signature.debian
+    - match: ^(\-+)(END PGP SIGNATURE)(\-+)\n
+      captures:
+        1: punctuation.definition.section.begin.debian
+        2: entity.name.section.debian
+        3: punctuation.definition.section.end.debian
+      pop: 1
+
+  other-signatures:
+    - match: ^(\-+)((?:BEGIN|END) [ \w]+)(\-+)\n
+      scope: markup.raw.block.signature.debian
+      captures:
+        1: punctuation.definition.section.begin.debian
+        2: entity.name.section.debian
+        3: punctuation.definition.section.end.debian

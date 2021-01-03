@@ -1,0 +1,12 @@
+sublime-debian 1.0.0
+--------------------
+
+Thank you for installing sublime-debian, a Debian packaging file syntax
+highlighter for Sublime Text.
+
+You're almost there, you'll only need to close and reopen all Debian related
+files (debian/changelog, debian/control, ...) or restart Sublime Text.
+
+If you have any questions, comments, concerns, bugs, or patches, please open an
+issue or pull request over on GitHub (https://github.com/barnumbirr/sublime-debian).
+You can also find me on Twitter @barnumbirr.

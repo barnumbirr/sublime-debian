@@ -1,0 +1,33 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+name: Changelog (Debian)
+file_extensions:
+  - changelog
+scope: source.debian.changelog
+
+contexts:
+  main:
+    - include: changelog-top
+    - include: changelog-close-bug
+    - include: changelog-bottom
+
+  changelog-top:
+    - match: (.+) [(](.+)[)] (.+); (.+)
+      captures:
+        1: keyword.control.debian
+        2: support.function.debian
+        3: support.class.debian
+        4: support.constant.debian
+
+  changelog-close-bug:
+    - match: '[Cc]loses:\s*(?:[Bb]ug)?\#?\s?\d+(?:,\s*(?:bug)?\#?\s?\d+)*'
+      scope: string.unquoted.debian
+
+  changelog-bottom:
+    - match: ' (--) (.+) (<.+@.+[.].+>|<.+?at.+?dot.+?>)  (.+)'
+      captures:
+        1: comment.line.debian
+        2: markup.italic.debian
+        3: variable.language.debian
+        4: string.unquoted.debian

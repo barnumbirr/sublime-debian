@@ -1,0 +1,40 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+name: Watch (Debian)
+file_extensions:
+  - watch
+scope: source.debian.watch
+
+variables:
+  # https://people.debian.org/~osamu/uscan.html
+  allowed_keywords: ^(version|opts)
+  allowed_opts: |-
+    (
+      |component|compression|repack|repacksuffix|mode|pgpmode|decompress|bare|
+      |user-agent|pasv|passsive|active|nopasv|unzipopt|dversionmangle|
+      |dirversionmangle|pagemangle|uversionmangle|versionmangle|
+      |downloadurlmangle|filenamemangle|pgpsigurlmangle|oversionmangle|
+    )
+
+contexts:
+  main:
+    - include: comments
+    - include: keywords
+    - include: opts
+
+  comments:
+    - match: "#"
+      scope: punctuation.definition.comment.debian
+      push:
+        - meta_scope: comment.line.debian
+        - match: \n
+          pop: true
+
+  keywords:
+    - match: '{{allowed_keywords}}'
+      scope: keyword.control.debian
+
+  opts:
+    - match: '{{allowed_opts}}'
+      scope: variable.parameter.debian

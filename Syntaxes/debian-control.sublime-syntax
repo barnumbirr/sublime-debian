@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 # See http://www.sublimetext.com/docs/3/syntax.html
-name: Control (Debian)
+name: control (Debian)
 file_extensions:
   - control
 scope: source.debian.control

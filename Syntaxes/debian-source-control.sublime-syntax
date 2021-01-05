@@ -1,10 +1,10 @@
 %YAML 1.2
 ---
 # See http://www.sublimetext.com/docs/3/syntax.html
-name: Source Package (Debian)
+name: source control (Debian)
 file_extensions:
   - .dsc
-scope: source.debian.sourcepackage
+scope: source.debian.sourcecontrol
 
 variables:
   # https://www.debian.org/doc/debian-policy/ch-controlfields.html#source-package-control-files-debian-control

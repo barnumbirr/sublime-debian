@@ -7,10 +7,13 @@ Debian packaging file syntax highlighting for Sublime Text.
 Provides syntax highlighting for the following files:
 
  - `debian/source/format`
+ - `debian/upstream/metadata`
  - `debian/changelog`
  - `debian/compat`
  - `debian/control`
  - `debian/copyright`
+ - `debian/NEWS`
+ - `debian/*.templates`
  - `debian/watch`
  - `.dsc`
 
@@ -44,7 +47,7 @@ Debian Control file with Sublime Text 3's default `Monokai` color scheme:
     | OSX      | `~/Library/Application\ Support/Sublime\ Text\ 3/Packages/` |
     | Windows  | `%AppData%\Roaming\Sublime Text 3\Packages`                 |
 
-2. Clone this repository into `Debian` directory
+2. Clone this repository into `Debian Syntax` directory
 
     ```bash
     git clone git://github.com/barnumbirr/sublime-debian.git 'Debian Syntax'

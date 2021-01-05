@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 # See http://www.sublimetext.com/docs/3/syntax.html
-name: Format (Debian)
+name: format (Debian)
 file_extensions:
   - format
 scope: source.debian.format

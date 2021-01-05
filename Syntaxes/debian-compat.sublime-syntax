@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 # See http://www.sublimetext.com/docs/3/syntax.html
-name: Compat (Debian)
+name: compat (Debian)
 file_extensions:
   - compat
 scope: source.debian.compat

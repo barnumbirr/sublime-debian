@@ -1,0 +1,32 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+name: templates (Debian)
+file_extensions:
+  - templates
+  - .templates
+scope: source.debian.templates
+
+variables:
+  # https://www.debian.org/doc/manuals/developers-reference/best-pkging-practices.html#templates-fields-definition
+  allowed_fields: |-
+    ^(
+      |Template|Type|(_*)Default|(_*)(Description)|(_*)Choices|
+    )
+
+contexts:
+  main:
+    - include: comments
+    - include: fields
+
+  comments:
+    - match: "#"
+      scope: punctuation.definition.comment.debian
+      push:
+        - meta_scope: comment.line.debian
+        - match: \n
+          pop: true
+
+  fields:
+    - match: '{{allowed_fields}}'
+      scope: keyword.control.debian

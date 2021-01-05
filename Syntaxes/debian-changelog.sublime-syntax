@@ -1,18 +1,20 @@
 %YAML 1.2
 ---
 # See http://www.sublimetext.com/docs/3/syntax.html
-name: Changelog (Debian)
+name: changelog (Debian)
 file_extensions:
   - changelog
+  - NEWS
 scope: source.debian.changelog
 
 contexts:
   main:
-    - include: changelog-top
-    - include: changelog-close-bug
-    - include: changelog-bottom
+    - include: changelog-header
+    - include: changelog-footer
+    - include: content-close-bug
+    - include: content-code-span
 
-  changelog-top:
+  changelog-header:
     - match: (.+) [(](.+)[)] (.+); (.+)
       captures:
         1: keyword.control.debian
@@ -20,14 +22,23 @@ contexts:
         3: support.class.debian
         4: support.constant.debian
 
-  changelog-close-bug:
-    - match: '[Cc]loses:\s*(?:[Bb]ug)?\#?\s?\d+(?:,\s*(?:bug)?\#?\s?\d+)*'
-      scope: string.unquoted.debian
-
-  changelog-bottom:
+  changelog-footer:
     - match: ' (--) (.+) (<.+@.+[.].+>|<.+?at.+?dot.+?>)  (.+)'
       captures:
         1: comment.line.debian
         2: markup.italic.debian
         3: variable.language.debian
         4: string.unquoted.debian
+
+  content-close-bug:
+    - match: '[Cc]loses:\s*(?:[Bb]ug)?\#?\s?\d+(?:,\s*(?:bug)?\#?\s?\d+)*'
+      scope: string.unquoted.debian
+
+  content-code-span:
+    - match: (`+)(?!`)
+      scope: punctuation.definition.raw.begin.debian
+      push:
+        - meta_scope: markup.raw.inline.debian
+        - match: \1(?!`)
+          scope: punctuation.definition.raw.end.debian
+          pop: true

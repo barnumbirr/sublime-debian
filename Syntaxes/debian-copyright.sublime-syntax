@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 # See http://www.sublimetext.com/docs/3/syntax.html
-name: Copyright (Debian)
+name: copyright (Debian)
 file_extensions:
   - copyright
 scope: text.debian.license

@@ -17,29 +17,36 @@ Provides syntax highlighting for the following files:
  - `debian/watch`
  - `.dsc`
 
-## Screenshot
+## Screenshots
 
-Debian Control file with Sublime Text 3's default `Monokai` color scheme:
+Debian `changelog`, `control` and `copyright` files with Sublime Text 3's default `Monokai` color scheme:
 
-![](https://i.imgur.com/HJP4sji.png)
+<p align="center">
+    <a href="https://i.imgur.com/L99Ulek.png" target="_blank"> <img src="https://i.imgur.com/L99Ulek.png" width="32%"/></a>
+    <a href="https://i.imgur.com/0oqwVRV.png" target="_blank"> <img src="https://i.imgur.com/0oqwVRV.png" width="32%"/></a>
+    <a href="https://i.imgur.com/QWWrgcG.png" target="_blank"> <img src="https://i.imgur.com/QWWrgcG.png" width="32%"/></a>
+    <i>Click images to enlarge.</i>
+</p>
+
+All files used in these screenshots are part of [Debian's backupppc package](https://salsa.debian.org/debian/backuppc).
 
 ## Installation
 
 ### With Package Control
 
 1. [Install Package Control](https://packagecontrol.io/installation)
-2. Install `Debian Syntax` package
+2. Install [Debian Syntax package](https://packagecontrol.io/packages/Debian%20Syntax)
 
     | Platform      | Install Command                                                   |
     | --------------| ----------------------------------------------------------------- |
     | OS X          | `cmd+shift+p` → Package Control: Install Package → Debian Syntax  |
     | Linux/Windows | `ctrl+shift+p` → Package Control: Install Package → Debian Syntax |
 
-3. Reopen all Debian packaging files or restart Sublime Text.
+3. Reopen all Debian packaging files or restart Sublime Text
 
 ### Without Package Control
 
-1. Locate your Sublime Text "Packages" directory and navigate to it.
+1. Locate your Sublime Text "Packages" directory and navigate to it
 
     | Platform | Installation Path                                           |
     | -------- | ----------------------------------------------------------- |

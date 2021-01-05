@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### New
 ### Changes
+- Updated screenshots in README
+- Added link direct link to Packagecontrol in README
 ### Deprecated
 ### Removed
 ### Fixes

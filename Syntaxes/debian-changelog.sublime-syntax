@@ -1,6 +1,6 @@
 %YAML 1.2
 ---
-# See http://www.sublimetext.com/docs/3/syntax.html
+# See http://www.sublimetext.com/docs/syntax.html
 name: changelog (Debian)
 file_extensions:
   - changelog
@@ -9,30 +9,84 @@ scope: source.debian.changelog
 
 contexts:
   main:
-    - include: changelog-header
-    - include: changelog-footer
+    - include: header
+
+  header:
+    - match: ^[\w-]+
+      scope: entity.name.class.debian.changelog
+      push: [body, header-annotations]
+
+  header-annotations:
+    - match: \(
+      scope: punctuation.section.group.begin.debian.changelog
+      push:
+        - meta_scope: meta.version-number.debian.changelog
+                      meta.parens.debian.changelog
+        - include: debian-common.sublime-syntax#semantic-version
+        - match: \)
+          scope: punctuation.section.group.end.debian.changelog
+          pop: true
+        - include: debian-common.sublime-syntax#pop-eol
+    - match: \b(?:un)?stable
+      scope: constant.language.debian.changelog
+    - match: ;
+      scope: punctuation.separator.sequence.debian.changelog
+    - match: (\S+)(=)(\S+)
+      captures:
+        1: meta.mapping.key.debian.changelog
+        2: punctuation.separator.mapping.key-value.debian.changelog
+        3: meta.mapping.value.debian.changelog
+           string.unquoted.debian.changelog
+    - include: debian-common.sublime-syntax#pop-eol
+
+  body:
+    - meta_scope: meta.block.version.debian.changelog
+    - match: ^[ \t]+(?=\[)
+      push:
+        - meta_content_scope: meta.annotation.debian.changelog
+                              string.quoted.other.debian.changelog
+        - match: \[
+          scope: punctuation.definition.annotation.begin.debian.changelog
+        # The `string` scope is a workaround for a ST3xxx bug
+        - match: \]
+          scope: string.quoted.other.debian.changelog
+                 punctuation.definition.annotation.end.debian.changelog
+          pop: true
+        - include: debian-common.sublime-syntax#pop-eol
     - include: content-close-bug
     - include: content-code-span
+    - include: debian-common.sublime-syntax#url
+    - match: ^[ \t]{2,}([*+-])
+      scope: punctuation.definition.list_item.debian.changelog
+    - match: (?=^ --)
+      set: footer
 
-  changelog-header:
-    - match: (.+) [(](.+)[)] (.+); (.+)
+  footer:
+    - meta_scope: meta.block.version.debian.changelog
+    - match: ^ (--)
       captures:
-        1: keyword.control.debian
-        2: support.function.debian
-        3: support.class.debian
-        4: support.constant.debian
-
-  changelog-footer:
-    - match: ' (--) (.+) (<.+@.+[.].+>|<.+?at.+?dot.+?>)  (.+)'
-      captures:
-        1: comment.line.debian
-        2: markup.italic.debian
-        3: variable.language.debian
-        4: string.unquoted.debian
+        1: punctuation.section.block.begin.debian.changelog
+      push:
+        - include: debian-common.sublime-syntax#email-address
+        - include: debian-common.sublime-syntax#date-iso
+        - include: debian-common.sublime-syntax#pop-eol
+      pop: true
 
   content-close-bug:
-    - match: '[Cc]loses:\s*(?:[Bb]ug)?\#?\s?\d+(?:,\s*(?:bug)?\#?\s?\d+)*'
-      scope: string.unquoted.debian
+    - match: (?=(?:[Cc]loses|LP):\s*(?:[Bb]ug|#\d))
+      push:
+        - match: ([Cc]loses|LP)(:)
+          captures:
+            1: meta.mapping.key.debian.changelog
+            2: punctuation.separator.mapping.key-value.debian.changelog
+        - match: ','
+          scope: punctuation.separator.sequence.debian.changelog
+        - match: (?:[Bb]ug)?\s*((#)(\d+))
+          captures:
+            1: meta.tag.issue.debian.changelog
+            2: punctuation.definition.debian.changelog
+            3: constant.numeric.integer.decimal.debian.changelog
+        - include: debian-common.sublime-syntax#else-pop
 
   content-code-span:
     - match: (`+)(?!`)

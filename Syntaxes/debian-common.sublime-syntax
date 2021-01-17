@@ -1,6 +1,6 @@
 %YAML 1.2
 ---
-# See http://www.sublimetext.com/docs/3/syntax.html
+# See http://www.sublimetext.com/docs/syntax.html
 name: Debian utility matches
 file_extensions: []
 scope: source.debian.common
@@ -9,6 +9,14 @@ hidden: true
 contexts:
   main:
     - match: \b\B
+
+  pop-eol:
+    - match: (?=$|\n)
+      pop: true
+
+  else-pop:
+    - match: (?=\S)
+      pop: true
 
   comments:
     - match: '#'
@@ -50,6 +58,25 @@ contexts:
   url:
     - match: https?://\S+
       scope: markup.underline.link.debian
+
+  # Thu, 31 Dec 2020 16:54:06 +0100
+  date-iso:
+    - match: |-
+        (?x:
+          (?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)(,)[ ]
+          (?:\d{1,2})[ ]
+          (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[ ]
+          (?:(?:19|20)\d\d)[ ]
+          (?:\d\d(:)\d\d(?:(:)\d\d)?)?
+          (?:[ ]([+-])\d{4})?
+        )
+      scope: meta.number.date.debian.common
+             constant.numeric.debian.common
+      captures:
+        1: punctuation.separator.sequence.debian.common
+        2: punctuation.separator.sequence.debian.common
+        3: punctuation.separator.sequence.debian.common
+        4: keyword.operator.arithmetic.debian.common
 
   semantic-version:
     - match: |-

@@ -6,24 +6,21 @@ file_extensions:
   - control
 scope: source.debian.control
 
-variables:
-  # https://www.debian.org/doc/debian-policy/ch-controlfields.html#source-package-control-files-debian-control
-  allowed_fields: |-
-    (?xi:
-       Source|Maintainer|Uploaders|Section|Priority|Build-Depends(?:-Arch|-Indep)?
-      |Build-Conflicts(?:-Arch|-Indep)?|Standards-Version|Homepage
-      |Vcs-(?:Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)|Testsuite|Rules-Requires-Root
-      |Package|Architecture|Essential|Depends|Pre-Depends|Recommends|Suggests|Breaks
-      |Conflicts|Provides|Replaces|Enhances|Description|Homepage|Built-Using|Package-Type
-    )
-
 contexts:
   main:
     - include: debian-common.sublime-syntax#comments
     - include: fields
 
+  # https://www.debian.org/doc/debian-policy/ch-controlfields.html#source-package-control-files-debian-control
   fields:
-    - match: ^({{allowed_fields}})(:)?
+    - match: |-
+        ^(?xi:
+          (Source|Maintainer|Uploaders|Section|Priority|Build-Depends(?:-Arch|-Indep)?
+            |Build-Conflicts(?:-Arch|-Indep)?|Standards-Version|Homepage
+            |Vcs-(?:Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)|Testsuite|Rules-Requires-Root
+            |Package|Architecture|Essential|Depends|Pre-Depends|Recommends|Suggests|Breaks
+            |Conflicts|Provides|Replaces|Enhances|Description|Homepage|Built-Using|Package-Type
+        ))(:)?
       captures:
         1: meta.mapping.key.debian keyword.control.debian.control
         2: punctuation.separator.mapping.key-value.debian.control
@@ -63,5 +60,4 @@ contexts:
         - match: (\))
           scope: punctuation.section.group.end.debian.control
           pop: true
-        - match: (?=\n)
-          pop: true
+        - include: debian-common.sublime-syntax#pop-eol

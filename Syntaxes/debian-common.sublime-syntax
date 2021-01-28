@@ -26,6 +26,10 @@ contexts:
         - match: \n
           pop: true
 
+  debian-versions:
+    - match: (?:buzz|rex|bo|hamm|slink|potato|woody|sarge|etch|lenny|squeeze|wheezy|jessie|stretch|buster|bullseye)
+      scope: constant.language.debian
+
   email-address:
     # email reference
     - match: <(?=\S+?(?i:@|at)\S+?(?i:\.|dot)\S+?>)

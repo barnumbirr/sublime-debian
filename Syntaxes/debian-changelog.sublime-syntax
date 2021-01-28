@@ -10,6 +10,7 @@ scope: source.debian.changelog
 contexts:
   main:
     - include: header
+    - include: debian-common.sublime-syntax#comments
 
   header:
     - match: ^[\w-]+
@@ -27,8 +28,9 @@ contexts:
           scope: punctuation.section.group.end.debian.changelog
           pop: true
         - include: debian-common.sublime-syntax#pop-eol
-    - match: \b(?:un)?stable
+    - match: \b(?:(?:old){0,2}stable|testing|unstable|experimental)\b
       scope: constant.language.debian.changelog
+    - include: debian-common.sublime-syntax#debian-versions
     - match: ;
       scope: punctuation.separator.sequence.debian.changelog
     - match: (\S+)(=)(\S+)
@@ -70,7 +72,7 @@ contexts:
         - include: debian-common.sublime-syntax#email-address
         - include: debian-common.sublime-syntax#date-iso
         - include: debian-common.sublime-syntax#pop-eol
-      pop: true
+    - include: debian-common.sublime-syntax#pop-eol
 
   content-close-bug:
     - match: (?=(?:[Cc]loses|LP):\s*(?:[Bb]ug|#\d))

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+    <key>scope</key>
+    <string>
+        source.debian.changelog meta.version-number,
+        source.debian.control keyword.control
+    </string>
+    <key>settings</key>
+    <dict>
+        <key>showInSymbolList</key>
+        <string>1</string>
+    </dict>
+</dict>
+</plist>

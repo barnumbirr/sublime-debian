@@ -1,0 +1,106 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/syntax.html
+name: Debian utility matches
+file_extensions: []
+scope: source.debian.common
+hidden: true
+
+contexts:
+  main:
+    - match: \b\B
+
+  pop-eol:
+    - match: (?=$|\n)
+      pop: true
+
+  else-pop:
+    - match: (?=\S)
+      pop: true
+
+  comments:
+    - match: '#'
+      scope: punctuation.definition.comment.debian
+      push:
+        - meta_scope: comment.line.debian
+        - match: \n
+          pop: true
+
+  debian-versions:
+    - match: (?:buzz|rex|bo|hamm|slink|potato|woody|sarge|etch|lenny|squeeze|wheezy|jessie|stretch|buster|bullseye)
+      scope: constant.language.debian
+
+  email-address:
+    # email reference
+    - match: <(?=\S+?(?i:@|at)\S+?(?i:\.|dot)\S+?>)
+      scope: punctuation.definition.reference.email.begin.debian
+      push: [email-meta, email-name]
+
+  email-meta:
+    - meta_scope: meta.reference.email.debian
+    - match: ''
+      pop: true
+
+  email-name:
+    - meta_content_scope: entity.name.reference.email.debian
+    - match: (?i:@|at)
+      scope: punctuation.separator.email.debian
+      set: email-domain
+    - include: email-end
+
+  email-domain:
+    - meta_content_scope: entity.name.reference.email.debian
+    - match: (?i:\.|dot)
+      scope: punctuation.separator.domain.debian
+    - include: email-end
+
+  email-end:
+    - match: '>'
+      scope: punctuation.definition.reference.email.end.debian
+      pop: true
+
+  url:
+    - match: https?://\S+
+      scope: markup.underline.link.debian
+
+  # Thu, 31 Dec 2020 16:54:06 +0100
+  date-iso:
+    - match: |-
+        (?x:
+          (?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)(,)[ ]
+          (?:\d{1,2})[ ]
+          (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[ ]
+          (?:(?:19|20)\d\d)[ ]
+          (?:\d\d(:)\d\d(?:(:)\d\d)?)?
+          (?:[ ]([+-])\d{4})?
+        )
+      scope: meta.number.date.debian.common
+             constant.numeric.debian.common
+      captures:
+        1: punctuation.separator.sequence.debian.common
+        2: punctuation.separator.sequence.debian.common
+        3: punctuation.separator.sequence.debian.common
+        4: keyword.operator.arithmetic.debian.common
+
+  semantic-version:
+    - match: |-
+        (?x:
+          (\d+)
+          (?:(\.)(\d+)
+            (?:(\.)(\d+)
+              (?:(-|~)([\w.]+))?
+              (?:(\+)([\w.]+))?
+            )?
+          )?
+        )
+      scope: meta.number.version.debian
+      captures:
+        1: constant.numeric.integer.decimal.debian
+        2: punctuation.separator.sequence.debian
+        3: constant.numeric.integer.decimal.debian
+        4: punctuation.separator.sequence.debian
+        5: constant.numeric.integer.decimal.debian
+        6: punctuation.separator.sequence.debian
+        7: string.unquoted.debian
+        8: punctuation.separator.sequence.debian
+        9: string.unquoted.debian

@@ -22,13 +22,13 @@ Provides syntax highlighting for the following files:
 Debian `changelog`, `control` and `copyright` files with Sublime Text 3's default `Monokai` color scheme:
 
 <p align="center">
-    <a href="https://i.imgur.com/L99Ulek.png" target="_blank"> <img src="https://i.imgur.com/L99Ulek.png" width="32%"/></a>
-    <a href="https://i.imgur.com/0oqwVRV.png" target="_blank"> <img src="https://i.imgur.com/0oqwVRV.png" width="32%"/></a>
-    <a href="https://i.imgur.com/QWWrgcG.png" target="_blank"> <img src="https://i.imgur.com/QWWrgcG.png" width="32%"/></a>
+    <a href="https://i.imgur.com/nL14qlN.png" target="_blank"> <img src="https://i.imgur.com/nL14qlN.png" width="32%"/></a>
+    <a href="https://i.imgur.com/iG9EMUD.png" target="_blank"> <img src="https://i.imgur.com/iG9EMUD.png" width="32%"/></a>
+    <a href="https://i.imgur.com/W1vqFuL.png" target="_blank"> <img src="https://i.imgur.com/W1vqFuL.png" width="32%"/></a>
     <i>Click images to enlarge.</i>
 </p>
 
-All files used in these screenshots are part of [Debian's backupppc package](https://salsa.debian.org/debian/backuppc).
+All files used in these screenshots are part of [Debian's backupppc 4.4.0-2 package](https://salsa.debian.org/debian/backuppc).
 
 ## Installation
 

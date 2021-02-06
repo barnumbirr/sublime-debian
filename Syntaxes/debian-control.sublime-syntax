@@ -14,7 +14,7 @@ contexts:
   # https://www.debian.org/doc/debian-policy/ch-controlfields.html#source-package-control-files-debian-control
   fields:
     - match: |-
-        ^(?xi:
+        ^(?x:
           (Source|Maintainer|Uploaders|Section|Priority|Build-Depends(?:-Arch|-Indep)?
             |Build-Conflicts(?:-Arch|-Indep)?|Standards-Version|Homepage
             |Vcs-(?:Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)|Testsuite|Rules-Requires-Root
@@ -50,7 +50,7 @@ contexts:
         2: punctuation.definition.variable.end.debian.control
 
   semver-flag:
-    - match: (?=\(>?=[ ]+\d(?:\.\d){0,2})
+    - match: (?=\(>?=?[ ]?\d(?:\.\d){0,2})
       push:
         - match: (\()(>?=)\s+
           captures:

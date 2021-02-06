@@ -88,7 +88,7 @@ contexts:
             1: meta.tag.issue.debian.changelog
             2: punctuation.definition.debian.changelog
             3: constant.numeric.integer.decimal.debian.changelog
-        - include: debian-common.sublime-syntax#else-pop
+        - include: debian-common.sublime-syntax#pop-eol
 
   content-code-span:
     - match: (`+)(?!`)

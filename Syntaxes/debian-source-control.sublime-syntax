@@ -1,58 +1,62 @@
 %YAML 1.2
 ---
-# See http://www.sublimetext.com/docs/3/syntax.html
+# See http://www.sublimetext.com/docs/syntax.html
 name: source control (Debian)
 file_extensions:
   - .dsc
-scope: source.debian.sourcecontrol
-
-variables:
-  # https://www.debian.org/doc/debian-policy/ch-controlfields.html#source-package-control-files-debian-control
-  allowed_fields: |-
-    ^(
-      |Format|Source|Binary|Architecture|Version|Maintainer|Uploaders|Homepage|
-      |Vcs-(Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)|Testsuite|Dgit|
-      |Standards-Version|Build-Depends(-Arch|-Indep)?|
-      |Build-Conflicts(-Arch|-Indep)?|Package-List|Checksums-(Sha1|Sha256)|
-      |Files|Hash|
-    )
+scope: source.debian.source.control
 
 contexts:
   main:
-    - include: email-address
+    - include: debian-common.sublime-syntax#comments
     - include: fields
-    - include: pgp-signatures
-    - include: other-signatures
 
-  email-address:
-    - match: <.+@.+[.].+>|<.+?at.+?dot.+?>
-      scope: variable.language.debian
-
+  # https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-debiansourcecontrolfiles
   fields:
-    - match: '{{allowed_fields}}'
-      scope: keyword.control.debian
+    - match: |-
+        ^(?x:
+          (Format|Source|Binary|Architecture|Version|Maintainer|Uploaders|Homepage
+            |Vcs-(Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)|Testsuite|Dgit
+            |Standards-Version|Build-Depends(-Arch|-Indep)?
+            |Build-Conflicts(-Arch|-Indep)?|Package-List|Checksums-(Sha1|Sha256)
+            |Files|Hash|
+        ))(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.source.control
+        2: punctuation.separator.mapping.key-value.debian.source.control
+      push:
+        - meta_content_scope: meta.mapping.value.debian.source.control
+        - match: ^(?=\S)
+          pop: true
+        - include: pgp-signatures
+        - include: pgp-signature-body
+        - include: other-signatures
+        - include: debian-common.sublime-syntax#email-address
+        - include: debian-common.sublime-syntax#url
+        - match: \,|\|
+          scope: punctuation.separator.sequence.debian.source.control
 
   pgp-signatures:
     - match: ^(\-+)(BEGIN PGP SIGNATURE)(\-+)\n
       captures:
-        1: punctuation.definition.section.begin.debian
-        2: entity.name.section.debian
-        3: punctuation.definition.section.end.debian
+        1: punctuation.definition.section.begin.debian.source.control
+        2: entity.name.section.debian.source.control
+        3: punctuation.definition.section.end.debian.source.control
       push: pgp-signature-body
 
   pgp-signature-body:
-    - meta_scope: markup.raw.block.signature.debian
+    - meta_scope: markup.raw.block.signature.debian.source.control
     - match: ^(\-+)(END PGP SIGNATURE)(\-+)\n
       captures:
-        1: punctuation.definition.section.begin.debian
-        2: entity.name.section.debian
-        3: punctuation.definition.section.end.debian
-      pop: 1
+        1: punctuation.definition.section.begin.debian.source.control
+        2: entity.name.section.debian.source.control
+        3: punctuation.definition.section.end.debian.source.control
+      pop: true
 
   other-signatures:
     - match: ^(\-+)((?:BEGIN|END) [ \w]+)(\-+)\n
-      scope: markup.raw.block.signature.debian
+      scope: markup.raw.block.signature.debian.source.control
       captures:
-        1: punctuation.definition.section.begin.debian
-        2: entity.name.section.debian
-        3: punctuation.definition.section.end.debian
+        1: punctuation.definition.section.begin.debian.source.control
+        2: entity.name.section.debian.source.control
+        3: punctuation.definition.section.end.debian.source.control

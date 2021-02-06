@@ -6,13 +6,10 @@ file_extensions:
   - compat
 scope: source.debian.compat
 
-variables:
-  integer: '(?:[-+]?\d+)'
-
 contexts:
   main:
-    - include: compat-version
+    - include: body
 
-  compat-version:
-    - match: '{{integer}}'
-      scope: constant.numeric.integer.debian
+  body:
+    - match: ^\d+$
+      scope: constant.numeric.integer.debian meta.version-number.debian.compat

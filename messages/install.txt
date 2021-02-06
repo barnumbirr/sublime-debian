@@ -1,5 +1,5 @@
-sublime-debian 1.0.0
---------------------
+sublime-debian
+--------------
 
 Thank you for installing sublime-debian, a Debian packaging file syntax
 highlighter for Sublime Text.

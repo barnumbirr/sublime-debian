@@ -27,7 +27,9 @@ contexts:
           pop: true
 
   debian-versions:
-    - match: (?:buzz|rex|bo|hamm|slink|potato|woody|sarge|etch|lenny|squeeze|wheezy|jessie|stretch|buster|bullseye)
+    - match: |-
+        (?:buzz|rex|bo|hamm|slink|potato|woody|sarge|etch|lenny|squeeze
+          |wheezy|jessie|stretch|buster|bullseye|bookworm|trixie)
       scope: constant.language.debian
 
   email-address:
@@ -60,7 +62,7 @@ contexts:
       pop: true
 
   url:
-    - match: https?://\S+
+    - match: https?:\/\/\S+
       scope: markup.underline.link.debian
 
   # Thu, 31 Dec 2020 16:54:06 +0100
@@ -88,6 +90,7 @@ contexts:
           (\d+)
           (?:(\.)(\d+)
             (?:(\.)(\d+)
+              (?:(-|~)([\w.]+))?
               (?:(-|~)([\w.]+))?
               (?:(\+)([\w.]+))?
             )?

@@ -9,12 +9,22 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### New
 ### Changes
-- Updated screenshots in README
-- Added link direct link to Packagecontrol in README
 ### Deprecated
 ### Removed
 ### Fixes
 ### Security
+
+## [1.2.0] - 06-02-2021
+
+### Changes
+- Updated screenshots in README
+- Added link direct link to Packagecontrol in README
+- Added some context-dependence to all syntax files (started in
+[PR#1](https://github.com/barnumbirr/sublime-debian/pull/1)) by [michaelblyons](https://github.com/michaelblyons).
+
+### Fixes
+- Fields in `debian/control` are case-sensitive
+- Removed version number in `messages/install.txt`
 
 ## [1.1.0] - 05-01-2021
 
@@ -26,7 +36,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Changelog file added
 
 ### Changes
-- syntax file names renamed to lowercase
+- Syntax file names renamed to lowercase
 - File `debian-sourcepackage.sublime-syntax` renamed to `debian-source-control.sublime-syntax` following Debian naming convention
 
 ### Fixes

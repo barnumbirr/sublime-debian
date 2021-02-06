@@ -1,28 +1,28 @@
 %YAML 1.2
 ---
-# See http://www.sublimetext.com/docs/3/syntax.html
+# See http://www.sublimetext.com/docs/syntax.html
 name: copyright (Debian)
 file_extensions:
   - copyright
 scope: text.debian.license
 
-variables:
-  # https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-  allowed_paragraphs: |-
-    ^(
-      |Format|Upstream-(Name|Contact)|Source|Disclaimer|Comment|License|
-      |Copyright|Files|Comment|
-    )
-
 contexts:
   main:
-    - include: email-address
     - include: paragraphs
 
-  email-address:
-    - match: <.+@.+[.].+>|<.+?at.+?dot.+?>
-      scope: variable.language.debian
-
+  # https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
   paragraphs:
-    - match: '{{allowed_paragraphs}}'
-      scope: keyword.control.debian
+    - match: |-
+        ^(?x:
+          (Format|Upstream-(Name|Contact)|Source|Disclaimer|Comment|License
+            |Copyright|Files|Comment
+        ))(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.copyright
+        2: punctuation.separator.mapping.key-value.debian.copyright
+      push:
+        - meta_content_scope: meta.mapping.value.debian.copyright
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#email-address
+        - include: debian-common.sublime-syntax#url

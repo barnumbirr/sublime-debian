@@ -1,25 +1,29 @@
 %YAML 1.2
 ---
-# See http://www.sublimetext.com/docs/3/syntax.html
+# See http://www.sublimetext.com/docs/syntax.html
 name: format (Debian)
 file_extensions:
   - format
 scope: source.debian.format
 
-variables:
-  # https://github.com/danro/LESS-sublime/blob/a2eae0453ed062dd499e30f561bc33bbeb5804b4/Syntaxes/LESS.sublime-syntax#L19
-  integer: '(?:[-+]?\d+)'
-  exponent: '(?:[eE]{{integer}})'
-  float: |-
-   (?x:
-     [-+]? \d* (\.) \d+ {{exponent}}?
-   | [-+]? \d+          {{exponent}}
-   )
-
 contexts:
   main:
-    - include: format-version
+    - include: body
 
-  format-version:
-    - match: '{{float}}'
-      scope: constant.numeric.float.debian
+  # https://www.debian.org/doc/manuals/maint-guide/dother.en.html#sourcef
+  body:
+    - match: ^([0-9]*)(\.)([0-9]+)
+      captures:
+        1: constant.numeric.integer.decimal.debian
+        2: punctuation.separator.sequence.debian
+        3: constant.numeric.integer.decimal.debian
+    - match: \(
+      scope: punctuation.section.group.begin.debian.format
+      push:
+        - meta_scope: meta.mapping.value.debian.format
+        - match: (?x:(native|quilt))
+          scope: keyword.control.debian.format
+        - match: \)
+          scope: punctuation.section.group.end.debian.format
+          pop: true
+        - include: debian-common.sublime-syntax#pop-eol

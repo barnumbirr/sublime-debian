@@ -1,0 +1,25 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/syntax.html
+name: local-options (Debian)
+file_extensions:
+  - local-options
+scope: source.debian.source.local-options
+
+contexts:
+  main:
+    - include: fields
+
+  # https://www.debian.org/doc/manuals/debmake-doc/ch05.en.html#debianconf
+  fields:
+    - match: |-
+        ^(?x:
+          (unapply-patches|abort-on-upstream-changes|auto-commit|single-debian-patch
+        ))(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.source.local-options
+        2: punctuation.separator.mapping.key-value.debian.source.local-options
+      push:
+        - meta_content_scope: meta.mapping.value.debian.source.local-options
+        - match: ^(?=\S)
+          pop: true

@@ -1,0 +1,26 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/syntax.html
+name: doc-base (Debian)
+file_extensions:
+  - doc-base
+  - .doc-base
+scope: source.debian.doc-base
+
+contexts:
+  main:
+    - include: fields
+
+  # /usr/share/doc/doc-base/doc-base.html/
+  fields:
+    - match: |-
+        ^(?x:
+          (Document|Title|Author|Abstract|Section|Format|Index|Files
+        ))(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.doc-base
+        2: punctuation.separator.mapping.key-value.debian.doc-base
+      push:
+        - meta_content_scope: meta.mapping.value.debian.doc-base
+        - match: ^(?=\S)
+          pop: true

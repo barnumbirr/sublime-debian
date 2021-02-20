@@ -7,11 +7,14 @@ Debian packaging file syntax highlighting for Sublime Text.
 Provides syntax highlighting for the following files:
 
  - `debian/source/format`
+ - `debian/source/local-options`
  - `debian/upstream/metadata`
  - `debian/changelog`
  - `debian/compat`
  - `debian/control`
  - `debian/copyright`
+ - `debian/*.doc-base`
+ - `debian/*.lintian-overrides`
  - `debian/NEWS`
  - `debian/*.templates`
  - `debian/watch`
@@ -28,7 +31,7 @@ Debian `changelog`, `control` and `copyright` files with Sublime Text 3's defaul
     <i>Click images to enlarge.</i>
 </p>
 
-All files used in these screenshots are part of [Debian's backupppc 4.4.0-2 package](https://salsa.debian.org/debian/backuppc).
+All files used in these screenshots are part of [Debian's backupppc 4.4.0-2 package](https://salsa.debian.org/debian/backuppc/-/tree/debian/4.4.0-2).
 
 ## Installation
 

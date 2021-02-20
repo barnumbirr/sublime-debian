@@ -87,14 +87,15 @@ contexts:
   semantic-version:
     - match: |-
         (?x:
-          (\d+)
-          (?:(\.)(\d+)
-            (?:(\.)(\d+)
-              (?:(-|~)([\w.]+))?
-              (?:(-|~)([\w.]+))?
-              (?:(\+)([\w.]+))?
-            )?
-          )?
+          ([0-9]+)?(:)?
+          ([0-9]+)
+          (\.)?
+          ([0-9]+)?
+          (?:(\.)?
+          ([0-9]+))?
+          (?:([-+~])((?:[0-9]+|\d*[a-zA-Z-][0-9a-zA-Z-]*)
+          (?:\.(?:[0-9]+|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?
+          (?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-])*))?\b
         )
       scope: meta.number.version.debian
       captures:
@@ -104,6 +105,6 @@ contexts:
         4: punctuation.separator.sequence.debian
         5: constant.numeric.integer.decimal.debian
         6: punctuation.separator.sequence.debian
-        7: string.unquoted.debian
+        7: constant.numeric.integer.decimal.debian
         8: punctuation.separator.sequence.debian
         9: string.unquoted.debian

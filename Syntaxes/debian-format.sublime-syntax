@@ -4,7 +4,7 @@
 name: format (Debian)
 file_extensions:
   - format
-scope: source.debian.format
+scope: source.debian.source.format
 
 contexts:
   main:
@@ -18,12 +18,12 @@ contexts:
         2: punctuation.separator.sequence.debian
         3: constant.numeric.integer.decimal.debian
     - match: \(
-      scope: punctuation.section.group.begin.debian.format
+      scope: punctuation.section.group.begin.debian.source.format
       push:
-        - meta_scope: meta.mapping.value.debian.format
+        - meta_scope: meta.mapping.value.debian.source.format
         - match: (?x:(native|quilt))
-          scope: keyword.control.debian.format
+          scope: keyword.control.debian.source.format
         - match: \)
-          scope: punctuation.section.group.end.debian.format
+          scope: punctuation.section.group.end.debian.source.format
           pop: true
         - include: debian-common.sublime-syntax#pop-eol

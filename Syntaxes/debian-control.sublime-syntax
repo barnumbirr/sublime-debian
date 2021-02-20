@@ -10,13 +10,14 @@ contexts:
   main:
     - include: debian-common.sublime-syntax#comments
     - include: fields
+    - include: standards-version
 
   # https://www.debian.org/doc/debian-policy/ch-controlfields.html#source-package-control-files-debian-control
   fields:
     - match: |-
         ^(?x:
           (Source|Maintainer|Uploaders|Section|Priority|Build-Depends(?:-Arch|-Indep)?
-            |Build-Conflicts(?:-Arch|-Indep)?|Standards-Version|Homepage
+            |Build-Conflicts(?:-Arch|-Indep)?|Homepage
             |Vcs-(?:Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)|Testsuite|Rules-Requires-Root
             |Package|Architecture|Essential|Depends|Pre-Depends|Recommends|Suggests|Breaks
             |Conflicts|Provides|Replaces|Enhances|Description|Homepage|Built-Using|Package-Type
@@ -34,6 +35,19 @@ contexts:
         - include: debian-common.sublime-syntax#url
         - match: \,|\|
           scope: punctuation.separator.sequence.debian.control
+
+  standards-version:
+    - match: ^(Standards-Version)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.control
+        2: punctuation.separator.mapping.key-value.debian.control
+      push: standards-version-value
+
+  standards-version-value:
+    - meta_content_scope: meta.mapping.value.cabal
+    - match: ^(?!\s*(?:--|$)|\1\s)
+      pop: true
+    - include: debian-common.sublime-syntax#semantic-version
 
   # https://www.debian.org/doc/manuals/debmake-doc/ch05.en.html#substvar
   substvar:

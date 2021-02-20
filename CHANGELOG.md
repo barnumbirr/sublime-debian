@@ -14,6 +14,21 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Fixes
 ### Security
 
+## [1.3.0] - 22-02-2021
+
+### New
+- Added FUNDING.yml for Github Sponsors
+- Syntax highlighting added for the following Debian packaging file:
+     - `debian/source/local-options`
+     - `debian/*.doc-base`
+     - `debian/*.lintian-overrides`
+
+### Changes
+- Added better scope granularity for `debian/source/format`
+- Fixed link to backuppc VCS tag in README
+- Substantially improved semantic-version regex in `debian-common.sublime-syntax`
+- Added syntax highlighting to `Standards-Version` in `debian-control.sublime-syntax`
+
 ## [1.2.0] - 06-02-2021
 
 ### Changes

@@ -12,6 +12,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Deprecated
 ### Removed
 ### Fixes
+- Fixed scope for standards-version-value (Closes: [#3](https://github.com/barnumbirr/sublime-debian/issues/3))
+
 ### Security
 
 ## [1.3.0] - 22-02-2021

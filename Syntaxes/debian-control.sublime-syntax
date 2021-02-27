@@ -44,7 +44,7 @@ contexts:
       push: standards-version-value
 
   standards-version-value:
-    - meta_content_scope: meta.mapping.value.cabal
+    - meta_content_scope: meta.mapping.value.debian.control
     - match: ^(?!\s*(?:--|$)|\1\s)
       pop: true
     - include: debian-common.sublime-syntax#semantic-version

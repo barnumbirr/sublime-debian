@@ -76,13 +76,13 @@ contexts:
           (?:\d\d(:)\d\d(?:(:)\d\d)?)?
           (?:[ ]([+-])\d{4})?
         )
-      scope: meta.number.date.debian.common
-             constant.numeric.debian.common
+      scope: meta.number.date.debian
+             constant.numeric.debian
       captures:
-        1: punctuation.separator.sequence.debian.common
-        2: punctuation.separator.sequence.debian.common
-        3: punctuation.separator.sequence.debian.common
-        4: keyword.operator.arithmetic.debian.common
+        1: punctuation.separator.sequence.debian
+        2: punctuation.separator.sequence.debian
+        3: punctuation.separator.sequence.debian
+        4: keyword.operator.arithmetic.debian
 
   semantic-version:
     - match: |-

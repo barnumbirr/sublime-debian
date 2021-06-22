@@ -1,6 +1,6 @@
 %YAML 1.2
 ---
-# See http://www.sublimetext.com/docs/syntax.html
+# See https://www.sublimetext.com/docs/syntax.html
 name: control (Debian)
 file_extensions:
   - control
@@ -8,7 +8,6 @@ scope: source.debian.control
 
 contexts:
   main:
-    - include: debian-common.sublime-syntax#comments
     - include: fields
     - include: standards-version
 
@@ -26,6 +25,7 @@ contexts:
         1: meta.mapping.key.debian keyword.control.debian.control
         2: punctuation.separator.mapping.key-value.debian.control
       push:
+        - include: debian-common.sublime-syntax#comments
         - meta_content_scope: meta.mapping.value.debian.control
         - match: ^(?=\S)
           pop: true
@@ -64,9 +64,9 @@ contexts:
         2: punctuation.definition.variable.end.debian.control
 
   semver-flag:
-    - match: (?=\(>?=?[ ]?\d(?:\.\d){0,2})
+    - match: (?=\((?:>?=?|<?<?)[ ]?\d(?:\.\d){0,2})
       push:
-        - match: (\()(>?=)\s+
+        - match: (\()(>?=?|<?<?)\s+
           captures:
             1: punctuation.section.group.begin.debian.control
             2: keyword.operator.arithmetic.debian.control

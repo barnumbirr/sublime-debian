@@ -1,6 +1,6 @@
 %YAML 1.2
 ---
-# See http://www.sublimetext.com/docs/syntax.html
+# See https://www.sublimetext.com/docs/syntax.html
 name: lintian-overrides (Debian)
 file_extensions:
   - lintian-overrides

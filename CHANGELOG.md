@@ -14,6 +14,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Fixes
 ### Security
 
+## [1.3.2] - 22-06-2021
+
+### Fixes
+- Fixed commented lines breaking syntax highlighting in `control` files (Closes: [#6](https://github.com/barnumbirr/sublime-debian/issues/6))
+- Improved matching for mathematical symbols in `semver-flag`
+- Fixed syntax highlighting for upstream license in `copyright`
+
 ## [1.3.1] - 27-02-2021
 
 ### Fixes

@@ -8,6 +8,7 @@ scope: source.debian.source.format
 
 contexts:
   main:
+    - include: debian-common.sublime-syntax#comments
     - include: body
 
   # https://www.debian.org/doc/manuals/maint-guide/dother.en.html#sourcef

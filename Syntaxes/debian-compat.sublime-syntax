@@ -8,6 +8,7 @@ scope: source.debian.compat
 
 contexts:
   main:
+    - include: debian-common.sublime-syntax#comments
     - include: body
 
   body:

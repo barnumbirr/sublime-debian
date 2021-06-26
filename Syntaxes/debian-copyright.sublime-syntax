@@ -8,6 +8,7 @@ scope: text.debian.license
 
 contexts:
   main:
+    - include: debian-common.sublime-syntax#comments
     - include: paragraphs
 
   # https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/

@@ -108,3 +108,29 @@ contexts:
         7: constant.numeric.integer.decimal.debian
         8: punctuation.separator.sequence.debian
         9: string.unquoted.debian
+
+  standards-version:
+    - match: ^((?:Standards-)?Version)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.control
+        2: punctuation.separator.mapping.key-value.debian.control
+      push: standards-version-value
+
+  standards-version-value:
+    - meta_content_scope: meta.mapping.value.debian.control
+    - match: ^(?!\s*(?:--|$)|\1\s)
+      pop: true
+    - include: semantic-version
+
+  semver-flag:
+    - match: (?=\((?:>?=?|<?<?)[ ]?\d(?:\.\d){0,2})
+      push:
+        - match: (\()(>?=?|<?<?)\s+
+          captures:
+            1: punctuation.section.group.begin.debian.control
+            2: keyword.operator.arithmetic.debian.control
+        - include: semantic-version
+        - match: (\))
+          scope: punctuation.section.group.end.debian.control
+          pop: true
+        - include: pop-eol

@@ -25,8 +25,10 @@ contexts:
         1: meta.mapping.key.debian keyword.control.debian.control
         2: punctuation.separator.mapping.key-value.debian.control
       push:
-        - include: debian-common.sublime-syntax#comments
         - meta_content_scope: meta.mapping.value.debian.control
+        - include: debian-common.sublime-syntax#comments
+        - include: debian-common.sublime-syntax#standards-version
+        - include: debian-common.sublime-syntax#semver-flag
         - match: ^(?=\S)
           pop: true
         - include: substvar
@@ -35,19 +37,6 @@ contexts:
         - include: debian-common.sublime-syntax#url
         - match: \,|\|
           scope: punctuation.separator.sequence.debian.control
-
-  standards-version:
-    - match: ^(Standards-Version)(:)
-      captures:
-        1: meta.mapping.key.debian keyword.control.debian.control
-        2: punctuation.separator.mapping.key-value.debian.control
-      push: standards-version-value
-
-  standards-version-value:
-    - meta_content_scope: meta.mapping.value.debian.control
-    - match: ^(?!\s*(?:--|$)|\1\s)
-      pop: true
-    - include: debian-common.sublime-syntax#semantic-version
 
   # https://www.debian.org/doc/manuals/debmake-doc/ch05.en.html#substvar
   substvar:
@@ -62,16 +51,3 @@ contexts:
       captures:
         1: punctuation.definition.variable.begin.debian.control
         2: punctuation.definition.variable.end.debian.control
-
-  semver-flag:
-    - match: (?=\((?:>?=?|<?<?)[ ]?\d(?:\.\d){0,2})
-      push:
-        - match: (\()(>?=?|<?<?)\s+
-          captures:
-            1: punctuation.section.group.begin.debian.control
-            2: keyword.operator.arithmetic.debian.control
-        - include: debian-common.sublime-syntax#semantic-version
-        - match: (\))
-          scope: punctuation.section.group.end.debian.control
-          pop: true
-        - include: debian-common.sublime-syntax#pop-eol

@@ -26,6 +26,8 @@ contexts:
         2: punctuation.separator.mapping.key-value.debian.source.control
       push:
         - meta_content_scope: meta.mapping.value.debian.source.control
+        - include: debian-common.sublime-syntax#standards-version
+        - include: debian-common.sublime-syntax#semver-flag
         - match: ^(?=\S)
           pop: true
         - include: pgp-signatures

@@ -9,8 +9,8 @@ scope: source.debian.changelog
 
 contexts:
   main:
-    - include: header
     - include: debian-common.sublime-syntax#comments
+    - include: header
 
   header:
     - match: ^[\w-]+

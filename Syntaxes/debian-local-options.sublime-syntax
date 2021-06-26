@@ -8,6 +8,7 @@ scope: source.debian.source.local-options
 
 contexts:
   main:
+    - include: debian-common.sublime-syntax#comments
     - include: fields
 
   # https://www.debian.org/doc/manuals/debmake-doc/ch05.en.html#debianconf

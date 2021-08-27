@@ -16,7 +16,7 @@ contexts:
     - match: |-
         ^(?x:
           (Source|Maintainer|Uploaders|Section|Priority|Build-Depends(?:-Arch|-Indep)?
-            |Build-Conflicts(?:-Arch|-Indep)?|Homepage
+            |Build-Conflicts(?:-Arch|-Indep)?|Homepage|Installed-Size
             |Vcs-(?:Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)|Testsuite|Rules-Requires-Root
             |Package|Architecture|Essential|Depends|Pre-Depends|Recommends|Suggests|Breaks
             |Conflicts|Provides|Replaces|Enhances|Description|Homepage|Built-Using|Package-Type

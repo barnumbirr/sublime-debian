@@ -14,6 +14,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Fixes
 ### Security
 
+## [1.4.1] - 27-08-2021
+
+### Fixes
+- Added missing `Installed-Size` to control file (Closes: [#7](https://github.com/barnumbirr/sublime-debian/issues/7)
+
 ## [1.4.0] - 26-06-2021
 
 ### New

@@ -8,6 +8,7 @@ Provides syntax highlighting for the following files:
 
  - `debian/source/format`
  - `debian/source/local-options`
+ - `debian/tests/control` (autopkgtest)
  - `debian/upstream/metadata`
  - `debian/changelog`
  - `debian/compat`

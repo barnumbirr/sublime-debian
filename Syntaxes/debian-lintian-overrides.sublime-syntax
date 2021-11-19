@@ -12,7 +12,7 @@ contexts:
     - include: debian-common.sublime-syntax#comments
     - include: body
 
-  # https://lintian.debian.org/tags.html
+  # https://lintian.debian.org/tags
   body:
     - match: ^(\w+)(:)
       captures:

@@ -9,17 +9,20 @@ scope: source.debian.control
 contexts:
   main:
     - include: fields
-    - include: standards-version
+    - include: autopkgtest
 
   # https://www.debian.org/doc/debian-policy/ch-controlfields.html#source-package-control-files-debian-control
   fields:
     - match: |-
         ^(?x:
-          (Source|Maintainer|Uploaders|Section|Priority|Build-Depends(?:-Arch|-Indep)?
-            |Build-Conflicts(?:-Arch|-Indep)?|Homepage|Installed-Size
-            |Vcs-(?:Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)|Testsuite|Rules-Requires-Root
-            |Package|Architecture|Essential|Depends|Pre-Depends|Recommends|Suggests|Breaks
-            |Conflicts|Provides|Replaces|Enhances|Description|Homepage|Built-Using|Package-Type
+          (Source|Maintainer|Uploaders|Section|Priority
+            |Build-Depends(?:-Arch|-Indep)?|Build-Conflicts(?:-Arch|-Indep)?
+            |Homepage|Installed-Size
+            |Vcs-(?:Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)|Testsuite
+            |Rules-Requires-Root|Package|Architecture|Essential|Depends
+            |Multi-Arch|Pre-Depends|Recommends|Suggests|Breaks|Conflicts
+            |Provides|Replaces|Enhances|Description|Homepage|Built-Using
+            |Package-Type
         ))(:)?
       captures:
         1: meta.mapping.key.debian keyword.control.debian.control
@@ -32,6 +35,8 @@ contexts:
         - match: ^(?=\S)
           pop: true
         - include: substvar
+        - include: binnmu
+        - include: arch-spec
         - include: semver-flag
         - include: debian-common.sublime-syntax#email-address
         - include: debian-common.sublime-syntax#url
@@ -44,10 +49,80 @@ contexts:
         (?x:
           (\${)
           (?:misc:Depends|misc:Pre-Depends|shlibs:Depends|python:Depends
-            |python3:Depends|perl:Depends|ruby:Depends)
+            |python3:Depends|perl:Depends|ruby:Depends|gir:Depends)
           (})
         )
       scope: variable.language.debian
       captures:
         1: punctuation.definition.variable.begin.debian.control
         2: punctuation.definition.variable.end.debian.control
+
+  # https://www.debian.org/doc/manuals/debmake-doc/ch05.en.html#binnmu
+  binnmu:
+    - match: (?=\((?:>?=?|<?<?)[ ]?\${((binary|source):Version))
+      push:
+        - match: (\()(>?=?|<?<?)\s+
+          captures:
+            1: punctuation.section.group.begin.debian.control
+            2: keyword.operator.arithmetic.debian.control
+        - match: |-
+            (?x:
+              (\${)
+              (?:(binary|source):Version)
+              (})
+             )
+          scope: variable.language.debian
+          captures:
+            1: punctuation.definition.variable.begin.debian.control
+            2: punctuation.definition.variable.end.debian.control
+        - match: (\))
+          scope: punctuation.section.group.end.debian.control
+          pop: true
+        - include: pop-eol
+
+  # https://www.debian.org/doc/debian-policy/ch-relationships.html
+  arch-spec:
+    # Not certain this is robust enough
+    - match: |-
+        (?x:
+          (\[)
+          (!)?
+          (\w+-\w+)
+          (\])
+        )
+      captures:
+        1: punctuation.section.group.begin.debian.control
+        2: keyword.operator.arithmetic.debian
+        3: variable.language.debian
+        4: punctuation.section.group.end.debian.control
+
+  # https://salsa.debian.org/ci-team/autopkgtest/raw/master/doc/README.package-tests.rst
+  autopkgtest:
+    - match: |-
+        ^(?x:
+          (Tests(?:-Directory)?|Test-Command|Restrictions|Features|Depends
+            |Classes|Architecture
+        ))(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.control
+        2: punctuation.separator.mapping.key-value.debian.control
+      push:
+        - meta_content_scope: meta.mapping.value.debian.control
+        - include: debian-common.sublime-syntax#comments
+        - include: debian-common.sublime-syntax#semver-flag
+        - match: ^(?=\S)
+          pop: true
+        - include: restrictions
+        - match: \,|\|
+          scope: punctuation.separator.sequence.debian.control
+
+  restrictions:
+    - match: |-
+        (?x:
+          (?:rw-build-tree|breaks-testbed|needs-root|build-needed|allow-stderr
+            |isolation-container|isolation-machine|needs-reboot|needs-internet
+            |needs-recommends|flaky|skippable|skip-not-installable
+            |hint-testsuite-triggers|superficial
+          )
+        )
+      scope: variable.language.debian

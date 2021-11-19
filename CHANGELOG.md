@@ -14,6 +14,17 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Fixes
 ### Security
 
+## [1.4.2] - 19-11-2021
+
+### New
+- Added binNMU syntax
+- Added Architecture relationship syntax
+- Added autopkgtest syntax
+
+### Fixes
+- Added missing `Multi-Arch` field to control file
+- Added missing `gir:Depends` substvar to control file
+
 ## [1.4.1] - 27-08-2021
 
 ### Fixes

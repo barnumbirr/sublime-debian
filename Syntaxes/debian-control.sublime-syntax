@@ -48,8 +48,7 @@ contexts:
     - match: |-
         (?x:
           (\${)
-          (?:misc:Depends|misc:Pre-Depends|shlibs:Depends|python:Depends
-            |python3:Depends|perl:Depends|ruby:Depends|gir:Depends)
+          (?:\w+:Depends|\w+:Pre-Depends|\w+:Built-Using)
           (})
         )
       scope: variable.language.debian

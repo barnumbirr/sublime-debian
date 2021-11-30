@@ -22,7 +22,10 @@ contexts:
       scope: punctuation.section.group.begin.debian.source.format
       push:
         - meta_scope: meta.mapping.value.debian.source.format
-        - match: (?x:(native|quilt))
+        - match: |-
+            (?x:
+              (native|quilt|custom|git|bzr)
+            )
           scope: keyword.control.debian.source.format
         - match: \)
           scope: punctuation.section.group.end.debian.source.format

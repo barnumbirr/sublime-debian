@@ -12,6 +12,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Deprecated
 ### Removed
 ### Fixes
+- Added missing Debian file formats
+- Updated Lintian tags
+- Fixed local-options matching and scopes
 ### Security
 
 ## [1.4.2] - 19-11-2021

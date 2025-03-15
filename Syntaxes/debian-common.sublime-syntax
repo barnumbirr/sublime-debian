@@ -29,7 +29,7 @@ contexts:
   debian-versions:
     - match: |-
         (?:buzz|rex|bo|hamm|slink|potato|woody|sarge|etch|lenny|squeeze
-          |wheezy|jessie|stretch|buster|bullseye|bookworm|trixie)
+          |wheezy|jessie|stretch|buster|bullseye|bookworm|trixie|forky|duke)
       scope: constant.language.debian
 
   email-address:

@@ -4,31 +4,33 @@ on:
   push:
     paths:
       - '**.sublime-syntax'
-      - '**/syntax_test*'
+      - '**/syntax_test_*'
       - '**.tmPreferences'
   pull_request:
     paths:
       - '**.sublime-syntax'
-      - '**/syntax_test*'
+      - '**/syntax_test_*'
       - '**.tmPreferences'
 
 jobs:
   syntax_tests:
     name: Syntax Tests (${{ matrix.build }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      package_name: Debian Syntax
     strategy:
       matrix:
         include:
           - build: latest
-            packages: master
           - build: 3210
-            packages: st3
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Run syntax tests
         uses: SublimeText/syntax-test-action@v2
         with:
           build: ${{ matrix.build }}
-          default_packages: ${{ matrix.packages }}
+          package_name: ${{ env.package_name }}
+          package_root: ${{ env.package_name }}

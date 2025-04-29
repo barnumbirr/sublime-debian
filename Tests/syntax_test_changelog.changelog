@@ -1,0 +1,139 @@
+# SYNTAX TEST "Packages/Debian Syntax/debian-changelog.sublime-syntax"
+
+backuppc (4.4.0-2) unstable; urgency=medium
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.version.debian.changelog
+#^^^^^^^ entity.name.class.debian.changelog
+#        ^^^^^^^^^ meta.version-number.debian.changelog meta.parens.debian.changelog
+#        ^ punctuation.section.group.begin.debian.changelog
+#         ^^^^^^^ meta.number.version.debian
+#         ^ constant.numeric.integer.decimal.debian
+#          ^ punctuation.separator.sequence.debian
+#           ^ constant.numeric.integer.decimal.debian
+#            ^ punctuation.separator.sequence.debian
+#             ^ constant.numeric.integer.decimal.debian
+#              ^ punctuation.separator.sequence.debian
+#               ^ string.unquoted.debian
+#                ^ punctuation.section.group.end.debian.changelog
+#                  ^^^^^^^^ constant.language.debian.changelog
+#                          ^ punctuation.separator.sequence.debian.changelog
+#                            ^^^^^^^ meta.mapping.key.debian.changelog
+#                                   ^ punctuation.separator.mapping.key-value.debian.changelog
+#                                    ^^^^^^ meta.mapping.value.debian.changelog string.unquoted.debian.changelog
+
+  * postinst: Fix dpkg-statoverride warning "deprecated --force option".
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.version.debian.changelog
+#^^ punctuation.definition.list_item.debian.changelog
+  * Make backuppc-rsync a hard dependency: The daemon fails to start even
+    if only SMB backups are configured. Thanks autopkgtest!
+  * Add a debian/TODO list with some future/wishlist packaging todos.
+
+ -- Axel Beckert <abe@debian.org>  Thu, 31 Dec 2020 16:54:06 +0100
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.version.debian.changelog
+#^^ punctuation.section.block.begin.debian.changelog
+#                ^^^^^^^^^^^^^^^^ meta.reference.email.debian
+#                ^ punctuation.definition.reference.email.begin.debian
+#                 ^^^^^^^^^^^^^^ entity.name.reference.email.debian
+#                    ^ punctuation.separator.email.debian
+#                           ^ punctuation.separator.domain.debian
+#                               ^ punctuation.definition.reference.email.end.debian
+#                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.number.date.debian constant.numeric.debian
+#                                     ^ punctuation.separator.sequence.debian
+#                                                     ^ punctuation.separator.sequence.debian
+#                                                        ^ punctuation.separator.sequence.debian
+#                                                            ^ keyword.operator.arithmetic.debian
+
+backuppc (4.4.0-1) unstable; urgency=medium
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.version.debian.changelog
+#^^^^^^^ entity.name.class.debian.changelog
+#        ^^^^^^^^^ meta.version-number.debian.changelog meta.parens.debian.changelog
+#        ^ punctuation.section.group.begin.debian.changelog
+#         ^^^^^^^ meta.number.version.debian
+#         ^ constant.numeric.integer.decimal.debian
+#          ^ punctuation.separator.sequence.debian
+#           ^ constant.numeric.integer.decimal.debian
+#            ^ punctuation.separator.sequence.debian
+#             ^ constant.numeric.integer.decimal.debian
+#              ^ punctuation.separator.sequence.debian
+#               ^ string.unquoted.debian
+#                ^ punctuation.section.group.end.debian.changelog
+#                  ^^^^^^^^ constant.language.debian.changelog
+#                          ^ punctuation.separator.sequence.debian.changelog
+#                            ^^^^^^^ meta.mapping.key.debian.changelog
+#                                   ^ punctuation.separator.mapping.key-value.debian.changelog
+#                                    ^^^^^^ meta.mapping.value.debian.changelog string.unquoted.debian.changelog
+
+  [ Debian Janitor ]
+#^^^^^^^^^^^^^^^^^^^ meta.block.version.debian.changelog
+# ^^^^^^^^^^^^^^^^^ meta.annotation.debian.changelog string.quoted.other.debian.changelog
+# ^ punctuation.definition.annotation.begin.debian.changelog
+#                  ^ string.quoted.other.debian.changelog punctuation.definition.annotation.end.debian.changelog
+  * Wrap long lines in changelog entries: 3.1.0-1.
+  * Bump debhelper from old 11 to 12.
+  * Set debhelper-compat version in Build-Depends.
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
+    Repository-Browse.
+  * Fix day-of-week for changelog entries 3.2.1-2, 2.0.0-5.
+
+  [ Jonathan Wiltshire ]
+#^^^^^^^^^^^^^^^^^^^^^^^ meta.block.version.debian.changelog
+# ^^^^^^^^^^^^^^^^^^^^^ meta.annotation.debian.changelog string.quoted.other.debian.changelog
+# ^ punctuation.definition.annotation.begin.debian.changelog
+#                      ^ string.quoted.other.debian.changelog punctuation.definition.annotation.end.debian.changelog
+  * New major upstream release (Closes: #873075)
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.version.debian.changelog
+#^^ punctuation.definition.list_item.debian.changelog
+#                               ^^^^^^ meta.mapping.key.debian.changelog
+#                                     ^ punctuation.separator.mapping.key-value.debian.changelog
+#                                       ^^^^^^^ meta.tag.issue.debian.changelog
+#                                       ^ punctuation.definition.debian.changelog
+#                                        ^^^^^^ constant.numeric.integer.decimal.debian.changelog
+    + Add new depends/recommends: libbackuppc-xs-perl,
+      libfile-listing-perl, backuppc-rsync, libfile-rsyncp-perl
+    + Refresh patches for 4.3.1, debian/{rules,dirs,docs}.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.version.debian.changelog
+#^^^^ punctuation.definition.list_item.debian.changelog
+    + Install upstream systemd service file.
+    + Add patch 08-fix-systemd-unit.patch: use Debian-ish concepts in the
+      service file.
+    + Add a debian/NEWS entry wrt. to necessary config changes and
+      installation of the backuppc-rsync package on clients.
+    [ Axel Beckert ]
+    + 07-reload-user.patch: Update variable names and path to upstream
+      init script.
+    + Refresh patches for 4.4.0 including debian/config.pl.diff, drop
+      hunks from 01-debian.patch which were applied upstream.
+    + Bump minimum versions of backuppc-rsync and libbackuppc-xs-perl
+      according to the 4.4.0 upstream release notes.
+    + Suggest libscgi-perl.
+    + Drop libfile-rsyncp-perl from Recommends. It has been replaced with
+      backuppc-rsync. This also solves issues caused by File::RsyncP like
+      missing rsync compression support. (Closes: #538272, #954241)
+    + Update init script to be closer to upstream's init script again.
+      - Update documentation.
+      - Use $RUNDIR and define it once.
+    + Update debian/README.Debian and debian/NEWS with regards to what's
+      needed for BackupPC 4 and especially the migration from V3 to V4.
+    + Add patch to hardcode /run/backuppc as RunDir in BackupPC::Lib.
+    + Add some of the new dependencies also as build-dependencies.
+    + Drop dependency on libwww-perl, replaced by dependency on
+      libfile-listing-perl. (See #602787)
+    + Demote rsync to suggestion, now only needed for backing up localhost
+      using rsync, replaced by backuppc-rsync on the server-side.
+    + Drop 03-ipv6.patch and libsocket6-perl dependencies. (BackupPC 4 has
+      native IPv6 support albeit implemented differently.)
+
+  [ Axel Beckert ]
+  * Rename debian/{NEWS.Debian → NEWS}, fix syntax of 2018 trailer line.
+  * Set "Rules-Requires-Root: binary-targets".
+  * Add lintian override for executable-in-usr-lib triggered by CGI
+    script.
+  * Declare compliance with Debian Policy 4.5.1. (No changes needed.)
+  * Recode debian/po/{fr,nl}.po from ISO-8859-15 to UTF-8. Fixes lintian
+    warning national-encoding.
+  * Bump debhelper-compat to 13.
+  * Add a comment to document when to remove the -Wl,--as-needed linker
+    flag. (Lintian warning debian-rules-uses-as-needed-linker-flag)
+  * Extend and improve long package description.
+  * Extend 02-fix-spelling-errors.patch to fix more typos.
+
+ -- Axel Beckert <abe@debian.org>  Wed, 30 Dec 2020 17:20:09 +0100

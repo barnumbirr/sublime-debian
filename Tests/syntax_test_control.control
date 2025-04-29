@@ -1,0 +1,129 @@
+# SYNTAX TEST "Packages/Debian Syntax/debian-control.sublime-syntax"
+
+Source: backuppc
+#^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#     ^ punctuation.separator.mapping.key-value.debian.control
+#      ^^^^^^^^^ meta.mapping.value.debian.control
+Section: utils
+Priority: optional
+Maintainer: Debian BackupPC Team <team+pkg-backuppc@tracker.debian.org>
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#         ^ punctuation.separator.mapping.key-value.debian.control
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
+#                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.reference.email.debian
+#                                ^ punctuation.definition.reference.email.begin.debian
+#                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.reference.email.debian
+#                                                  ^ punctuation.separator.email.debian
+#                                                          ^ punctuation.separator.domain.debian
+#                                                                 ^ punctuation.separator.domain.debian
+#                                                                     ^ punctuation.definition.reference.email.end.debian
+Uploaders: Tobias Frost <tobi@debian.org>,
+           Axel Beckert <abe@debian.org>,
+           Jonathan Wiltshire <jmw@debian.org>
+Build-Depends: debhelper-compat (= 13),
+               iputils-ping | inetutils-ping,
+               libbackuppc-xs-perl (>= 0.62),
+               libcgi-pm-perl,
+               libfile-listing-perl,
+               par2,
+               patch,
+               perl,
+               rrdtool
+Rules-Requires-Root: binary-targets
+Standards-Version: 4.5.1
+Homepage: https://backuppc.github.io/backuppc/
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#       ^ punctuation.separator.mapping.key-value.debian.control
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+Vcs-Git: https://salsa.debian.org/debian/backuppc.git
+Vcs-Browser: https://salsa.debian.org/debian/backuppc
+
+Package: backuppc
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#          ^ punctuation.separator.mapping.key-value.debian.control
+#           ^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
+#            ^^^^^^^^^^^^^^^^^^^ variable.language.debian
+#            ^^ punctuation.definition.variable.begin.debian.control
+#                              ^ punctuation.definition.variable.end.debian.control
+Depends: adduser,
+         apache2 | httpd,
+         apache2-utils,
+         backuppc-rsync (>= 3.1.3),
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
+#                       ^ punctuation.section.group.begin.debian.control
+#                        ^^ keyword.operator.arithmetic.debian.control
+#                           ^^^^^ meta.number.version.debian
+#                           ^ constant.numeric.integer.decimal.debian
+#                            ^ punctuation.separator.sequence.debian
+#                             ^ constant.numeric.integer.decimal.debian
+#                              ^ punctuation.separator.sequence.debian
+#                               ^ constant.numeric.integer.decimal.debian
+#                                ^ punctuation.section.group.end.debian.control
+#                                 ^ punctuation.separator.sequence.debian.control
+         bzip2,
+         default-mta | exim4 | mail-transport-agent,
+         iputils-ping | inetutils-ping,
+         libarchive-zip-perl,
+         libbackuppc-xs-perl (>= 0.62),
+         libcgi-pm-perl,
+         libdigest-md5-perl,
+         libfile-listing-perl,
+         libio-compress-perl | libcompress-zlib-perl,
+         libtime-parsedate-perl,
+         lsb-base,
+         ucf,
+         ${misc:Depends},
+         ${perl:Depends},
+         ${shlibs:Depends}
+Recommends: libio-dirent-perl,
+            openssh-client | ssh-client,
+            rrdtool,
+            samba-common-bin,
+            smbclient
+Suggests: certbot | acme-tiny | acmetool | dehydrated | lacme | lecm | lego,
+          libscgi-perl,
+          par2,
+          rsync,
+          w3m | www-browser
+Description: high-performance, enterprise-grade system for backing up PCs
+ BackupPC is disk based and not tape based. This particularity allows
+ features not found in any other backup solution:
+ .
+  * Clever pooling scheme minimizes disk storage and disk I/O.
+    Identical files across multiple backups of the same or different PC are
+    stored only once resulting in substantial savings in disk storage and disk
+    writes. Also known as "data deduplication".
+  * Optional compression provides additional reductions in storage.
+    CPU impact of compression is low since only new files (those not already
+    in the pool) need to be compressed.
+  * A powerful http/cgi user interface allows administrators to view log files,
+    configuration, current status and allows users to initiate and cancel
+    backups and browse and restore files from backups very quickly.
+  * No client-side software is needed. On WinXX the smb protocol is used.
+    On Linux or Unix clients, rsync or tar (over ssh/rsh/nfs) can be used
+  * Flexible restore options. Single files can be downloaded from any backup
+    directly from the CGI interface. Zip or Tar archives for selected files
+    or directories can also be downloaded from the CGI interface.
+  * BackupPC supports mobile environments where laptops are only intermittently
+    connected to the network and have dynamic IP addresses (DHCP).
+  * Flexible configuration parameters allow multiple backups to be performed
+    in parallel.
+  * and more to discover in the manual...
+ .
+ If you intent to backup Linux/Unix/macOS hosts, you'll typically need
+ the recommended packages backup-rsync and openssh-client installed on
+ the server side and the normal rsync package on the client side.
+ .
+ A less performant alternative is using tar over SSH instead of rsync,
+ e.g. in case of rsync server/client protocol incompatibilities.
+ .
+ If you intent to backup Windows hosts, you'll typically need the
+ recommended package smbclient installed.
+ .
+ There is also the possibility to backup Windows hosts over SSH and
+ rsync or tar if you have an SSH daemon installed on the Windows host,
+ e.g. via Cygwin or Windows subsystem for Linux (WSL). In that case
+ the same packages as with Linux/Unix/macOS are needed.

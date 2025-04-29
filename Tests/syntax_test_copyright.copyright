@@ -1,0 +1,75 @@
+# SYNTAX TEST "Packages/Debian Syntax/debian-control.sublime-syntax"
+
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+#^^^^^ meta.mapping.key.debian keyword.control.debian.copyright
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.copyright
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+Upstream-Name: backuppc
+Source: http://backuppc.sourceforge.net/
+#^^^^^ meta.mapping.key.debian keyword.control.debian.copyright
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.copyright
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+
+Files: *
+Copyright: 2001-2015 Craig Barratt
+           2005-2013 Craig Barratt and Rich Duzenbury
+License: GPL-2+
+
+Files: conf/sorttable.js
+Copyright: 1997-2003 Stuart Langridge <sil@kryogenix.org>
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.copyright
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.copyright
+#                                     ^^^^^^^^^^^^^^^^^^^ meta.reference.email.debian
+#                                     ^ punctuation.definition.reference.email.begin.debian
+#                                      ^^^^^^^^^^^^^^^^^ entity.name.reference.email.debian
+#                                         ^ punctuation.separator.email.debian
+#                                                   ^ punctuation.separator.domain.debian
+#                                                       ^ punctuation.definition.reference.email.end.debian
+License: X11
+Comment: See https://kryogenix.org/code/browser/sorttable/ and
+ https://kryogenix.org/code/browser/licence.html
+
+Files: lib/BackupPC/Xfer/Ftp.pm
+Copyright: 2008, Paul Mantz, Zmanda Inc.
+License: GPL-2+
+
+Files: lib/BackupPC/Zip/*
+Copyright: 2002-2015 Craig Barratt
+           2000 Ned Konz
+License: GPL-2+
+
+Files: debian/*
+Copyright: 2004-2016 Ludovic Drolez <ldrolez@debian.org>
+License: GPL-2+
+
+Files: debian/BackupPC_deleteFile debian/jLib.pm
+Copyright: 2008-2013 Jeff Kosowsky
+License: GPL-2+
+Comment: Source of jLib.pm is
+ https://sourceforge.net/p/backuppc/mailman/message/27416276/
+
+License: GPL-2+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; version 2 dated June, 1991, or (at
+ your option) any later version.
+ On Debian systems, the complete text of version 2 of the GNU General
+ Public License can be found in '/usr/share/common-licenses/GPL-2'.
+
+License: X11
+ Permission is hereby granted, free of charge, to any person obtaining
+ a copy of this software and associated documentation files (the
+ "Software"), to deal in the Software without restriction, including
+ without limitation the rights to use, copy, modify, merge, publish,
+ distribute, sublicense, and/or sell copies of the Software, and to
+ permit persons to whom the Software is furnished to do so, subject to
+ the following conditions:
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+ BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.

@@ -106,7 +106,7 @@ variables:
   debian_versions: |-
     (?x:buzz|rex|bo|hamm|slink|potato|woody|sarge|etch|lenny|squeeze
       |wheezy|jessie|stretch|buster|bullseye|bookworm|trixie|forky|duke)
-  debian_suites: \b(?:old{0,2}stable|testing|unstable|experimental)\b
+  debian_suites: \b(?:(?:old){0,2}stable|testing|unstable|experimental)\b
   package_suites: |-
     (?x:
       (?: {{debian_versions}} | {{debian_suites}} )

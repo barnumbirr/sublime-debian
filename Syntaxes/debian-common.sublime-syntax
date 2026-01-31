@@ -134,3 +134,29 @@ contexts:
           scope: punctuation.section.group.end.debian.control
           pop: true
         - include: pop-eol
+
+  pgp-signatures:
+    - match: ^\s*(\-+)(BEGIN (PGP SIGNATURE))(\-+)\n
+      captures:
+        1: punctuation.definition.section.begin.debian
+        2: entity.name.section.debian
+        4: punctuation.definition.section.end.debian
+      push: pgp-signature-body
+
+  pgp-signature-body:
+    - meta_scope: markup.raw.block.signature.debian
+    - match: ^\s*(\-+)(END \3)(\-+)\n
+      captures:
+        1: punctuation.definition.section.begin.debian
+        2: entity.name.section.debian
+        3: punctuation.definition.section.end.debian
+      pop: true
+
+  other-signatures:
+    - match: ^\s*(\-+)(BEGIN ([ \w]+))(\-+)\n
+      scope: markup.raw.block.signature.debian
+      captures:
+        1: punctuation.definition.section.begin
+        2: entity.name.section.debian
+        4: punctuation.definition.section.end
+      push: pgp-signature-body

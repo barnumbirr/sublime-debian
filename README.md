@@ -20,6 +20,7 @@ Provides syntax highlighting for the following files:
  - `debian/*.templates`
  - `debian/watch`
  - `.dsc`
+ - `/etc/apt/sources.list.d/*.sources`
 
 ## Screenshots
 

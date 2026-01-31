@@ -1,0 +1,66 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-sources.sublime-syntax"
+
+# Modernized from /etc/apt/sources.list
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.debian
+
+Types: deb
+#^^^^ meta.mapping.key.debian.sources keyword.control.debian.sources
+#    ^ meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+#     ^^^^ meta.mapping.value.sources
+#      ^^^ storage.type.sources
+URIs: http://deb.debian.org/debian/
+#^^^ meta.mapping.key.debian.sources keyword.control.debian.sources
+#   ^ meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+#    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.sources
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+Suites: trixie
+#^^^^^ meta.mapping.key.debian.sources keyword.control.debian.sources
+#     ^ meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+#      ^^^^^^^ meta.mapping.value.sources
+#       ^^^^^^ constant.language.sources
+Components: main non-free-firmware non-free contrib
+#^^^^^^^^^ meta.mapping.key.debian.sources keyword.control.debian.sources
+#         ^ meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.sources
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+#^^^^^^^^ meta.mapping.key.debian.sources keyword.control.debian.sources
+#        ^ meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.sources
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.sources
+#          ^ punctuation.separator.path.sources
+#              ^ punctuation.separator.path.sources
+#                    ^ punctuation.separator.path.sources
+#                             ^ punctuation.separator.path.sources
+
+Suites: apt/stable/
+#^^^^^ meta.mapping.key.debian.sources keyword.control.debian.sources
+#     ^ meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+#      ^^^^^^^^^^^^ meta.mapping.value.sources
+#       ^^^^^^^^^^^ string.unquoted.sources
+Architectures: amd64 arm64
+#^^^^^^^^^^^^ meta.mapping.key.debian.sources keyword.control.debian.sources
+#            ^ punctuation.separator.mapping.key-value.debian.sources
+#             ^^^^^^^^^^^^ meta.mapping.value.sources
+Signed-By:
+    -----BEGIN PGP PUBLIC KEY BLOCK-----
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.sources markup.raw.block.signature.debian markup.raw.block.signature.debian
+#   ^^^^^ punctuation.definition.section.begin
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.section.debian
+#                                  ^^^^^ punctuation.definition.section.end
+    mQINBGkJdvYBEADWhdySHM8j/ADp4YuVsnB6RkLVJoQI9A50uMiuDuNk8f05NpZJ
+    AwZ5B2NwXZBg532zpvLNBlhp
+    -----END PGP PUBLIC KEY BLOCK-----
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.sources markup.raw.block.signature.debian
+#   ^^^^^ punctuation.definition.section.begin.debian
+#        ^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.section.debian
+#                                ^^^^^ punctuation.definition.section.end.debian
+Enabled: yes
+#^^^^^^ meta.mapping.key.debian.sources keyword.control.debian.sources
+#      ^ meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+#       ^^^^ meta.mapping.value.sources
+#        ^^^ constant.language.boolean.true.sources
+Enabled: no
+#^^^^^^ meta.mapping.key.debian.sources keyword.control.debian.sources
+#      ^ meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+#       ^^^ meta.mapping.value.sources
+#        ^^ constant.language.boolean.false.sources

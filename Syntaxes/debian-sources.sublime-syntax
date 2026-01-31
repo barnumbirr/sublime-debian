@@ -1,0 +1,117 @@
+%YAML 1.2
+---
+# See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/trixie/dpkg-dev/deb822.5.en.html
+name: sources (Debian)
+file_extensions:
+  - sources
+scope: source.debian.sources
+
+contexts:
+  main:
+    - include: debian-common.sublime-syntax#comments
+    - include: fields
+
+  fields:
+    - match: ^(?i)(Enabled)(:)
+      captures:
+        1: meta.mapping.key.debian.sources keyword.control.debian.sources
+        2: meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+      push:
+        - meta_content_scope: meta.mapping.value.sources
+        - include: pop-next-content-line
+        - include: booleans
+
+    - match: ^(?i)(Types)(:)
+      captures:
+        1: meta.mapping.key.debian.sources keyword.control.debian.sources
+        2: meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+      push:
+        - meta_content_scope: meta.mapping.value.sources
+        - include: pop-next-content-line
+        - include: types
+
+    - match: ^(?i)(Suites)(:)
+      captures:
+        1: meta.mapping.key.debian.sources keyword.control.debian.sources
+        2: meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+      push:
+        - meta_content_scope: meta.mapping.value.sources
+        - include: pop-next-content-line
+        - match: '{{package_suites}}'
+          scope: constant.language.sources
+        - match: \S+
+          scope: string.unquoted.sources
+
+    - match: ^(?i)(Components)(:)
+      captures:
+        1: meta.mapping.key.debian.sources keyword.control.debian.sources
+        2: meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+      push:
+        - meta_content_scope: meta.mapping.value.sources
+        - include: pop-next-content-line
+        # Eat the archive areas without scoping
+        - match: '{{archive_areas}}'
+        - match: \S+
+          scope: string.unquoted.sources
+
+    - match: ^(?i)(URIs)(:)
+      captures:
+        1: meta.mapping.key.debian.sources keyword.control.debian.sources
+        2: meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+      push:
+        - meta_content_scope: meta.mapping.value.sources
+        - include: pop-next-content-line
+        - include: debian-common.sublime-syntax#url
+
+    - match: ^(?i)(Signed-By)(:)
+      captures:
+        1: meta.mapping.key.debian.sources keyword.control.debian.sources
+        2: meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+      push:
+        - meta_content_scope: meta.mapping.value.sources
+        - include: pop-next-content-line
+        - include: debian-common.sublime-syntax#pgp-signatures
+        - include: debian-common.sublime-syntax#other-signatures
+        - match: (?=\S)
+          push:
+            - meta_scope: markup.underline.link.sources
+            - include: debian-common.sublime-syntax#pop-eol
+            - match: /
+              scope: punctuation.separator.path.sources
+
+    - match: ^(?i)(Architectures)(:)
+      captures:
+        1: meta.mapping.key.debian.sources keyword.control.debian.sources
+        2: punctuation.separator.mapping.key-value.debian.sources
+      push:
+        - meta_content_scope: meta.mapping.value.sources
+        - include: pop-next-content-line
+
+  booleans:
+    - match: \byes\b
+      scope: constant.language.boolean.true.sources
+    - match: \bno\b
+      scope: constant.language.boolean.false.sources
+
+  types:
+    - match: \bdeb(?:-src)?\b
+      scope: storage.type.sources
+
+  pop-next-content-line:
+    - match: ^(?=\S)
+      pop: true
+
+variables:
+  debian_versions: |-
+    (?x:buzz|rex|bo|hamm|slink|potato|woody|sarge|etch|lenny|squeeze
+      |wheezy|jessie|stretch|buster|bullseye|bookworm|trixie|forky|duke)
+  debian_suites: \b(?:(?:old){0,2}stable|testing|unstable|experimental)\b
+  package_suites: |-
+    (?x:
+      (?: {{debian_versions}} | {{debian_suites}} )
+      (?:-
+        (?: security | (?:proposed)? updates | backports )
+      )?
+    )
+  archive_areas: \b(?:main|non-free-firmware|contrib|non-free)\b

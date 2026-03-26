@@ -1,0 +1,42 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-local-options.sublime-syntax"
+
+# This is a comment
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^^^^^^^ comment.line.debian
+
+unapply-patches
+# <- keyword.control.debian
+
+abort-on-upstream-changes
+# <- keyword.control.debian
+
+auto-commit
+# <- keyword.control.debian
+
+single-debian-patch
+# <- keyword.control.debian
+
+no-unapply-patches
+# <- keyword.control.debian
+
+compression=xz
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#          ^ punctuation.separator.mapping.key-value.debian
+#           ^^ support.constant.debian
+
+compression-level=9
+#^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#                ^ punctuation.separator.mapping.key-value.debian
+#                 ^ constant.numeric.integer.decimal.debian
+
+tar-ignore=.git
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#         ^ punctuation.separator.mapping.key-value.debian
+
+extend-diff-ignore=^debian/patches/.*
+#^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#                 ^ punctuation.separator.mapping.key-value.debian
+#                  ^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian string.unquoted.pattern.debian
+
+include-binaries
+# <- keyword.control.debian

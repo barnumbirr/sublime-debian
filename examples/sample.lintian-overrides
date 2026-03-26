@@ -1,0 +1,9 @@
+# Lintian overrides for backuppc
+backuppc binary: executable-in-usr-lib
+backuppc binary: package-contains-documentation-outside-usr-share-doc
+backuppc source: source-is-missing
+backuppc: missing-depends-line
+backuppc binary: debhelper-compat-virtual-relation
+backuppc binary: copyright-not-using-common-license-for-gpl
+backuppc binary: no-manual-page
+backuppc binary: systemd-service-file-refers-to-unusual-wantedby-target

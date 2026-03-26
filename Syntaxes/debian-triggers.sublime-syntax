@@ -1,0 +1,25 @@
+%YAML 1.2
+---
+# See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/unstable/dpkg/deb-triggers.5.en.html
+name: triggers (Debian)
+file_extensions:
+  - triggers
+first_line_match: '^(?:interest|activate)(?:-await|-noawait)?'
+scope: source.debian.triggers
+
+contexts:
+  main:
+    - include: debian-common.sublime-syntax#comments
+    - include: directives
+
+  directives:
+    - match: ^(interest|activate)(-await|-noawait)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.triggers
+        2: storage.modifier.debian.triggers
+      push:
+        - meta_content_scope: meta.mapping.value.debian.triggers
+        - match: \S+
+          scope: entity.name.other.debian.triggers
+        - include: debian-common.sublime-syntax#pop-eol

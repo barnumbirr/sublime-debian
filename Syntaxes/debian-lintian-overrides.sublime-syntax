@@ -4,7 +4,7 @@
 name: lintian-overrides (Debian)
 file_extensions:
   - lintian-overrides
-  - .lintian-overrides
+first_line_match: '^[\w.-]+\s+\w+:'
 scope: source.debian.lintian-overrides
 
 contexts:
@@ -15,11 +15,22 @@ contexts:
   # https://lintian.debian.org/tags
   # Get list of tags, then  ➔ .*$ to remove " ➔ renamed to xxx-xxx-xxx"
   body:
-    - match: '^(\w+) (\w+)?(:)'
+    - match: '^(source)(:)\s'
+      captures:
+        1: meta.mapping.key.debian storage.type.debian.lintian-overrides
+        2: punctuation.separator.mapping.key-value.debian.lintian-overrides
+    - match: '^(\w+)(?: (\w+))?(:)'
       captures:
         1: meta.mapping.key.debian entity.name.class.debian.lintian-overrides
         2: meta.mapping.key.debian keyword.control.debian.lintian-overrides
         3: punctuation.separator.mapping.key-value.debian.lintian-overrides
+    # Override classification screen names
+    - match: '(\[\[)([\w-]+)(\]\])'
+      captures:
+        1: punctuation.definition.annotation.begin.debian.lintian-overrides
+        2: entity.name.tag.debian.lintian-overrides
+        3: punctuation.definition.annotation.end.debian.lintian-overrides
+    # absolute/acute/add/adopted/alternates/alternatively/ambiguous/ancient/ansi/anticipated tags
     - match: |-
         (?x:
           (absolute-symbolic-link-target-in-source
@@ -36,7 +47,17 @@ contexts:
             |ancient-python-version-field
             |ansi-escape
             |anticipated-repack-count
-            |apache2-configuration-files-need-conf-suffix
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # apache2 tags
+    - match: |-
+        (?x:
+          (apache2-configuration-files-need-conf-suffix
             |apache2-deprecated-auth-config
             |apache2-module-does-not-depend-on-apache2-api
             |apache2-module-does-not-ship-load-file
@@ -46,7 +67,17 @@ contexts:
             |apache2-reverse-dependency-uses-obsolete-directory
             |apache2-unparsable-dependency
             |apache2-unsupported-dependency
-            |apparently-corrupted-elf-binary
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # apparently/application/appstream/arch/architecture/archive/aspell/autotools tags
+    - match: |-
+        (?x:
+          (apparently-corrupted-elf-binary
             |application-in-library-section
             |appstream-metadata-in-legacy-location
             |appstream-metadata-invalid
@@ -62,7 +93,17 @@ contexts:
             |arch-wildcard-in-binary-package
             |aspell-package-not-arch-all
             |autotools-pkg-config-macro-not-cross-compilation-safe
-            |backgrounded-test-command
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # backgrounded/backports/backup/bad/bash tags
+    - match: |-
+        (?x:
+          (backgrounded-test-command
             |backports-changes-missing
             |backports-upload-has-incorrect-version-number
             |backup-file-in-package
@@ -91,7 +132,17 @@ contexts:
             |bad-whatis-entry
             |bash-completion-with-hashbang
             |bash-term-in-posix-shell
-            |binaries-have-file-conflict
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # binaries/binary/bin tags
+    - match: |-
+        (?x:
+          (binaries-have-file-conflict
             |binary-arch-rules-but-pkg-is-arch-indep
             |binary-compiled-with-profiling-enabled
             |binary-control-field-duplicates-source
@@ -106,7 +157,17 @@ contexts:
             |binary-without-english-manpage
             |binary-without-manpage
             |bin-sbin-mismatch
-            |bogus-mail-host
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # bogus/boilerplate/boolean/brace/breakout/breaks/broken/bugs tags
+    - match: |-
+        (?x:
+          (bogus-mail-host
             |bogus-mail-host-in-debian-changelog
             |bogus-python-prerequisite
             |boilerplate-copyright-format-uri
@@ -123,7 +184,17 @@ contexts:
             |broken-xz
             |broken-zip
             |bugs-field-does-not-refer-to-debian-infrastructure
-            |build-conflicts-with-build-dependency
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # build/built tags
+    - match: |-
+        (?x:
+          (build-conflicts-with-build-dependency
             |build-depends-arch-without-arch-dependent-binary
             |build-depends-indep-without-arch-indep
             |build-depends-on-1-revision
@@ -142,7 +213,17 @@ contexts:
             |build-path-in-manual
             |build-prerequisite-in-installable-section
             |built-using-field-on-arch-all-package
-            |cannot-check-whether-usr-share-doc-symlink-points-to-foreign-package
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # cannot/capitalization/carriage/changed tags
+    - match: |-
+        (?x:
+          (cannot-check-whether-usr-share-doc-symlink-points-to-foreign-package
             |capitalization-error-in-description
             |capitalization-error-in-description-synopsis
             |capitalization-in-override-comment
@@ -153,7 +234,17 @@ contexts:
             |changed-by-address-missing
             |changed-by-invalid-for-derivative
             |changed-by-name-missing
-            |changelog-distribution-does-not-match-changes-file
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # changelog/checksum tags
+    - match: |-
+        (?x:
+          (changelog-distribution-does-not-match-changes-file
             |changelog-empty-entry
             |changelog-file-missing-explicit-entry
             |changelog-file-missing-in-native-package
@@ -168,7 +259,17 @@ contexts:
             |changelog-should-not-mention-nmu
             |checksum-count-mismatch-in-changes-file
             |checksum-mismatch-in-changes-file
-            |circular-installation-prerequisite
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # circular/classpath/clean/codeless/co/command/comma/composer/compressed/concatenated tags
+    - match: |-
+        (?x:
+          (circular-installation-prerequisite
             |classpath-contains-relative-path
             |clean-should-be-satisfied-by-build-depends
             |codeless-jar
@@ -184,7 +285,17 @@ contexts:
             |compressed-duplicate
             |compressed-symlink-with-wrong-ext
             |concatenated-upstream-signatures
-            |conffile-has-bad-file-type
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # conffile/config/configure/conflicting/conflicts/continuous/control tags
+    - match: |-
+        (?x:
+          (conffile-has-bad-file-type
             |conffile-is-not-in-package
             |config-does-not-load-confmodule
             |config-file-reserved
@@ -205,7 +316,17 @@ contexts:
             |control-interpreter-without-depends
             |control-interpreter-without-predepends
             |control-tarball-compression-format
-            |copyright-contains-automatically-extracted-boilerplate
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # copyright tags
+    - match: |-
+        (?x:
+          (copyright-contains-automatically-extracted-boilerplate
             |copyright-contains-dh_make-todo-boilerplate
             |copyright-does-not-refer-to-common-license-file
             |copyright-file-compressed
@@ -233,7 +354,17 @@ contexts:
             |copyright-should-refer-to-common-license-file-for-lgpl
             |copyright-with-old-dh-make-debian-copyright
             |copyright-without-copyright-notice
-            |country-in-manual
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # country/crossing/csh/ctrl/custom/cute tags
+    - match: |-
+        (?x:
+          (country-in-manual
             |crossing-screens
             |csh-considered-harmful
             |ctrl-script
@@ -241,17 +372,47 @@ contexts:
             |custom-compression-in-debian-source-options
             |custom-library-search-path
             |cute-field
-            |data-tarball-compression-format
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # data/dbg/dbus tags
+    - match: |-
+        (?x:
+          (data-tarball-compression-format
             |dbg-package-missing-depends
             |dbus-policy-at-console
             |dbus-policy-excessively-broad
             |dbus-policy-without-send-destination
             |dbus-session-service-wrong-name
             |dbus-system-service-wrong-name
-            |debconf-config-not-executable
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # debconf tags
+    - match: |-
+        (?x:
+          (debconf-config-not-executable
             |debconf-is-not-a-registry
             |debconf-translation-using-general-list
-            |debhelper-autoscript-in-maintainer-scripts
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # debhelper tags
+    - match: |-
+        (?x:
+          (debhelper-autoscript-in-maintainer-scripts
             |debhelper-but-no-misc-depends
             |debhelper-compat-file-contains-multiple-levels
             |debhelper-compat-file-is-empty
@@ -261,7 +422,17 @@ contexts:
             |debhelper-compat-not-a-number
             |debhelper-compat-virtual-relation
             |debhelper-tools-from-autotools-dev-are-deprecated
-            |debian-adds-arch-control-dir
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # debian tags
+    - match: |-
+        (?x:
+          (debian-adds-arch-control-dir
             |debian-adds-arch-inventory-file
             |debian-adds-bts-control-dir
             |debian-adds-bzr-control-dir
@@ -373,7 +544,17 @@ contexts:
             |debian-watch-not-mangling-version
             |debian-watch-upstream-component
             |debian-watch-uses-insecure-uri
-            |debug-file-should-use-detached-symbols
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # debug/declares/default tags
+    - match: |-
+        (?x:
+          (debug-file-should-use-detached-symbols
             |debug-file-with-no-debug-symbols
             |debug-package-for-multi-arch-same-pkg-not-coinstallable
             |debug-package-should-be-named-dbg
@@ -384,7 +565,17 @@ contexts:
             |declares-possibly-conflicting-debhelper-compat-versions
             |default-mta-dependency-does-not-specify-mail-transport-agent
             |default-mta-dependency-not-listed-first
-            |dep5-copyright-license-name-not-unique
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # dep5/dependency/depends tags
+    - match: |-
+        (?x:
+          (dep5-copyright-license-name-not-unique
             |dep5-file-paragraph-reference-header-paragraph
             |dep5-file-paragraph-references-header-paragraph
             |dependency-is-not-multi-archified
@@ -401,7 +592,17 @@ contexts:
             |depends-on-python2-and-python3
             |depends-on-python-minimal
             |depends-on-specific-java-doc-package
-            |deprecated-configure-filename
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # deprecated/description tags
+    - match: |-
+        (?x:
+          (deprecated-configure-filename
             |description-contains-dh-make-perl-template
             |description-contains-homepage
             |description-contains-invalid-control-statement
@@ -419,7 +620,17 @@ contexts:
             |description-synopsis-starts-with-article
             |description-too-long
             |description-too-short
-            |desktop-command-not-in-package
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # desktop/development/dev tags
+    - match: |-
+        (?x:
+          (desktop-command-not-in-package
             |desktop-contains-deprecated-key
             |desktop-entry-contains-deprecated-key
             |desktop-entry-contains-encoding-key
@@ -437,7 +648,17 @@ contexts:
             |desktop-mime-but-no-exec-code
             |development-package-ships-elf-binary-in-path
             |dev-pkg-without-shlib-symlink
-            |dfsg-version-in-native-package
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # dfsg/dh tags
+    - match: |-
+        (?x:
+          (dfsg-version-in-native-package
             |dfsg-version-misspelled
             |dfsg-version-with-period
             |dfsg-version-with-tilde
@@ -450,7 +671,17 @@ contexts:
             |dh_installmanpages-is-obsolete
             |dh-make-template-in-source
             |dh-quilt-addon-but-quilt-source-format
-            |diff-contains-arch-control-dir
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # diff/direct/directory/dir tags
+    - match: |-
+        (?x:
+          (diff-contains-arch-control-dir
             |diff-contains-arch-inventory-file
             |diff-contains-bts-control-dir
             |diff-contains-bzr-control-dir
@@ -482,13 +713,33 @@ contexts:
             |dir-or-file-in-var-lock
             |dir-or-file-in-var-run
             |dir-or-file-in-var-www
-            |distant-prerequisite-in-shlibs
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # distant/distribution/diversion/django/dm tags
+    - match: |-
+        (?x:
+          (distant-prerequisite-in-shlibs
             |distribution-and-changes-mismatch
             |distribution-and-experimental-mismatch
             |diversion-for-unknown-file
             |django-package-does-not-depend-on-django
             |dm-upload-allowed-is-obsolete
-            |doc-base-abstract-field-is-template
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # doc/documentation tags
+    - match: |-
+        (?x:
+          (doc-base-abstract-field-is-template
             |doc-base-abstract-field-separator-extra-whitespace
             |doc-base-abstract-might-contain-extra-leading-whitespace
             |doc-base-document-field-ends-in-whitespace
@@ -512,12 +763,32 @@ contexts:
             |doc-base-uses-applications-section
             |doc-package-depends-on-main-package
             |documentation-package-not-architecture-independent
-            |dot-before-repack-count
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # dot/doubly/dpatch tags
+    - match: |-
+        (?x:
+          (dot-before-repack-count
             |doubly-armored-upstream-signature
             |dpatch-build-dep-but-no-patch-list
             |dpatch-index-references-non-existent-patch
             |dpatch-missing-description
-            |duplicate-changelog-files
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # duplicate/duplicated tags
+    - match: |-
+        (?x:
+          (duplicate-changelog-files
             |duplicate-conffile
             |duplicate-contact
             |duplicated-compressed-file
@@ -542,7 +813,17 @@ contexts:
             |duplicate-tag-in-menu
             |duplicate-updaterc.d-calls-in-postinst
             |duplicate-updaterc.d-calls-in-postrm
-            |elevated-privileges
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # elevated/elf/emacsen/embedded tags
+    - match: |-
+        (?x:
+          (elevated-privileges
             |elf-error
             |elf-maintainer-script
             |elf-warning
@@ -553,7 +834,17 @@ contexts:
             |embedded-pear-module
             |embedded-php-library
             |embedded-script-includes-copyright-statement
-            |empty-binary-package
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # empty tags
+    - match: |-
+        (?x:
+          (empty-binary-package
             |empty-debian-diff
             |empty-debian-tests-control
             |empty-field
@@ -565,7 +856,17 @@ contexts:
             |empty-translated-choices
             |empty-udeb-package
             |empty-upstream-sources
-            |epoch-changed-but-upstream-version-did-not-go-backwards
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # epoch/essential/example/excessive/exclusive/executable tags
+    - match: |-
+        (?x:
+          (epoch-changed-but-upstream-version-did-not-go-backwards
             |epoch-change-without-comment
             |essential-in-source-package
             |essential-no-not-needed
@@ -593,7 +894,17 @@ contexts:
             |executable-menu-file
             |executable-not-elf-or-script
             |executable-stack-in-shared-library
-            |exit-in-shared-library
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # exit/experimental/explicit/explicitly/extended/extra tags
+    - match: |-
+        (?x:
+          (exit-in-shared-library
             |experimental-to-unstable-without-comment
             |explicit-default-in-package-type
             |explicitly-armored-upstream-signature
@@ -603,7 +914,17 @@ contexts:
             |extended-description-line-too-long
             |extra-license-file
             |extra-whitespace-around-name-in-changelog-trailer
-            |faulty-debian-qa-group-address
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # faulty/field/file/files tags
+    - match: |-
+        (?x:
+          (faulty-debian-qa-group-address
             |faulty-debian-qa-group-phrase
             |field-too-long
             |file-contains-fixme-placeholder
@@ -631,7 +952,17 @@ contexts:
             |file-should-not-be-compressed
             |file-size-mismatch-in-changes-file
             |file-without-copyright-information
-            |font-in-non-font-package
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # font/forbidden/format/FSSTND tags
+    - match: |-
+        (?x:
+          (font-in-non-font-package
             |font-outside-font-dir
             |font-package-not-multi-arch-foreign
             |forbidden-config-interpreter
@@ -640,7 +971,17 @@ contexts:
             |FSSTND-dir-in-manual-page
             |FSSTND-dir-in-usr
             |FSSTND-dir-in-var
-            |game-outside-section
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # game/games/gawk/generated/gfortran/gir/git/global/globbing/gobject/groff/gzip tags
+    - match: |-
+        (?x:
+          (game-outside-section
             |games-package-should-be-section-games
             |gawk-script-but-no-gawk-dep
             |generated-file
@@ -655,7 +996,17 @@ contexts:
             |gobject-introspection-package-missing-depends-on-gir-depends
             |groff-message
             |gzip-file-is-not-multi-arch-same-safe
-            |hardening-no-bindnow
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # hardening/header/helper/homepage/html/hyphen tags
+    - match: |-
+        (?x:
+          (hardening-no-bindnow
             |hardening-no-fortify-functions
             |hardening-no-pie
             |hardening-no-relro
@@ -671,7 +1022,17 @@ contexts:
             |html-changelog-without-text-version
             |hyphen-file
             |hyphen-in-upstream-part-of-debian-changelog-version
-            |icon-size-and-directory-name-mismatch
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # icon/illegal/image/improbable/incompatible/incomplete/inconsistent/incorrect tags
+    - match: |-
+        (?x:
+          (icon-size-and-directory-name-mismatch
             |illegal-multi-arch-value
             |illegal-runtime-test-name
             |illegal-variable
@@ -688,14 +1049,34 @@ contexts:
             |incorrect-naming-of-pkcs11-module
             |incorrect-packaging-filename
             |incorrect-path-for-interpreter
-            |info-document-has-wrong-extension
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # info tags
+    - match: |-
+        (?x:
+          (info-document-has-wrong-extension
             |info-document-missing-dir-entry
             |info-document-missing-dir-section
             |info-document-missing-image-file
             |info-document-not-compressed
             |info-document-not-compressed-with-gzip
             |info-document-not-compressed-with-max-compression
-            |init.d-script-contains-skeleton-template-content
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # init tags
+    - match: |-
+        (?x:
+          (init.d-script-contains-skeleton-template-content
             |init.d-script-depends-on-all-virtual-facility
             |init.d-script-depends-on-unknown-virtual-facility
             |init.d-script-does-not-implement-required-option
@@ -728,7 +1109,17 @@ contexts:
             |init.d-script-uses-usr-interpreter
             |initial-upload-closes-no-bugs
             |init-script-is-not-a-file
-            |insane-line-length-in-source-file
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # insane/insecure/installable/install/interpreter/intra/invalid/isdefault tags
+    - match: |-
+        (?x:
+          (insane-line-length-in-source-file
             |insecure-copyright-format-uri
             |installable-field-mirrors-source
             |install-info-used-in-maintainer-script
@@ -752,10 +1143,30 @@ contexts:
             |invalid-versioned-provides
             |invalid-version-number-for-derivative
             |isdefault-flag-is-deprecated
-            |jar-contains-source
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # jar/javalib tags
+    - match: |-
+        (?x:
+          (jar-contains-source
             |jar-not-in-usr-share
             |javalib-but-no-public-jars
-            |killall-is-dangerous
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # killall/kill/lacks/latest/ldconfig/lengthy tags
+    - match: |-
+        (?x:
+          (killall-is-dangerous
             |kill-mode-none
             |lacks-ldconfig-trigger
             |lacks-unversioned-link-to-shared-library
@@ -768,7 +1179,17 @@ contexts:
             |ldconfig-symlink-missing-for-shlib
             |ldconfig-symlink-referencing-wrong-file
             |lengthy-symlink
-            |libapp-perl-package-name
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # lib/library/license/link/linked/loads/lzma tags
+    - match: |-
+        (?x:
+          (libapp-perl-package-name
             |libmodule-build-perl-needs-to-be-in-build-depends
             |libmodule-build-tiny-perl-needs-to-be-in-build-depends
             |library-in-debug-or-profile-should-not-be-stripped
@@ -799,14 +1220,34 @@ contexts:
             |link-to-undocumented-manpage
             |loads-obsolete-confmodule
             |lzma-deb-archive
-            |macos-ds-store-file-in-package
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # macos/magic/mail/mailing tags
+    - match: |-
+        (?x:
+          (macos-ds-store-file-in-package
             |macos-resource-fork-file-in-package
             |magic-arch-in-arch-list
             |mail-address-loops-or-bounces
             |mail-contact
             |mailing-list-on-alioth
             |mail-transport-agent-dependency-does-not-specify-default-mta
-            |maintainer
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # maintainer/maintscript tags
+    - match: |-
+        (?x:
+          (maintainer
             |maintainer-address-causes-mail-loops-or-bounces
             |maintainer-address-is-on-localhost
             |maintainer-address-is-root-user
@@ -870,7 +1311,17 @@ contexts:
             |maintainer-upload-has-incorrect-version-number
             |maintscript-calls-ldconfig
             |maintscript-includes-maint-script-parameters
-            |making-assumptions-about-interfaces-in-templates
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # making/malformed tags
+    - match: |-
+        (?x:
+          (making-assumptions-about-interfaces-in-templates
             |malformed-changed-by-field
             |malformed-changes-file
             |malformed-contact
@@ -886,7 +1337,17 @@ contexts:
             |malformed-template-name
             |malformed-title-in-templates
             |malformed-uploaders-field
-            |manpage-has-bad-whatis-entry
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # manpage/manual/maven/mawk/maybe/md5 tags
+    - match: |-
+        (?x:
+          (manpage-has-bad-whatis-entry
             |manpage-has-errors-from-man
             |manpage-has-errors-from-pod2man
             |manpage-has-overly-generic-name
@@ -911,7 +1372,17 @@ contexts:
             |maybe-not-arch-all-binnmuable
             |md5sum-mismatch
             |md5sums-lists-nonexistent-file
-            |mentions-deprecated-usr-lib-perl5-directory
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # mentions/menu tags
+    - match: |-
+        (?x:
+          (mentions-deprecated-usr-lib-perl5-directory
             |menu-command-not-in-package
             |menu-file-in-usr-lib
             |menu-icon-cannot-be-parsed
@@ -931,13 +1402,33 @@ contexts:
             |menu-item-uses-windowmanagers-section
             |menu-method-lacks-include
             |menu-method-should-include-menu-h
-            |mismatched-override
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # mismatched/mismatch/misnamed/misplaced tags
+    - match: |-
+        (?x:
+          (mismatched-override
             |mismatched-python-substvar
             |mismatch-translated-choices
             |misnamed-po-file
             |misplaced-extra-member-in-deb
             |misplaced-systemd-tmpfiles
-            |missing-build-dependency
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # missing tags
+    - match: |-
+        (?x:
+          (missing-build-dependency
             |missing-build-dependency-for-dh-addon
             |missing-build-dependency-for-dh_-command
             |missing-build-depends-for-clean-target-in-debian-rules
@@ -981,7 +1472,17 @@ contexts:
             |missing-tests-control
             |missing-vcs-browser-field
             |missing-xs-go-import-path-for-golang-package
-            |misspelled-closes-bug
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # misspelled/mknod/more/multiarch/multi/multiline/multiple tags
+    - match: |-
+        (?x:
+          (misspelled-closes-bug
             |mknod-in-maintainer-script
             |more-than-one-patch-system
             |multiarch-foreign-cmake-file
@@ -994,7 +1495,17 @@ contexts:
             |multiline-field
             |multiple-debian-watch-file-standards
             |multiple-distributions-in-changes-file
-            |named-copyright-for-single-installable
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # named/national/native/needless/needlessly/nested/newer/new/nfs tags
+    - match: |-
+        (?x:
+          (named-copyright-for-single-installable
             |national-encoding
             |national-encoding-in-debconf-template
             |national-encoding-in-manpage
@@ -1011,7 +1522,17 @@ contexts:
             |new-package-should-not-package-python2-module
             |new-package-uses-date-based-version-number
             |nfs-temporary-file-in-package
-            |nmu-in-changelog
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # nmu/no/nodejs/node tags
+    - match: |-
+        (?x:
+          (nmu-in-changelog
             |no-architecture-field
             |no-changelog
             |no-code-sections
@@ -1039,7 +1560,17 @@ contexts:
             |no-maintainer-field
             |no-manual-page
             |no-md5sums-control-file
-            |non-conf-file-in-modprobe.d
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # non tags
+    - match: |-
+        (?x:
+          (non-conf-file-in-modprobe.d
             |non-consecutive-debian-revision
             |non-debug-file-in-debug-package
             |non-dev-pkg-with-shlib-symlink
@@ -1063,7 +1594,17 @@ contexts:
             |non-virtual-facility-in-initd-script
             |non-wm-in-windowmanager-menu-section
             |non-wm-module-in-wm-modules-menu-section
-            |no-op-testsuite
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # no- (continued) and not/number tags
+    - match: |-
+        (?x:
+          (no-op-testsuite
             |no-package-name
             |no-phrase
             |no-priority-field
@@ -1089,7 +1630,17 @@ contexts:
             |no-versioned-debhelper-prerequisite
             |no-version-field
             |number-of-patches
-            |obsolete-command-in-modprobe.d-file
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # obsolete tags
+    - match: |-
+        (?x:
+          (obsolete-command-in-modprobe.d-file
             |obsolete-comments-style-in-php-ini
             |obsolete-crypt-alias
             |obsolete-debian-watch-file-standard
@@ -1100,7 +1651,17 @@ contexts:
             |obsolete-runtime-tests-restriction
             |obsolete-url-in-packaging
             |obsolete-vim-addon-manager
-            |ocaml-custom-executable
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # ocaml/odd/old/older/omitted/opentype/ored/orig/orphaned/outdated/out/output tags
+    - match: |-
+        (?x:
+          (ocaml-custom-executable
             |ocaml-dangling-cmi
             |ocaml-dangling-cmx
             |ocaml-dangling-cmxa
@@ -1138,12 +1699,32 @@ contexts:
             |out-of-date-copyright-format-uri
             |out-of-date-standards-version
             |output-of-updaterc.d-not-redirected-to-dev-null
-            |override_dh_auto_test-does-not-check-DEB_BUILD_OPTIONS
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # override tags
+    - match: |-
+        (?x:
+          (override_dh_auto_test-does-not-check-DEB_BUILD_OPTIONS
             |override_dh_clean-does-not-call-dh_clean
             |override_dh_fixperms-does-not-call-dh_fixperms
             |override-file-in-wrong-location
             |override-file-in-wrong-package
-            |package-builds-dbg-and-dbgsym-variants
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # package tags
+    - match: |-
+        (?x:
+          (package-builds-dbg-and-dbgsym-variants
             |package-contains-ancient-file
             |package-contains-broken-symlink-wildcard
             |package-contains-bts-control-dir
@@ -1246,14 +1827,34 @@ contexts:
             |package-uses-local-diversion
             |package-uses-old-debhelper-compat-version
             |package-uses-vendor-specific-patch-series
-            |patched-file-without-utf8-name
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # patch/patched tags
+    - match: |-
+        (?x:
+          (patched-file-without-utf8-name
             |patch-file-present-but-not-mentioned-in-series
             |patch-modifying-debian-files
             |patch-not-forwarded-upstream
             |patch-system
             |patch-system-but-direct-changes-in-diff
             |patch-system-but-no-source-readme
-            |pear-channel-without-pkg-php-tools-builddep
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # pear/pecl/perl/php/pipe/pkg tags
+    - match: |-
+        (?x:
+          (pear-channel-without-pkg-php-tools-builddep
             |pear-package-but-missing-dependency
             |pear-package-not-using-substvar
             |pear-package-without-pkg-php-tools-builddep
@@ -1275,7 +1876,17 @@ contexts:
             |pkg-js-tools-test-is-empty
             |pkg-js-tools-test-is-missing
             |pkg-not-in-package-test
-            |pod-conversion-message
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # pod/poor/portable/possible/possibly tags
+    - match: |-
+        (?x:
+          (pod-conversion-message
             |poor-compression-in-manual-page
             |portable-executable-missing-security-features
             |possible-bashism-in-maintainer-script
@@ -1286,7 +1897,17 @@ contexts:
             |possible-new-upstream-release-without-new-version
             |possible-unindented-list-in-extended-description
             |possibly-insecure-handling-of-tmp-files-in-maintainer-script
-            |postinst-does-not-call-updatemenus
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # postinst/postrm/prefer/preinst/prerm/priority/privacy/program/public tags
+    - match: |-
+        (?x:
+          (postinst-does-not-call-updatemenus
             |postinst-does-not-load-confmodule
             |postinst-has-useless-call-to-install-docs
             |postinst-has-useless-call-to-update-menus
@@ -1325,7 +1946,17 @@ contexts:
             |public-upstream-key-not-minimal
             |public-upstream-keys-in-multiple-locations
             |public-upstream-key-unusable
-            |pypi-homepage
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # pypi/python tags
+    - match: |-
+        (?x:
+          (pypi-homepage
             |python2-script-but-no-python2-dep
             |python3-depends-but-no-python3-helper
             |python3-script-but-no-python3-dep
@@ -1339,7 +1970,17 @@ contexts:
             |python-teams-merged
             |python-traceback-in-manpage
             |python-version-current-is-deprecated
-            |qa-upload-has-incorrect-version-number
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # qa/quilt/quoted tags
+    - match: |-
+        (?x:
+          (qa-upload-has-incorrect-version-number
             |quilt-build-dep-but-no-series-file
             |quilt-patch-missing-description
             |quilt-patch-using-template-description
@@ -1348,7 +1989,17 @@ contexts:
             |quilt-series-references-non-existent-patch
             |quilt-series-without-trailing-newline
             |quoted-placeholder-in-mailcap-entry
-            |raster-image-in-scalable-directory
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # raster/rc/r/read/readme tags
+    - match: |-
+        (?x:
+          (raster-image-in-scalable-directory
             |rc-version-greater-than-expected-version
             |r-data-without-readme-source
             |read-in-maintainer-script
@@ -1356,7 +2007,17 @@ contexts:
             |readme-debian-contains-invalid-email-address
             |readme-debian-mentions-usr-doc
             |readme-source-is-dh_make-template
-            |recommended-field
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # recommended/recursive/redundant/relative/remove/renamed/repackaged/repeated/required/requires tags
+    - match: |-
+        (?x:
+          (recommended-field
             |recursive-privilege-change
             |redundant-bugs-field
             |redundant-build-prerequisites
@@ -1374,7 +2035,17 @@ contexts:
             |repeated-trigger-name
             |required-field
             |requires-r-api
-            |root-in-contact
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # root/r-package/rubygem/ruby/rules/run/runtime/rust tags
+    - match: |-
+        (?x:
+          (root-in-contact
             |r-package-not-arch-all
             |rubygem-homepage
             |ruby-interpreter-is-deprecated
@@ -1392,7 +2063,17 @@ contexts:
             |runtime-test-file-uses-supported-python-versions-without-python-all-build-depends
             |runtime-test-file-uses-supported-python-versions-without-test-depends
             |rust-boilerplate
-            |script-in-etc-init.d-not-registered-via-update-rc.d
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # script/section/select/send/service/setgid/setuid tags
+    - match: |-
+        (?x:
+          (script-in-etc-init.d-not-registered-via-update-rc.d
             |script-in-usr-share-doc
             |script-not-executable
             |script-uses-bin-env
@@ -1410,7 +2091,17 @@ contexts:
             |setgid-binary
             |setuid-binary
             |setuid-gid-binary
-            |shared-library-is-executable
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # shared/sharedobject/shell/shipped/ships/shlib/shlibs tags
+    - match: |-
+        (?x:
+          (shared-library-is-executable
             |shared-library-is-multi-arch-foreign
             |shared-library-lacks-prerequisites
             |shared-library-lacks-stack-section
@@ -1435,10 +2126,30 @@ contexts:
             |shlib-with-non-pic-code
             |shlib-without-PT_GNU_STACK-section
             |shlib-without-versioned-soname
-            |should-specify-rules-requires-root
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # should/silent/skip tags
+    - match: |-
+        (?x:
+          (should-specify-rules-requires-root
             |silent-on-rules-requiring-root
             |skip-systemd-native-flag-missing-pre-depends
-            |source-contains-arch-control-dir
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # source tags
+    - match: |-
+        (?x:
+          (source-contains-arch-control-dir
             |source-contains-arch-inventory-file
             |source-contains-autogenerated-gperf-data
             |source-contains-autogenerated-visual-c++-file
@@ -1485,7 +2196,17 @@ contexts:
             |source-package-component-has-long-file-name
             |source-package-encodes-python-version
             |source-ships-excluded-file
-            |space-in-std-shortname-in-dep5-copyright
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # space/spare/special/specific/spelling/sphinxdoc/spurious/standards/star/statically/static tags
+    - match: |-
+        (?x:
+          (space-in-std-shortname-in-dep5-copyright
             |spare-manual-page
             |special-file
             |specific-address-in-shared-library
@@ -1510,7 +2231,17 @@ contexts:
             |static-library-has-unneeded-section
             |static-library-has-unneeded-sections
             |static-link-time-optimization
-            |stray-folder-in-manual
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # stray/stripped/stronger/subdir/substvar/superficial/superfluous/surplus/su/svk/svn tags
+    - match: |-
+        (?x:
+          (stray-folder-in-manual
             |stray-translated-debconf-templates
             |stripped-library
             |stronger-dependency-implies-weaker
@@ -1526,7 +2257,17 @@ contexts:
             |su-wrapper-without--c
             |svk-commit-file-in-package
             |svn-commit-file-in-package
-            |symbols-declared-but-not-shlib
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # symbols/symlink/synopsis/syntax tags
+    - match: |-
+        (?x:
+          (symbols-declared-but-not-shlib
             |symbols-declares-dependency-on-other-package
             |symbols-file-contains-current-version-with-debian-revision
             |symbols-file-contains-debian-revision
@@ -1548,7 +2289,17 @@ contexts:
             |syntax-error-in-debian-news-file
             |syntax-error-in-dep5-copyright
             |syntax-error-in-symbols-file
-            |systemd-no-service-for-init-rcS-script
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # systemd tags
+    - match: |-
+        (?x:
+          (systemd-no-service-for-init-rcS-script
             |systemd-no-service-for-init-script
             |systemd-service-alias-without-extension
             |systemd-service-file-missing-documentation-key
@@ -1566,7 +2317,17 @@ contexts:
             |systemd-service-in-odd-location
             |systemd-tmpfile-in-var-run
             |systemd-tmpfiles.d-outside-usr-lib
-            |tab-in-license-text
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # tab/tclsh/team/template/temporary/testsuite tags
+    - match: |-
+        (?x:
+          (tab-in-license-text
             |tclsh-script-but-no-tclsh-dep
             |team/pkg-js/deprecated/nodejs-bad-buffer-usage
             |team/pkg-js/testsuite/no-team-tests
@@ -1584,7 +2345,17 @@ contexts:
             |temporary-debhelper-file
             |testsuite-autopkgtest-missing
             |testsuite-dependency-has-unparsable-elements
-            |third-party-package-in-python-dir
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # third/timewarp/too/trailing/transitional/translated/trimmed/triplet/truetype/typelib/typo tags
+    - match: |-
+        (?x:
+          (third-party-package-in-python-dir
             |timewarp-standards-version
             |too-long-extended-description-in-templates
             |too-long-short-description-in-templates
@@ -1608,7 +2379,17 @@ contexts:
             |typelib-section-not-introspection
             |typo-in-debhelper-override-target
             |typo-in-manual-page
-            |udeb-contains-documentation-file
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # udeb/udevadm/udev tags
+    - match: |-
+        (?x:
+          (udeb-contains-documentation-file
             |udeb-postinst-calls-ldconfig
             |udeb-postinst-must-not-call-ldconfig
             |udeb-uses-unsupported-compression-for-data-tarball
@@ -1617,7 +2398,17 @@ contexts:
             |udev-rule-missing-subsystem
             |udev-rule-missing-uaccess
             |udev-rule-unreadable
-            |uncompressed-manual-page
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # uncompressed/unconditional/undeclared/undocumented/unexpected/unicode/unknown tags
+    - match: |-
+        (?x:
+          (uncompressed-manual-page
             |unconditional-use-of-dpkg-statoverride
             |undeclared-elf-prerequisites
             |undocumented-manual-page
@@ -1651,7 +2442,17 @@ contexts:
             |unknown-template-type
             |unknown-testsuite
             |unknown-trigger
-            |unmerged-usr
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # unmerged/unnecessary/unpack/unparsable/unquoted/unreleased/unstripped/unsupported/untranslatable tags
+    - match: |-
+        (?x:
+          (unmerged-usr
             |unnecessary-source-date-epoch-assignment
             |unnecessary-team-upload
             |unnecessary-testsuite-autopkgtest-field
@@ -1668,7 +2469,17 @@ contexts:
             |unstripped-static-library
             |unsupported-source-format
             |untranslatable-debconf-templates
-            |unused-build-dependency-on-cdbs
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # unused/unusual/unversioned/unwanted/update/uploader/uploaders/upload/upstart/upstream tags
+    - match: |-
+        (?x:
+          (unused-build-dependency-on-cdbs
             |unused-debconf-template
             |unused-entry-in-debian-source-include-binaries
             |unused-license-paragraph-in-dep5-copyright
@@ -1702,7 +2513,17 @@ contexts:
             |upstream-metadata-missing-repository
             |upstream-metadata-not-yaml-mapping
             |upstream-metadata-yaml-invalid
-            |useless-autogenerated-doxygen-file
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # useless/use/uses/using/usr tags
+    - match: |-
+        (?x:
+          (useless-autogenerated-doxygen-file
             |useless-autoreconf-build-depends
             |useless-whatis-entry
             |use-of-compat-symlink
@@ -1720,7 +2541,17 @@ contexts:
             |usr-share-doc-symlink-points-outside-of-usr-share-doc
             |usr-share-doc-symlink-to-foreign-package
             |usr-share-doc-symlink-without-dependency
-            |vcs
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # vcs/version/very tags
+    - match: |-
+        (?x:
+          (vcs
             |vcs-browser-links-to-empty-view
             |vcs-field-bitrotted
             |vcs-field-has-unexpected-spaces
@@ -1736,7 +2567,17 @@ contexts:
             |version-refers-to-distribution
             |version-substvar-for-external-package
             |very-long-line-length-in-source-file
-            |vim-addon-within-vim-runtime-path
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # vim/virtual/wayward/weak/web/whitespace/wiki/windows/wish/wrong tags
+    - match: |-
+        (?x:
+          (vim-addon-within-vim-runtime-path
             |virtual-package-depends-without-real-package-depends
             |wayward-symbolic-link-target-in-source
             |weak-dependency-on-misc-depends
@@ -1763,15 +2604,26 @@ contexts:
             |wrong-section-according-to-package-name
             |wrong-section-for-udeb
             |wrong-team
-            |xc-package-type-in-debian-control
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
+      push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
+        - meta_content_scope: meta.mapping.value.debian.lintian-overrides
+        - match: ^(?=\S)
+          pop: true
+    # xc/xs/zero/zip tags
+    - match: |-
+        (?x:
+          (xc-package-type-in-debian-control
             |xs-testsuite-field-in-debian-control
             |xs-vcs-field-in-debian-control
             |zero-byte-executable-in-path
             |zero-byte-file-in-doc-directory
             |zip-parse-error
-        ))
-      scope: variable.language.debian
+        ))(?=\s|$)
+      scope: support.constant.debian.lintian-overrides
       push:
+        - meta_scope: meta.mapping.debian.lintian-overrides
         - meta_content_scope: meta.mapping.value.debian.lintian-overrides
         - match: ^(?=\S)
           pop: true

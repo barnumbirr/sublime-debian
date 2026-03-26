@@ -1,0 +1,30 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-alternatives.sublime-syntax"
+
+# Comment line
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^ comment.line.debian
+
+Name: editor
+#^^^ meta.mapping.key.debian keyword.control.debian.alternatives
+#   ^ punctuation.separator.mapping.key-value.debian.alternatives
+#     ^^^^^^ entity.name.function.debian.alternatives
+
+Link: /usr/bin/editor
+#^^^ meta.mapping.key.debian keyword.control.debian.alternatives
+#   ^ punctuation.separator.mapping.key-value.debian.alternatives
+#     ^^^^^^^^^^^^^^^ string.unquoted.path.debian.alternatives
+
+Alternative: /usr/bin/vim.basic
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.alternatives
+#          ^ punctuation.separator.mapping.key-value.debian.alternatives
+#            ^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.alternatives
+
+Priority: 50
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.alternatives
+#       ^ punctuation.separator.mapping.key-value.debian.alternatives
+#         ^^ constant.numeric.integer.decimal.debian.alternatives
+
+Dependents: /usr/share/man/man1/editor.1.gz /usr/share/man/man1/vim.1.gz
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.alternatives
+#         ^ punctuation.separator.mapping.key-value.debian.alternatives
+#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.alternatives

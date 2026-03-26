@@ -1,0 +1,42 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-doc-base.sublime-syntax"
+
+# Comment line
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^ comment.line.debian
+
+Document: backuppc
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
+#       ^ punctuation.separator.mapping.key-value.debian.doc-base
+#        ^^^^^^^^^ meta.mapping.value.debian.doc-base
+
+Title: BackupPC Documentation
+#^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
+#    ^ punctuation.separator.mapping.key-value.debian.doc-base
+
+Author: Craig Barratt
+#^^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
+
+Section: Network/Backup
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
+
+Format: HTML
+#^^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
+
+Index: /usr/share/doc/backuppc/index.html
+#^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
+
+Files: /usr/share/doc/backuppc/*.html
+#^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
+
+Abstract: BackupPC is a high-performance, enterprise-grade system for
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
+#       ^ punctuation.separator.mapping.key-value.debian.doc-base
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.doc-base
+ backing up Linux and Windows PCs and laptops to a server's disk.
+
+# URL and email in other fields
+Author: Craig Barratt <cbarratt@example.org>
+#                     ^^^^^^^^^^^^^^^^^^^^^^ meta.reference.email.debian
+#                     ^ punctuation.definition.reference.email.begin.debian
+Title: Docs at https://backuppc.github.io/
+#              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian

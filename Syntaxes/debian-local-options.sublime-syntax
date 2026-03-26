@@ -1,24 +1,30 @@
 %YAML 1.2
 ---
 # See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/unstable/dpkg-dev/dpkg-source.1.en.html
 name: local-options (Debian)
 file_extensions:
   - local-options
+first_line_match: |-
+  (?x)^(?:compression(?:-level)?|(?:extend-)?diff-ignore|tar-ignore
+    |(?:no-)?unapply-patches|abort-on-upstream-changes|auto-commit
+    |single-debian-patch|include-(?:binaries|removal|timestamp)
+    |create-empty-orig|no-preparation)
 scope: source.debian.source.local-options
 
 contexts:
   main:
     - include: debian-common.sublime-syntax#comments
-    - include: fields
+    - include: options
 
-  # https://www.debian.org/doc/manuals/debmake-doc/ch05.en.html#debianconf
-  # https://man7.org/linux/man-pages/man1/dpkg-source.1.html
-  fields:
+  # local-options supports all source/options plus local-only options
+  options:
+    - include: debian-common.sublime-syntax#dpkg-source-options
+    # Local-only boolean flags
     - match: |-
         ^(?x:
-          (unapply-patches|abort-on-upstream-changes|auto-commit|single-debian-patch
-        ))?
-      scope: keyword.control.debian.source.local-options
-      push:
-        - match: ^(?=\S)
-          pop: true
+          ((?:no-)?unapply-patches
+            |abort-on-upstream-changes
+        ))\s*$
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian

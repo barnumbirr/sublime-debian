@@ -1,0 +1,14 @@
+Document: backuppc
+Title: BackupPC Documentation
+Author: Craig Barratt
+Abstract: BackupPC is a high-performance, enterprise-grade system for
+ backing up Linux, Windows and macOS PCs and laptops to a server's disk.
+ BackupPC is highly configurable and easy to install and maintain.
+Section: Network/Backup
+
+Format: HTML
+Index: /usr/share/doc/backuppc/index.html
+Files: /usr/share/doc/backuppc/*.html
+
+Format: Text
+Files: /usr/share/doc/backuppc/README.txt

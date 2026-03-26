@@ -1,0 +1,9 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-compat.sublime-syntax"
+
+# Comment line
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^ comment.line.debian
+
+13
+# <- constant.numeric.integer.debian
+# <- meta.number.version.debian.compat

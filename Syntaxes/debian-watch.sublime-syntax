@@ -4,6 +4,7 @@
 name: watch (Debian)
 file_extensions:
   - watch
+first_line_match: '^version='
 scope: source.debian.watch
 
 contexts:
@@ -11,24 +12,82 @@ contexts:
     - include: debian-common.sublime-syntax#comments
     - include: keywords
 
-  # https://people.debian.org/~osamu/uscan.html
+  # https://manpages.debian.org/unstable/devscripts/uscan.1.en.html
   keywords:
-    - match: ^(?x:(version|opts))(=)?
+    # Line continuation
+    - match: \\$
+      scope: punctuation.separator.continuation.line.debian.watch
+    - match: ^(version)(=)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.watch
         2: punctuation.separator.mapping.key-value.debian.watch
+      push:
+        - meta_scope: meta.mapping.debian.watch
+        - meta_content_scope: meta.mapping.value.debian.watch
+        - include: debian-common.sublime-syntax#pop-eol
+        - match: \b\d+\b
+          scope: constant.numeric.integer.decimal.debian.watch
+    - match: ^(opts)(=)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.watch
+        2: punctuation.separator.mapping.key-value.debian.watch
+    # Closed-set value options
     - match: |-
         (?x:
-          (component|compression|repack|repacksuffix|mode|pgpmode|decompress|bare
-            |user-agent|pasv|passsive|active|nopasv|unzipopt|dversionmangle
-            |dirversionmangle|pagemangle|uversionmangle|versionmangle
-            |downloadurlmangle|filenamemangle|pgpsigurlmangle|oversionmangle
+          (compression|mode|pgpmode|searchmode|ctype|hrefdecode
+            |gitmode|gitexport
+        ))(=)
+      captures:
+        1: meta.mapping.key.debian variable.parameter.debian.watch
+        2: punctuation.separator.mapping.key-value.debian.watch
+      push:
+        - meta_content_scope: meta.mapping.value.debian.watch
+        - include: option-value-end
+        - match: \b(?:xz|gzip|bzip2|lzma|zstd|gz|bz2|native|git|svn|lwr|auto|next|previous|self|mangle|gensig|default|plain|css|sha256|sha512|md5|perl|text|html)\b
+          scope: support.constant.debian.watch
+    # Numeric value options
+    - match: (compression-level)(=)
+      captures:
+        1: meta.mapping.key.debian variable.parameter.debian.watch
+        2: punctuation.separator.mapping.key-value.debian.watch
+      push:
+        - meta_content_scope: meta.mapping.value.debian.watch
+        - include: option-value-end
+        - match: \b\d+\b
+          scope: constant.numeric.integer.decimal.debian.watch
+    # Mangle/pattern options — values are regex patterns
+    - match: |-
+        (?x:
+          ((?:dversion|dirversion|page|uversion|version|downloadurl|filename|pgpsigurl|oversion)mangle
+        ))(=)
+      captures:
+        1: meta.mapping.key.debian variable.parameter.debian.watch
+        2: punctuation.separator.mapping.key-value.debian.watch
+      push:
+        - meta_content_scope: meta.mapping.value.debian.watch
+                              string.unquoted.regex.debian.watch
+        - include: option-value-end
+    # String/path value options
+    - match: |-
+        (?x:
+          (component|repacksuffix|repack|bare
+            |user-agent|unzipopt|template
+            |pretty|date|gitmodules|decompress
+            |source|matching-pattern
+            |update-script|version-(?:constraint|schema|separator)
         ))(=)?
       captures:
         1: meta.mapping.key.debian variable.parameter.debian.watch
         2: punctuation.separator.mapping.key-value.debian.watch
       push:
         - meta_content_scope: meta.mapping.value.debian.watch
-        - match: ^(?=\S)
-          pop: true
+        - include: option-value-end
         - include: debian-common.sublime-syntax#url
+
+    # URLs in watch body lines
+    - include: debian-common.sublime-syntax#url
+
+  option-value-end:
+    - match: (?=\s*[,\s])
+      pop: true
+    - include: debian-common.sublime-syntax#pop-eol

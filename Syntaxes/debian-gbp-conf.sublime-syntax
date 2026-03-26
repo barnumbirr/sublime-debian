@@ -1,0 +1,14 @@
+%YAML 1.2
+---
+# See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/testing/git-buildpackage/gbp.conf.5.en.html
+name: gbp.conf (Debian)
+file_extensions:
+  - gbp.conf
+first_line_match: '^\[(?:DEFAULT|buildpackage|import-orig|dch)\]'
+scope: source.debian.gbp-conf
+
+contexts:
+  main:
+    - match: ''
+      push: Packages/INI/INI.sublime-syntax

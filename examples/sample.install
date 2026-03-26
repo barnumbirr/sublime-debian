@@ -1,0 +1,6 @@
+# Debhelper install file
+usr/bin/backuppc
+usr/share/doc/backuppc/*.html
+usr/lib/${DEB_HOST_MULTIARCH}/libbackuppc*.so.*
+${DEB_HOST_MULTIARCH}/lib*.so
+usr/share/man/man?/*

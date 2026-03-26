@@ -4,6 +4,7 @@
 name: format (Debian)
 file_extensions:
   - format
+first_line_match: '^\d+\.\d+\s*\((?:native|quilt|custom|git|bzr)\)'
 scope: source.debian.source.format
 
 contexts:
@@ -11,7 +12,7 @@ contexts:
     - include: debian-common.sublime-syntax#comments
     - include: body
 
-  # https://www.debian.org/doc/manuals/maint-guide/dother.en.html#sourcef
+  # https://manpages.debian.org/unstable/dpkg-dev/dpkg-source.1.en.html
   body:
     - match: ^([0-9]*)(\.)([0-9]+)
       captures:

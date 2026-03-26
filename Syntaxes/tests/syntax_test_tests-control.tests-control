@@ -1,0 +1,65 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-tests-control.sublime-syntax"
+
+Tests: run-tests, check-install
+#^^^^ meta.mapping.key.debian keyword.control.debian.tests.control
+#    ^ punctuation.separator.mapping.key-value.debian.tests.control
+#      ^^^^^^^^^ entity.name.function.debian.tests.control
+#               ^ punctuation.separator.sequence.debian.tests.control
+#                 ^^^^^^^^^^^^^ entity.name.function.debian.tests.control
+
+Test-Command: /usr/bin/test-backuppc
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.tests.control
+#           ^ punctuation.separator.mapping.key-value.debian.tests.control
+#             ^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.tests.control
+
+Restrictions: needs-root, isolation-container, allow-stderr
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.tests.control
+#           ^ punctuation.separator.mapping.key-value.debian.tests.control
+#             ^^^^^^^^^^ support.constant.restriction.debian
+#                       ^ punctuation.separator.sequence.debian.tests.control
+#                         ^^^^^^^^^^^^^^^^^^^ support.constant.restriction.debian
+#                                            ^ punctuation.separator.sequence.debian.tests.control
+#                                              ^^^^^^^^^^^^ support.constant.restriction.debian
+
+Restrictions: breaks-testbed, needs-sudo, build-needed,
+              flaky, skippable, superficial
+#             ^^^^^ support.constant.restriction.debian
+#                    ^^^^^^^^^ support.constant.restriction.debian
+#                               ^^^^^^^^^^^ support.constant.restriction.debian
+
+Features: test-name=custom-feature
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.tests.control
+#       ^ punctuation.separator.mapping.key-value.debian.tests.control
+#         ^^^^^^^^^ support.constant.feature.debian.tests.control
+
+Depends: @, python3-all
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.tests.control
+#      ^ punctuation.separator.mapping.key-value.debian.tests.control
+#        ^ variable.language.debian.tests.control
+#         ^ punctuation.separator.sequence.debian.tests.control
+#           ^^^^^^^^^^^ support.module.debian
+
+Depends: @builddeps@, libfoo-dev (>= 1.0)
+#        ^ punctuation.definition.variable.debian.tests.control
+#         ^^^^^^^^^ variable.language.debian.tests.control
+#                  ^ punctuation.definition.variable.debian.tests.control
+#                   ^ punctuation.separator.sequence.debian.tests.control
+
+Depends: @recommends@
+#        ^ punctuation.definition.variable.debian.tests.control
+#         ^^^^^^^^^^ variable.language.debian.tests.control
+#                   ^ punctuation.definition.variable.debian.tests.control
+
+Tests-Directory: debian/tests
+#^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.tests.control
+#              ^ punctuation.separator.mapping.key-value.debian.tests.control
+
+Architecture: amd64 arm64
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.tests.control
+#           ^ punctuation.separator.mapping.key-value.debian.tests.control
+#             ^^^^^ constant.other.architecture.debian
+#                   ^^^^^ constant.other.architecture.debian
+
+Classes: default
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.tests.control
+#      ^ punctuation.separator.mapping.key-value.debian.tests.control

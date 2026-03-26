@@ -1,10 +1,11 @@
 %YAML 1.2
 ---
 # See https://www.sublimetext.com/docs/syntax.html
-# https://manpages.debian.org/trixie/dpkg-dev/deb822.5.en.html
+# https://manpages.debian.org/unstable/apt/sources.list.5.en.html
 name: sources (Debian)
 file_extensions:
   - sources
+first_line_match: '^Types:\s*deb'
 scope: source.debian.sources
 
 contexts:
@@ -16,102 +17,125 @@ contexts:
     - match: ^(?i)(Enabled)(:)
       captures:
         1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+        2: punctuation.separator.mapping.key-value.debian.sources
       push:
-        - meta_content_scope: meta.mapping.value.sources
+        - meta_scope: meta.mapping.debian.sources
+        - meta_content_scope: meta.mapping.value.debian.sources
         - include: pop-next-content-line
         - include: booleans
 
     - match: ^(?i)(Types)(:)
       captures:
         1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+        2: punctuation.separator.mapping.key-value.debian.sources
       push:
-        - meta_content_scope: meta.mapping.value.sources
+        - meta_scope: meta.mapping.debian.sources
+        - meta_content_scope: meta.mapping.value.debian.sources
         - include: pop-next-content-line
         - include: types
 
     - match: ^(?i)(Suites)(:)
       captures:
         1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+        2: punctuation.separator.mapping.key-value.debian.sources
       push:
-        - meta_content_scope: meta.mapping.value.sources
+        - meta_scope: meta.mapping.debian.sources
+        - meta_content_scope: meta.mapping.value.debian.sources
         - include: pop-next-content-line
-        - match: '{{package_suites}}'
-          scope: constant.language.sources
+        - include: suites
         - match: \S+
-          scope: string.unquoted.sources
+          scope: string.unquoted.debian.sources
 
     - match: ^(?i)(Components)(:)
       captures:
         1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+        2: punctuation.separator.mapping.key-value.debian.sources
       push:
-        - meta_content_scope: meta.mapping.value.sources
+        - meta_scope: meta.mapping.debian.sources
+        - meta_content_scope: meta.mapping.value.debian.sources
         - include: pop-next-content-line
-        # Eat the archive areas without scoping
-        - match: '{{archive_areas}}'
+        - match: \b(?:main|non-free-firmware|contrib|non-free)\b
+          scope: support.constant.component.debian.sources
         - match: \S+
-          scope: string.unquoted.sources
+          scope: string.unquoted.debian.sources
 
     - match: ^(?i)(URIs)(:)
       captures:
         1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+        2: punctuation.separator.mapping.key-value.debian.sources
       push:
-        - meta_content_scope: meta.mapping.value.sources
+        - meta_scope: meta.mapping.debian.sources
+        - meta_content_scope: meta.mapping.value.debian.sources
         - include: pop-next-content-line
+        - match: '(?:mirror(?:\+file)?|copy|file|cdrom|ssh|ftp):\S+'
+          scope: markup.underline.link.debian.sources
         - include: debian-common.sublime-syntax#url
 
     - match: ^(?i)(Signed-By)(:)
       captures:
         1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: meta.mapping.debian.sources punctuation.separator.mapping.key-value.debian.sources
+        2: punctuation.separator.mapping.key-value.debian.sources
       push:
-        - meta_content_scope: meta.mapping.value.sources
+        - meta_scope: meta.mapping.debian.sources
+        - meta_content_scope: meta.mapping.value.debian.sources
         - include: pop-next-content-line
         - include: debian-common.sublime-syntax#pgp-signatures
         - include: debian-common.sublime-syntax#other-signatures
         - match: (?=\S)
           push:
-            - meta_scope: markup.underline.link.sources
+            - meta_scope: markup.underline.link.debian.sources
             - include: debian-common.sublime-syntax#pop-eol
             - match: /
-              scope: punctuation.separator.path.sources
+              scope: punctuation.separator.path.debian.sources
 
     - match: ^(?i)(Architectures)(:)
       captures:
         1: meta.mapping.key.debian.sources keyword.control.debian.sources
         2: punctuation.separator.mapping.key-value.debian.sources
       push:
-        - meta_content_scope: meta.mapping.value.sources
+        - meta_scope: meta.mapping.debian.sources
+        - meta_content_scope: meta.mapping.value.debian.sources
         - include: pop-next-content-line
+        - include: debian-common.sublime-syntax#architectures
+
+    - match: ^(?i)(Languages|Targets)(:)
+      captures:
+        1: meta.mapping.key.debian.sources keyword.control.debian.sources
+        2: punctuation.separator.mapping.key-value.debian.sources
+      push:
+        - meta_scope: meta.mapping.debian.sources
+        - meta_content_scope: meta.mapping.value.debian.sources
+        - include: pop-next-content-line
+
+    - match: |-
+        ^(?xi:
+          (PDiffs|By-Hash|Trusted|Allow-(?:Insecure|Weak|Downgrade-To-Insecure)
+            |Check-(?:Valid-Until|Date)|Valid-Until-(?:Min|Max)
+            |Date-Max-Future|InRelease-Path|Snapshot
+            |Include|Exclude
+        ))(:)
+      captures:
+        1: meta.mapping.key.debian.sources keyword.control.debian.sources
+        2: punctuation.separator.mapping.key-value.debian.sources
+      push:
+        - meta_scope: meta.mapping.debian.sources
+        - meta_content_scope: meta.mapping.value.debian.sources
+        - include: pop-next-content-line
+        - include: booleans
 
   booleans:
     - match: \byes\b
-      scope: constant.language.boolean.true.sources
+      scope: constant.language.boolean.true.debian.sources
     - match: \bno\b
-      scope: constant.language.boolean.false.sources
+      scope: constant.language.boolean.false.debian.sources
+
+  suites:
+    - include: debian-common.sublime-syntax#suites
 
   types:
     - match: \bdeb(?:-src)?\b
-      scope: storage.type.sources
+      scope: storage.type.debian.sources
 
   pop-next-content-line:
     - match: ^(?=\S)
       pop: true
-
-variables:
-  debian_versions: |-
-    (?x:buzz|rex|bo|hamm|slink|potato|woody|sarge|etch|lenny|squeeze
-      |wheezy|jessie|stretch|buster|bullseye|bookworm|trixie|forky|duke)
-  debian_suites: \b(?:(?:old){0,2}stable|testing|unstable|experimental)\b
-  package_suites: |-
-    (?x:
-      (?: {{debian_versions}} | {{debian_suites}} )
-      (?:-
-        (?: security | (?:proposed)? updates | backports )
-      )?
-    )
-  archive_areas: \b(?:main|non-free-firmware|contrib|non-free)\b

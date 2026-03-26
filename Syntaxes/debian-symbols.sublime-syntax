@@ -1,0 +1,74 @@
+%YAML 1.2
+---
+# See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/unstable/dpkg-dev/deb-src-symbols.5.en.html
+name: symbols (Debian)
+file_extensions:
+  - symbols
+first_line_match: '^lib\S+\.so\.\d+'
+scope: source.debian.symbols
+
+contexts:
+  main:
+    - include: library-header
+    - include: metadata
+    - include: symbol-entry
+    - include: debian-common.sublime-syntax#comments
+
+  # libfoo.so.1 libfoo1 #MINVER#
+  library-header:
+    - match: ^(\S+\.so\.\S+)\s+(\S+)\s+(.*)$
+      captures:
+        1: entity.name.class.library.debian.symbols
+        2: entity.name.other.dependency.debian.symbols
+        3: string.unquoted.version-template.debian.symbols
+
+  # * Field: value
+  metadata:
+    - match: ^\s+(\*)\s+([\w-]+)(:)
+      captures:
+        1: punctuation.definition.metadata.debian.symbols
+        2: meta.mapping.key.debian keyword.control.debian.symbols
+        3: punctuation.separator.mapping.key-value.debian.symbols
+      push:
+        - meta_scope: meta.mapping.debian.symbols
+        - meta_content_scope: meta.mapping.value.debian.symbols
+        - include: debian-common.sublime-syntax#pop-eol
+        - include: debian-common.sublime-syntax#package-name
+
+  # Symbol tags: (optional), (arch=amd64), (c++), etc.
+  symbol-tags:
+    - match: (\()([^)]+)(\))
+      captures:
+        1: punctuation.section.group.begin.debian.symbols
+        2: storage.modifier.debian.symbols
+        3: punctuation.section.group.end.debian.symbols
+
+  #  symbol@Base 1.0
+  symbol-entry:
+    - match: ^\s+(?=\()
+      push:
+        - include: symbol-tags
+        - match: (?=\S+@)
+          set: symbol-name-version
+        - include: debian-common.sublime-syntax#pop-eol
+    - match: ^\s+(?=\S+@)
+      push: symbol-name-version
+    - match: ^\s+(#MISSING:\s+\S+)
+      captures:
+        1: comment.line.missing.debian.symbols
+    - match: ^\s*(#include)\s+(.+)$
+      captures:
+        1: keyword.control.import.debian.symbols
+        2: string.unquoted.filename.debian.symbols
+
+  symbol-name-version:
+    - match: (\S+?)(@)(\S+)\s+
+      captures:
+        1: entity.name.function.symbol.debian.symbols
+        2: punctuation.separator.symbol.debian.symbols
+        3: constant.other.version-node.debian.symbols
+      set:
+        - include: debian-common.sublime-syntax#semantic-version
+        - include: debian-common.sublime-syntax#pop-eol
+    - include: debian-common.sublime-syntax#pop-eol

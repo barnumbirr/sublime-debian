@@ -1,0 +1,36 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: backuppc
+Upstream-Contact: Craig Barratt <cbarratt@users.sourceforge.net>
+Source: https://github.com/backuppc/backuppc
+Disclaimer: This software is provided "as is" without warranty of any kind.
+Comment: The upstream source was repacked to remove non-free components.
+
+Files: *
+Copyright: 2001-2020 Craig Barratt <cbarratt@users.sourceforge.net>
+           2005-2013 Craig Barratt and Rich Duzenbury
+License: GPL-2+
+
+Files: conf/sorttable.js
+Copyright: 1997-2003 Stuart Langridge <sil@kryogenix.org>
+License: X11
+Comment: See https://kryogenix.org/code/browser/sorttable/
+
+Files: debian/*
+Copyright: 2004-2020 Ludovic Drolez <ldrolez@debian.org>
+           2020-2026 Debian BackupPC Team <team+pkg-backuppc@tracker.debian.org>
+License: GPL-2+
+
+License: GPL-2+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; version 2 dated June, 1991, or (at
+ your option) any later version.
+ On Debian systems, the complete text of version 2 of the GNU General
+ Public License can be found in '/usr/share/common-licenses/GPL-2'.
+
+License: X11
+ Permission is hereby granted, free of charge, to any person obtaining
+ a copy of this software and associated documentation files (the
+ "Software"), to deal in the Software without restriction.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.

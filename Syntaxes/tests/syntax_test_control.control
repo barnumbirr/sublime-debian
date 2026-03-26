@@ -1,0 +1,268 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-control.sublime-syntax"
+
+Source: backuppc
+#^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#     ^ punctuation.separator.mapping.key-value.debian.control
+#      ^^^^^^^^^ meta.mapping.value.debian.control
+Section: utils
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#      ^ punctuation.separator.mapping.key-value.debian.control
+#       ^^^^^^ meta.mapping.value.debian.control
+#        ^^^^^ support.constant.section.debian.control
+Priority: optional
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#       ^ punctuation.separator.mapping.key-value.debian.control
+#        ^^^^^^^^^ meta.mapping.value.debian.control
+#         ^^^^^^^^ support.constant.priority.debian.control
+Maintainer: Debian BackupPC Team <team+pkg-backuppc@tracker.debian.org>
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#         ^ punctuation.separator.mapping.key-value.debian.control
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
+#                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.reference.email.debian
+#                                ^ punctuation.definition.reference.email.begin.debian
+#                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.reference.email.debian
+#                                                  ^ punctuation.separator.email.debian
+#                                                          ^ punctuation.separator.domain.debian
+#                                                                 ^ punctuation.separator.domain.debian
+#                                                                     ^ punctuation.definition.reference.email.end.debian
+Uploaders: Tobias Frost <tobi@debian.org>,
+           Axel Beckert <abe@debian.org>,
+           Jonathan Wiltshire <jmw@debian.org>
+
+# Test Build-Depends header keyword
+Build-Depends: debhelper-compat (= 13)
+#^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#            ^ punctuation.separator.mapping.key-value.debian.control
+#              ^^^^^^^^^^^^^^^ support.module.debian
+
+# Test Build-Depends continuation values (assertions on last line only)
+Build-Depends: debhelper-compat (= 13),
+               iputils-ping | inetutils-ping,
+               libbackuppc-xs-perl (>= 0.62),
+               libcgi-pm-perl,
+               libfile-listing-perl,
+               par2,
+               patch,
+               perl,
+               rrdtool
+#              ^^^^^^ support.module.debian
+Architecture: any
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#           ^ punctuation.separator.mapping.key-value.debian.control
+#            ^^^^ meta.mapping.value.debian.control
+#             ^^^ constant.other.architecture.debian
+Rules-Requires-Root: binary-targets
+#^^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#                  ^ punctuation.separator.mapping.key-value.debian.control
+#                   ^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
+#                    ^^^^^^^^^^^^^^ support.constant.debian.control
+Standards-Version: 4.5.1
+Homepage: https://backuppc.github.io/backuppc/
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#       ^ punctuation.separator.mapping.key-value.debian.control
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+Vcs-Git: https://salsa.debian.org/debian/backuppc.git
+Vcs-Browser: https://salsa.debian.org/debian/backuppc
+
+Package: backuppc
+Architecture: amd64 arm64 i386
+#             ^^^^^ constant.other.architecture.debian
+#                   ^^^^^ constant.other.architecture.debian
+#                         ^^^^ constant.other.architecture.debian
+Multi-Arch: same
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#         ^ punctuation.separator.mapping.key-value.debian.control
+#          ^^^^^ meta.mapping.value.debian.control
+#           ^^^^ support.constant.multi-arch.debian.control
+Essential: yes
+#        ^ punctuation.separator.mapping.key-value.debian.control
+#         ^^^^ meta.mapping.value.debian.control
+#          ^^^ constant.language.boolean.true.debian.control
+Package-Type: udeb
+#           ^ punctuation.separator.mapping.key-value.debian.control
+#             ^^^^ storage.type.debian.control
+Installed-Size: 1024
+#               ^^^^ constant.numeric.integer.decimal.debian.control
+Section: non-free/games
+#        ^^^^^^^^^^^^^^ support.constant.section.debian.control
+#                ^ punctuation.separator.path.debian.control
+Pre-Depends: ${misc:Pre-Depends}
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#          ^ punctuation.separator.mapping.key-value.debian.control
+#           ^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
+#            ^^^^^^^^^^^^^^^^^^^ variable.language.debian
+#            ^^ punctuation.definition.variable.begin.debian.control
+#                              ^ punctuation.definition.variable.end.debian.control
+
+# Test Depends header keyword
+Depends: adduser
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#       ^^^^^^^^ meta.mapping.value.debian.control
+
+# Test Depends continuation values with version constraints and alternatives
+Depends: adduser,
+         apache2 | httpd,
+         apache2-utils,
+         backuppc-rsync (>= 3.1.3),
+         perl (>> 5.28),
+         rrdtool (<= 1.8.0),
+         libfoo (<< 2.0),
+         bzip2,
+         default-mta | exim4 | mail-transport-agent,
+         iputils-ping | inetutils-ping,
+         libarchive-zip-perl,
+         libbackuppc-xs-perl (>= 0.62),
+         libcgi-pm-perl,
+         libdigest-md5-perl,
+         libfile-listing-perl,
+         libio-compress-perl | libcompress-zlib-perl,
+         libtime-parsedate-perl,
+         lsb-base,
+         ucf,
+         ${misc:Depends},
+         ${perl:Depends},
+         ${shlibs:Depends}
+#        ^^^^^^^^^^^^^^^^^ variable.language.debian
+
+# Test Depends with version constraints on a single line
+Depends: backuppc-rsync (>= 3.1.3)
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
+#                       ^ punctuation.section.group.begin.debian.control
+#                        ^^ keyword.operator.comparison.debian.control
+#                           ^^^^^ meta.number.version.debian
+#                           ^ constant.numeric.integer.decimal.debian
+#                            ^ punctuation.separator.sequence.debian
+#                             ^ constant.numeric.integer.decimal.debian
+#                              ^ punctuation.separator.sequence.debian
+#                               ^ constant.numeric.integer.decimal.debian
+#                                ^ punctuation.section.group.end.debian.control
+
+# Test Depends with alternative operators
+Depends: apache2 | httpd
+#        ^^^^^^^ support.module.debian
+#                ^ punctuation.separator.sequence.debian.control
+#                  ^^^^^ support.module.debian
+
+# Test Depends with comparison operators
+Depends: perl (>> 5.28)
+#              ^^ keyword.operator.comparison.debian.control
+Depends: rrdtool (<= 1.8.0)
+#                 ^^ keyword.operator.comparison.debian.control
+Depends: libfoo (<< 2.0)
+#                ^^ keyword.operator.comparison.debian.control
+
+Recommends: libio-dirent-perl,
+            openssh-client | ssh-client,
+            rrdtool,
+            samba-common-bin,
+            smbclient
+Suggests: certbot | acme-tiny | acmetool | dehydrated | lacme | lecm | lego,
+          libscgi-perl,
+          par2,
+          rsync,
+          w3m | www-browser
+
+# Test Description header
+Description: high-performance, enterprise-grade system for backing up PCs
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#          ^ punctuation.separator.mapping.key-value.debian.control
+#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.description.synopsis.debian.control
+
+# Test Description body with paragraph markers
+Description: test paragraph separator
+ First paragraph text.
+ Second paragraph text.
+ .
+ Third paragraph text.
+ .
+#^ punctuation.separator.paragraph.debian.control
+
+Package: libfoo-dev
+Architecture: any
+Multi-Arch: same
+
+# Test Depends with substvar on single line
+Depends: libfoo1 (= ${binary:Version})
+#                ^ punctuation.section.group.begin.debian.control
+#                 ^ keyword.operator.comparison.debian.control
+#                   ^^^^^^^^^^^^^^^^^ variable.language.debian
+#                   ^^ punctuation.definition.variable.begin.debian.control
+#                                    ^ punctuation.section.group.end.debian.control
+
+# Test Depends continuation with substvars (assertions on last line only)
+Depends: libfoo1 (= ${binary:Version}),
+         libbar-dev (>= ${binary:Version}),
+         libfoo1 (>= ${source:Version}),
+         ${shlibs:Depends},
+         ${perl:Depends},
+         ${gir:Depends},
+         ${misc:Depends}
+#        ^^^^^^^^^^^^^^^ variable.language.debian
+#        ^^ punctuation.definition.variable.begin.debian.control
+#                      ^ punctuation.definition.variable.end.debian.control
+Recommends: libfoo-doc [linux-amd64]
+#           ^^^^^^^^^^ support.module.debian
+#                      ^ punctuation.section.group.begin.debian.control
+#                       ^^^^^^^^^^^ constant.other.architecture.debian
+#                                  ^ punctuation.section.group.end.debian.control
+Suggests: libfoo-extra [!linux-i386]
+#         ^^^^^^^^^^^^ support.module.debian
+#                      ^ punctuation.section.group.begin.debian.control
+#                       ^ keyword.operator.logical.debian
+#                        ^^^^^^^^^^ constant.other.architecture.debian
+#                                  ^ punctuation.section.group.end.debian.control
+Description: development files for libfoo
+
+# Test Uploaders header keyword
+Uploaders: Axel Beckert <abe@debian.org>
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#        ^ punctuation.separator.mapping.key-value.debian.control
+#                       ^^^^^^^^^^^^^^^^ meta.reference.email.debian
+
+# Test Uploaders multi-line (assertions on last line only)
+Uploaders: Tobias Frost <tobi@debian.org>,
+           Axel Beckert <abe@debian.org>
+#                       ^^^^^^^^^^^^^^^^ meta.reference.email.debian
+
+Build-Profiles: <!nocheck> <cross> <!pkg.foo.bar>
+#^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#             ^ punctuation.separator.mapping.key-value.debian.control
+#               ^ punctuation.section.group.begin.debian.control
+#                ^ keyword.operator.logical.debian
+#                 ^^^^^^^ support.constant.build-profile.debian.control
+#                        ^ punctuation.section.group.end.debian.control
+#                          ^ punctuation.section.group.begin.debian.control
+#                           ^^^^^ support.constant.build-profile.debian.control
+#                                ^ punctuation.section.group.end.debian.control
+#                                  ^ punctuation.section.group.begin.debian.control
+#                                   ^ keyword.operator.logical.debian
+#                                    ^^^^^^^^^^^ support.constant.build-profile.debian.control
+#                                               ^ punctuation.section.group.end.debian.control
+
+Tag: role::program, interface::commandline, suite::debian
+#^^ meta.mapping.key.debian keyword.control.debian.control
+#  ^ punctuation.separator.mapping.key-value.debian.control
+#    ^^^^ entity.name.namespace.debian.control
+#        ^^ punctuation.separator.mapping.key-value.debian.control
+#          ^^^^^^^ support.constant.debian.control
+#                 ^ punctuation.separator.sequence.debian.control
+#                   ^^^^^^^^^ entity.name.namespace.debian.control
+#                            ^^ punctuation.separator.mapping.key-value.debian.control
+#                              ^^^^^^^^^^^ support.constant.debian.control
+#                                         ^ punctuation.separator.sequence.debian.control
+
+Tests: run-tests
+#^^^^ meta.mapping.key.debian keyword.control.debian.control
+#    ^ punctuation.separator.mapping.key-value.debian.control
+#     ^^^^^^^^^^ meta.mapping.value.debian.control
+Depends: @, python3-all
+Restrictions: needs-root, isolation-container, allow-stderr
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#           ^ punctuation.separator.mapping.key-value.debian.control
+#            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
+#             ^^^^^^^^^^ support.constant.restriction.debian
+#                       ^ punctuation.separator.sequence.debian.control
+#                         ^^^^^^^^^^^^^^^^^^^ support.constant.restriction.debian
+#                                            ^ punctuation.separator.sequence.debian.control
+#                                              ^^^^^^^^^^^^ support.constant.restriction.debian

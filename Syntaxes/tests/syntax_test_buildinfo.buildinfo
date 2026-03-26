@@ -1,0 +1,59 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-buildinfo.sublime-syntax"
+
+Format: 1.0
+#^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#     ^ punctuation.separator.mapping.key-value.debian.buildinfo
+#      ^^^^ meta.mapping.value.debian.buildinfo
+
+Source: backuppc (4.4.0-2)
+#^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#     ^ punctuation.separator.mapping.key-value.debian.buildinfo
+#       ^^^^^^^^ support.module.debian
+
+Binary: backuppc
+#^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#     ^ punctuation.separator.mapping.key-value.debian.buildinfo
+#       ^^^^^^^^ support.module.debian
+
+Architecture: amd64 source
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#           ^ punctuation.separator.mapping.key-value.debian.buildinfo
+#             ^^^^^ constant.other.architecture.debian
+#                   ^^^^^^ storage.type.debian.buildinfo
+
+Build-Architecture: amd64
+#^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#                 ^ punctuation.separator.mapping.key-value.debian.buildinfo
+#                   ^^^^^ constant.other.architecture.debian
+
+Build-Date: Wed, 30 Dec 2020 17:20:09 +0100
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.number.date.debian constant.numeric.debian
+
+Build-Path: /build/backuppc-4.4.0
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#         ^ punctuation.separator.mapping.key-value.debian.buildinfo
+
+Installed-Build-Depends:
+ debhelper (= 13.3.4),
+#^^^^^^^^ support.module.debian
+
+Checksums-Sha256:
+ a1b2c3d4e5f6a1b2c3d4 12345 backuppc_4.4.0-2_amd64.deb
+#^^^^^^^^^^^^^^^^^^^ constant.numeric.integer.hexadecimal.debian
+#                     ^^^^^ constant.numeric.integer.decimal.debian
+#                           ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian
+
+Build-Tainted-By: merged-usr-via-aliased-dirs
+#^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#               ^ punctuation.separator.mapping.key-value.debian.buildinfo
+
+Build-Origin: debian
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#           ^ punctuation.separator.mapping.key-value.debian.buildinfo
+
+Environment:
+ DEB_BUILD_OPTIONS="parallel=4"
+#^^^^^^^^^^^^^^^^^ variable.parameter.debian.buildinfo
+#                 ^ punctuation.separator.mapping.key-value.debian.buildinfo
+#                  ^^^^^^^^^^^^ string.quoted.double.debian.buildinfo

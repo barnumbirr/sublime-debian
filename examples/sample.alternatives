@@ -1,0 +1,10 @@
+Name: editor
+Link: /usr/bin/editor
+Alternative: /usr/bin/vim.basic
+Dependents: /usr/share/man/man1/editor.1.gz /usr/share/man/man1/vim.1.gz
+Priority: 50
+
+Name: pager
+Link: /usr/bin/pager
+Alternative: /usr/bin/less
+Priority: 77

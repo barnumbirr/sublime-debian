@@ -1,26 +1,98 @@
 %YAML 1.2
 ---
 # See https://www.sublimetext.com/docs/syntax.html
+# https://wiki.debian.org/doc-base
 name: doc-base (Debian)
 file_extensions:
   - doc-base
-  - .doc-base
+first_line_match: '^Document:\s*'
 scope: source.debian.doc-base
 
 contexts:
   main:
+    - include: debian-common.sublime-syntax#comments
     - include: fields
 
   # /usr/share/doc/doc-base/doc-base.html/
   fields:
-    - match: |-
-        ^(?x:
-          (Document|Title|Author|Abstract|Section|Format|Index|Files
-        ))(:)?
+    # Section field — hierarchical section names
+    # https://www.debian.org/doc/packaging-manuals/doc-base-manual/ch-registering.html
+    - match: ^(Section)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.doc-base
         2: punctuation.separator.mapping.key-value.debian.doc-base
       push:
+        - meta_scope: meta.mapping.debian.doc-base
         - meta_content_scope: meta.mapping.value.debian.doc-base
         - match: ^(?=\S)
           pop: true
+        - match: /
+          scope: punctuation.separator.path.debian.doc-base
+        - match: |-
+            (?x:\b(?:
+              Accessibility|Apps|Data|Editors|Emacs|Games|GNOME
+              |Graphics|Help|Humour|KDE|Logs|Mail|Math
+              |Markup|Network|OCaml|Perl|Programming
+              |Science|Shells|Sound|System|TeX|Text
+              |Tutorials|Typesetting|Web|Window[ ]Managers
+              |Administration|Monitoring|Browsers|Calculators
+              |Clocks|Communication|Configuration|Converting
+              |Databases|Desktop|Dictionary|Documentation
+              |FAQ|File[ ]Management|Financial|General
+              |Hamradio|Horizon|Interpreters|Introspection
+              |LISP|Profilers|Protocols|Puzzles|Simulations
+              |Spreadsheets|Strategy|Telecom|Tools|TODO
+              |Typing|Viewers|Word[ ]Processors
+            )\b)
+          scope: support.constant.section.debian.doc-base
+    # Format field — known document formats
+    - match: ^(Format)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.doc-base
+        2: punctuation.separator.mapping.key-value.debian.doc-base
+      push:
+        - meta_scope: meta.mapping.debian.doc-base
+        - meta_content_scope: meta.mapping.value.debian.doc-base
+        - match: ^(?=\S)
+          pop: true
+        - match: \b(?:HTML|text|PDF|info|DVI|PostScript|TeX|dvi|debiandoc-sgml|DocBook)\b
+          scope: support.constant.format.debian.doc-base
+    # Files and Index fields — file paths
+    - match: ^(Files|Index)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.doc-base
+        2: punctuation.separator.mapping.key-value.debian.doc-base
+      push:
+        - meta_scope: meta.mapping.debian.doc-base
+        - meta_content_scope: meta.mapping.value.debian.doc-base
+        - match: ^(?=\S)
+          pop: true
+        - match: (?=/)
+          push:
+            - meta_content_scope: string.unquoted.path.debian.doc-base
+            - match: /
+              scope: punctuation.separator.path.debian.doc-base
+            - match: (?=\s|$)
+              pop: true
+        - match: '\['
+          scope: punctuation.section.brackets.begin.debian.doc-base keyword.operator.glob.debian.doc-base
+          push:
+            - match: '\]'
+              scope: punctuation.section.brackets.end.debian.doc-base keyword.operator.glob.debian.doc-base
+              pop: true
+            - match: '[^\]]+'
+              scope: constant.other.character-class.debian.doc-base
+        - match: '[*?]'
+          scope: keyword.operator.glob.debian.doc-base
+    # Other fields — freeform text
+    - match: ^(Document|Title|Author|Abstract)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.doc-base
+        2: punctuation.separator.mapping.key-value.debian.doc-base
+      push:
+        - meta_scope: meta.mapping.debian.doc-base
+        - meta_content_scope: meta.mapping.value.debian.doc-base
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#email-address
+        - include: debian-common.sublime-syntax#url

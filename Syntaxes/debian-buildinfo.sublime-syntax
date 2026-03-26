@@ -1,0 +1,119 @@
+%YAML 1.2
+---
+# See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/unstable/dpkg-dev/deb-buildinfo.5.en.html
+name: buildinfo (Debian)
+file_extensions:
+  - buildinfo
+first_line_match: '^-----BEGIN PGP|^Format:\s*1\.0\b'
+scope: source.debian.buildinfo
+
+contexts:
+  main:
+    - include: debian-common.sublime-syntax#comments
+    - include: debian-common.sublime-syntax#pgp-signed-message
+    - include: debian-common.sublime-syntax#pgp-signatures
+    - include: fields
+
+  fields:
+    # Dependency fields — contain package names
+    - match: ^(Binary|Installed-Build-Depends)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.buildinfo
+        2: punctuation.separator.mapping.key-value.debian.buildinfo
+      push:
+        - meta_scope: meta.mapping.debian.buildinfo
+        - meta_content_scope: meta.mapping.value.debian.buildinfo
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#deb822-dependency-value
+    # Checksum fields — contain hash, size, filename triplets
+    - match: ^(Checksums-(?:Md5|Sha1|Sha256)|Files)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.buildinfo
+        2: punctuation.separator.mapping.key-value.debian.buildinfo
+      push:
+        - meta_scope: meta.mapping.debian.buildinfo
+        - meta_content_scope: meta.mapping.value.debian.buildinfo
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#deb822-checksum-value
+    # Version field — semantic version
+    - match: ^(Version)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.buildinfo
+        2: punctuation.separator.mapping.key-value.debian.buildinfo
+      push:
+        - meta_scope: meta.mapping.debian.buildinfo
+        - meta_content_scope: meta.mapping.value.debian.buildinfo
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#semantic-version
+    # Source field — package name with optional version
+    - match: ^(Source)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.buildinfo
+        2: punctuation.separator.mapping.key-value.debian.buildinfo
+      push:
+        - meta_scope: meta.mapping.debian.buildinfo
+        - meta_content_scope: meta.mapping.value.debian.buildinfo
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#package-name
+        - include: debian-common.sublime-syntax#semver-flag
+    # Architecture field — architecture constants
+    - match: ^(Architecture|Build-Architecture)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.buildinfo
+        2: punctuation.separator.mapping.key-value.debian.buildinfo
+      push:
+        - meta_scope: meta.mapping.debian.buildinfo
+        - meta_content_scope: meta.mapping.value.debian.buildinfo
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#architectures
+        - match: \bsource\b
+          scope: storage.type.debian.buildinfo
+    # Build-Date field — RFC 2822 date
+    - match: ^(Build-Date)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.buildinfo
+        2: punctuation.separator.mapping.key-value.debian.buildinfo
+      push:
+        - meta_scope: meta.mapping.debian.buildinfo
+        - meta_content_scope: meta.mapping.value.debian.buildinfo
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#date-iso
+    # Environment field — key=value pairs
+    - match: ^(Environment)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.buildinfo
+        2: punctuation.separator.mapping.key-value.debian.buildinfo
+      push:
+        - meta_scope: meta.mapping.debian.buildinfo
+        - meta_content_scope: meta.mapping.value.debian.buildinfo
+        - match: ^(?=\S)
+          pop: true
+        - match: '([\w]+)(=)'
+          captures:
+            1: variable.parameter.debian.buildinfo
+            2: punctuation.separator.mapping.key-value.debian.buildinfo
+        - match: '"[^"]*"'
+          scope: string.quoted.double.debian.buildinfo
+    # Other fields
+    - match: |-
+        ^(?x:
+          (Format
+            |Build-(?:Path|Tainted-By|Origin|Kernel-Version)
+            |Binary-Only-Changes
+        ))(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.buildinfo
+        2: punctuation.separator.mapping.key-value.debian.buildinfo
+      push:
+        - meta_scope: meta.mapping.debian.buildinfo
+        - meta_content_scope: meta.mapping.value.debian.buildinfo
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#deb822-general-value

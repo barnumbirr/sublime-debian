@@ -1,0 +1,7 @@
+# dpkg triggers for backuppc
+interest /usr/share/icons/hicolor
+interest-await /usr/share/applications
+interest-noawait /usr/share/mime/packages
+activate ldconfig
+activate-await /usr/share/icons/hicolor
+activate-noawait ldconfig

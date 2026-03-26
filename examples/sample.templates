@@ -1,0 +1,20 @@
+Template: backuppc/reconfigure-webserver
+Type: multiselect
+Default: apache2
+Description: Please choose the web server(s) to configure automatically:
+ BackupPC can be configured to run with any of the following web servers.
+ Select one or more to configure automatically.
+Choices: apache2, lighttpd, nginx
+
+Template: backuppc/restart-webserver
+Type: boolean
+_Default: true
+_Description: Should the web server be restarted now?
+_Choices: yes, no
+
+Choices-C: apache2, lighttpd, nginx
+
+# Comment in template file
+Template: backuppc/admin-pass
+Type: password
+Description: BackupPC admin password:

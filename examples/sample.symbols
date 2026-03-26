@@ -1,0 +1,30 @@
+# Symbols file for libfoo
+libfoo.so.1 libfoo1 #MINVER#
+ * Build-Depends-Package: libfoo-dev
+ * Build-Depends-Packages: libfoo-dev libfoo-dev-extra
+ * Allow-Internal-Symbol-Groups: private
+ (optional)foo_internal@Base 1.0
+ (allow-internal)foo_private_api@Base 1.0
+ (arch=amd64 arch=arm64)foo_simd_init@Base 1.2
+ (arch-bits=64)foo_wide@Base 1.1
+ (arch-endian=little)foo_le_init@Base 1.1
+ (c++)_ZN3Foo7processEv@Base 1.0
+ (symver)foo_v2@FOO_2.0 2.0
+ (regex)"^foo_v[0-9]+_init@Base$" 1.0
+ foo_init@Base 1.0
+ foo_destroy@Base 1.0
+ foo_process@Base 1.2-1
+ foo_new_feature@Base 1.3~beta1
+
+libbar.so.2 libbar2 #PACKAGE#
+ * Build-Depends-Package: libbar-dev
+ (optional)bar_debug@Base 2.0
+ bar_init@Base 2.0
+ bar_close@Base 2.0
+ #MISSING: 2.1# bar_resize@Base 2.1
+
+#include "libbar.so.2.symbols.common"
+
+libbaz.so.3 libbaz3 #CURVER#
+ * Build-Depends-Package: libbaz-dev
+ baz_init@Base 3.0

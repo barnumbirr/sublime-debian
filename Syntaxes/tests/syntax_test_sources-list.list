@@ -1,0 +1,51 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-sources-list.sublime-syntax"
+
+# Comment line
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^ comment.line.debian
+
+deb http://deb.debian.org/debian/ bookworm main contrib non-free
+# <- storage.type.debian.sources-list
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list
+#                                 ^^^^^^^^ support.constant.debian
+#                                          ^^^^ support.constant.component.debian.sources-list
+#                                               ^^^^^^^ support.constant.component.debian.sources-list
+#                                                       ^^^^^^^^ support.constant.component.debian.sources-list
+
+deb-src http://deb.debian.org/debian/ bookworm main
+#^^^^^^ storage.type.debian.sources-list
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list
+
+deb [arch=amd64 signed-by=/usr/share/keyrings/foo.gpg] https://example.com/repo stable main
+#   ^ punctuation.section.brackets.begin.debian.sources-list
+#    ^^^^ variable.parameter.debian.sources-list
+#        ^ punctuation.separator.mapping.key-value.debian.sources-list
+#         ^^^^^ constant.other.architecture.debian
+#               ^^^^^^^^^ variable.parameter.debian.sources-list
+#                        ^ punctuation.separator.mapping.key-value.debian.sources-list
+#                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.sources-list
+#                                                    ^ punctuation.section.brackets.end.debian.sources-list
+
+deb [arch=amd64,arm64 trusted=yes] https://example.com/repo trixie main
+#        ^ punctuation.separator.mapping.key-value.debian.sources-list
+#              ^ punctuation.separator.sequence.debian.sources-list
+#                     ^^^^^^^ variable.parameter.debian.sources-list
+#                            ^ punctuation.separator.mapping.key-value.debian.sources-list
+#                             ^^^ constant.language.boolean.debian.sources-list
+#                                ^ punctuation.section.brackets.end.debian.sources-list
+
+# Non-HTTP URI schemes
+deb file:/local/repo stable main
+#   ^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list
+
+deb cdrom:[Debian-12.0]/ bookworm main
+#   ^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list
+
+# Suite suffixes
+deb http://security.debian.org/debian-security bookworm-security main
+#                                              ^^^^^^^^^^^^^^^^^ support.constant.debian
+
+deb http://deb.debian.org/debian/ unstable main non-free-firmware
+#                                 ^^^^^^^^ support.constant.debian
+#                                          ^^^^ support.constant.component.debian.sources-list
+#                                               ^^^^^^^^^^^^^^^^^ support.constant.component.debian.sources-list

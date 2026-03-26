@@ -1,0 +1,137 @@
+%YAML 1.2
+---
+# See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/unstable/dpkg-dev/deb-changes.5.en.html
+name: changes (Debian)
+file_extensions:
+  - changes
+first_line_match: '^-----BEGIN PGP|^Format:\s*1\.[5-9]\b'
+scope: source.debian.changes
+
+contexts:
+  main:
+    - include: debian-common.sublime-syntax#comments
+    - include: debian-common.sublime-syntax#pgp-signed-message
+    - include: debian-common.sublime-syntax#pgp-signatures
+    - include: fields
+
+  fields:
+    # Dependency fields — contain package names
+    - match: ^(Binary)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.changes
+        2: punctuation.separator.mapping.key-value.debian.changes
+      push:
+        - meta_scope: meta.mapping.debian.changes
+        - meta_content_scope: meta.mapping.value.debian.changes
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#deb822-dependency-value
+    # Checksum fields — contain hash, size, filename triplets
+    - match: ^(Checksums-(?:Sha1|Sha256)|Files)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.changes
+        2: punctuation.separator.mapping.key-value.debian.changes
+      push:
+        - meta_scope: meta.mapping.debian.changes
+        - meta_content_scope: meta.mapping.value.debian.changes
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#deb822-checksum-value
+    # Distribution field — suite names
+    - match: ^(Distribution)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.changes
+        2: punctuation.separator.mapping.key-value.debian.changes
+      push:
+        - meta_scope: meta.mapping.debian.changes
+        - meta_content_scope: meta.mapping.value.debian.changes
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#suites
+    # Urgency field
+    - match: ^(Urgency)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.changes
+        2: punctuation.separator.mapping.key-value.debian.changes
+      push:
+        - meta_scope: meta.mapping.debian.changes
+        - meta_content_scope: meta.mapping.value.debian.changes
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#urgency
+    # Version field — semantic version
+    - match: ^(Version)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.changes
+        2: punctuation.separator.mapping.key-value.debian.changes
+      push:
+        - meta_scope: meta.mapping.debian.changes
+        - meta_content_scope: meta.mapping.value.debian.changes
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#semantic-version
+    # Source field — package name
+    - match: ^(Source)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.changes
+        2: punctuation.separator.mapping.key-value.debian.changes
+      push:
+        - meta_scope: meta.mapping.debian.changes
+        - meta_content_scope: meta.mapping.value.debian.changes
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#package-name
+        - include: debian-common.sublime-syntax#semver-flag
+    # Changes field — may contain bug close references
+    - match: ^(Changes|Closes)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.changes
+        2: punctuation.separator.mapping.key-value.debian.changes
+      push:
+        - meta_scope: meta.mapping.debian.changes
+        - meta_content_scope: meta.mapping.value.debian.changes
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#bug-close
+        - include: debian-common.sublime-syntax#url
+    # Architecture field — architecture constants
+    - match: ^(Architecture)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.changes
+        2: punctuation.separator.mapping.key-value.debian.changes
+      push:
+        - meta_scope: meta.mapping.debian.changes
+        - meta_content_scope: meta.mapping.value.debian.changes
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#architectures
+        - match: \bsource\b
+          scope: storage.type.debian.changes
+    # Date field — RFC 2822 date
+    - match: ^(Date)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.changes
+        2: punctuation.separator.mapping.key-value.debian.changes
+      push:
+        - meta_scope: meta.mapping.debian.changes
+        - meta_content_scope: meta.mapping.value.debian.changes
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#date-iso
+    # Other fields
+    - match: |-
+        ^(?x:
+          (Format|Binary-Only
+            |Maintainer|Changed-By|Description
+            |Built-For-Profiles
+        ))(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.changes
+        2: punctuation.separator.mapping.key-value.debian.changes
+      push:
+        - meta_scope: meta.mapping.debian.changes
+        - meta_content_scope: meta.mapping.value.debian.changes
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#deb822-general-value

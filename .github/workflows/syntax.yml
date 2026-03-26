@@ -4,13 +4,17 @@ on:
   push:
     paths:
       - '**.sublime-syntax'
-      - '**/syntax_test_*'
+      - 'Syntaxes/tests/syntax_test_*'
       - '**.tmPreferences'
   pull_request:
     paths:
       - '**.sublime-syntax'
-      - '**/syntax_test_*'
+      - 'Syntaxes/tests/syntax_test_*'
       - '**.tmPreferences'
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   syntax_tests:
@@ -23,14 +27,14 @@ jobs:
       matrix:
         include:
           - build: latest
-          - build: 3210
+          - build: 4143
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Run syntax tests
-        uses: SublimeText/syntax-test-action@v2
+        uses: SublimeText/syntax-test-action@14f4a5fbcd0ffaa4a1adba2dbf9193585dce93fc # v2
         with:
           build: ${{ matrix.build }}
           package_name: ${{ env.package_name }}
-          package_root: ${{ env.package_name }}
+          package_root: .

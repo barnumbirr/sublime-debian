@@ -4,6 +4,7 @@
 name: copyright (Debian)
 file_extensions:
   - copyright
+first_line_match: '^Format:\s*https?://'
 scope: text.debian.license
 
 contexts:
@@ -13,17 +14,114 @@ contexts:
 
   # https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
   paragraphs:
+    # Files field — glob patterns
+    - match: ^(Files)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.copyright
+        2: punctuation.separator.mapping.key-value.debian.copyright
+      push:
+        - meta_scope: meta.mapping.debian.copyright
+        - meta_content_scope: meta.mapping.value.debian.copyright
+        - match: ^(?=\S)
+          pop: true
+        - match: '\['
+          scope: punctuation.section.brackets.begin.debian.copyright keyword.operator.glob.debian.copyright
+          push:
+            - match: '\]'
+              scope: punctuation.section.brackets.end.debian.copyright keyword.operator.glob.debian.copyright
+              pop: true
+            - match: '[^\]]+'
+              scope: constant.other.character-class.debian.copyright
+        - match: '[*?]'
+          scope: keyword.operator.glob.debian.copyright
+    # Copyright field — years and holders
+    - match: ^(Copyright)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.copyright
+        2: punctuation.separator.mapping.key-value.debian.copyright
+      push:
+        - meta_scope: meta.mapping.debian.copyright
+        - meta_content_scope: meta.mapping.value.debian.copyright
+        - match: ^(?=\S)
+          pop: true
+        - match: '©|\([Cc]\)'
+          scope: keyword.operator.copyright.debian.copyright
+        - include: copyright-years
+        - include: debian-common.sublime-syntax#email-address
+    # License field — SPDX identifiers with and/or combinators
+    - match: ^(License)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.copyright
+        2: punctuation.separator.mapping.key-value.debian.copyright
+      push:
+        - meta_scope: meta.mapping.debian.copyright
+        - meta_content_scope: meta.mapping.value.debian.copyright
+        - match: ^(?=\S)
+          pop: true
+        - include: license-identifiers
+        - include: license-operators
+        - include: license-exceptions
+    # Other fields — email, URL
     - match: |-
         ^(?x:
-          (Format|Upstream-(Name|Contact)|Source|Disclaimer|Comment|License
-            |Copyright|Files|Comment
+          (Format|Upstream-(?:Name|Contact)|Source|Disclaimer|Comment
         ))(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.copyright
         2: punctuation.separator.mapping.key-value.debian.copyright
       push:
+        - meta_scope: meta.mapping.debian.copyright
         - meta_content_scope: meta.mapping.value.debian.copyright
         - match: ^(?=\S)
           pop: true
         - include: debian-common.sublime-syntax#email-address
         - include: debian-common.sublime-syntax#url
+
+  copyright-years:
+    - match: \b(\d{4})\s*(-)\s*(\d{4})\b
+      captures:
+        1: constant.numeric.integer.decimal.debian.copyright
+        2: punctuation.separator.range.debian.copyright
+        3: constant.numeric.integer.decimal.debian.copyright
+    - match: \b\d{4}\b
+      scope: constant.numeric.integer.decimal.debian.copyright
+
+  license-identifiers:
+    - match: |-
+        (?x:\b(?:
+          GPL-[123](?:\.\d)?(?:-(?:only|or-later))?(?:\+)?
+          |LGPL-[23](?:\.\d)?(?:-(?:only|or-later))?(?:\+)?
+          |AGPL-[13](?:\.\d)?(?:-(?:only|or-later))?(?:\+)?
+          |MPL-[12](?:\.\d)?
+          |GFDL-1\.[123](?:-(?:only|or-later|(?:no-)?invariants-(?:only|or-later)))?
+          |Apache-[12](?:\.\d)?|Artistic(?:-[12](?:\.\d)?)?
+          |BSD-[234]-Clause|0BSD|MIT|ISC|Zlib|BSL-[12](?:\.\d)?
+          |CC-BY(?:-(?:SA|NC|ND|NC-SA|NC-ND))?-[1234]\.\d
+          |CC0-1\.0|Unlicense|WTFPL|public-domain
+          |EUPL-1\.[12]|OFL-1\.[01]|QPL-1\.0
+          |LPPL-1\.[0-3][a-c]?
+          |PostgreSQL|Python-2\.0(?:\.1)?|Ruby|Vim|Sleepycat
+          |Latex2e|NTP|OpenSSL|curl|FSFAP|PHP-3\.[01]
+          |Sendmail(?:-8\.23)?|Unicode-(?:DFS-2016|TOU)
+          |Xerox|diffmark|Spencer-(?:86|94|99)
+        )\b)
+      scope: support.constant.license.debian.copyright
+
+  license-operators:
+    - match: \b(?:and|or|WITH)\b
+      scope: keyword.operator.word.debian.copyright
+
+  license-exceptions:
+    - match: |-
+        (?x:\b(?:
+          Classpath-exception-2\.0|GCC-exception-3\.1
+          |LLVM-exception|Bootloader-exception
+          |Libtool-exception|Font-exception-2\.0
+          |Autoconf-exception-(?:2\.0|3\.0|generic(?:-3\.0)?)
+          |Bison-exception-(?:1\.24|2\.2)
+          |OCaml-LGPL-linking-exception|OpenVPN-openssl-exception
+          |Qt-LGPL-exception-1\.1|Swift-exception
+          |Universal-FOSS-exception-1\.0|WxWindows-exception-3\.1
+          |PS-or-PDF-font-exception-20170817
+        )\b)
+      scope: support.constant.license-exception.debian.copyright

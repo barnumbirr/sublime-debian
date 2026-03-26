@@ -1,0 +1,110 @@
+backuppc (4.4.0-3) UNRELEASED; urgency=medium
+
+  * Fix buffer overflow in `parse_input` when handling oversized frames.
+  * Refactor `config_read` to support new options.
+  * Fix regression introduced in 4.4.0-2 (Closes: #102030, #102031)
+  * Also fixes (closes: #102032) with lowercase variant.
+  * Fix Launchpad bug (LP: Bug #98765)
+  * See discussion at https://bugs.debian.org/102030 for details.
+
+ -- Axel Beckert <abe@debian.org>  Tue, 25 Mar 2026 12:00:00 +0100
+
+backuppc (4.4.0-2) unstable; urgency=medium
+
+  * postinst: Fix dpkg-statoverride warning "deprecated --force option".
+  * Make backuppc-rsync a hard dependency.
+
+ -- Axel Beckert <abe@debian.org>  Thu, 31 Dec 2020 16:54:06 +0100
+
+backuppc (4.4.0-1) stable; urgency=medium
+
+  [ Debian Janitor ]
+  * Wrap long lines in changelog entries: 3.1.0-1.
+  * Bump debhelper from old 11 to 12.
+
+  [ Jonathan Wiltshire ]
+  * New major upstream release (Closes: #873075)
+    + Add new depends/recommends: libbackuppc-xs-perl
+    + Install upstream systemd service file.
+    [ Axel Beckert ]
+    + Refresh patches for 4.4.0.
+    + Drop dependency on libwww-perl. (See #602787)
+    + Drop 03-ipv6.patch and libsocket6-perl dependencies.
+
+  [ Axel Beckert ]
+  * Rename debian/{NEWS.Debian → NEWS}, fix syntax of 2018 trailer line.
+  * Declare compliance with Debian Policy 4.5.1. (No changes needed.)
+
+ -- Axel Beckert <abe@debian.org>  Wed, 30 Dec 2020 17:20:09 +0100
+
+backuppc (4.3.2-1) bookworm-security; urgency=high
+
+  * Security fix for CVE-2020-12345.
+
+ -- Security Team <team@security.debian.org>  Mon, 01 Jun 2020 10:00:00 +0000
+
+backuppc (4.3.1-2) trixie-updates; urgency=medium
+
+  * Point release rebuild.
+
+ -- Maintainer <maint@debian.org>  Sun, 20 Jul 2025 10:00:00 +0000
+
+backuppc (4.3.1-1) trixie-proposed-updates; urgency=medium
+
+  * Proposed update for trixie stable.
+
+ -- Maintainer <maint@debian.org>  Sat, 19 Jul 2025 10:00:00 +0000
+
+backuppc (4.3.0-1~bpo12+1) bookworm-backports; urgency=low
+
+  * Rebuild for bookworm-backports.
+
+ -- Maintainer <maint@debian.org>  Sat, 15 May 2021 08:00:00 +0000
+
+backuppc (4.2.0-1) testing; urgency=medium
+
+  * Upload targeting testing migration.
+
+ -- Maintainer <maint@debian.org>  Fri, 01 Jan 2021 12:00:00 +0000
+
+backuppc (4.1.0-1) experimental; urgency=low
+
+  * Experimental upload of new upstream.
+
+ -- Maintainer <maint@debian.org>  Thu, 01 Oct 2020 12:00:00 +0000
+
+backuppc (4.0.0-1) oldstable; urgency=medium
+
+  * Targeted rebuild for oldstable point release.
+
+ -- Maintainer <maint@debian.org>  Wed, 01 Jul 2020 12:00:00 +0000
+
+backuppc (3.0.0-1) oldoldstable; urgency=low
+
+  * Targeted rebuild for oldoldstable.
+
+ -- Maintainer <maint@debian.org>  Tue, 01 Jan 2019 12:00:00 +0000
+
+backuppc (1:2.0.0-1) trixie; urgency=medium
+
+  * Epoch bump for version ordering fix.
+
+ -- Maintainer <maint@debian.org>  Tue, 01 Apr 2025 12:00:00 +0000
+
+backuppc (1.0.0~beta1-1) forky; urgency=low
+
+  * Beta release targeting forky.
+
+ -- Maintainer <maint@debian.org>  Mon, 01 Mar 2027 12:00:00 +0000
+
+backuppc (0.9.0-1) bookworm; urgency=medium
+
+  * Targeted release for bookworm.
+
+ -- Maintainer <maint@debian.org>  Sun, 01 Jan 2023 12:00:00 +0000
+
+backuppc (0.8.0-1) bullseye; urgency=medium
+
+  * Targeted release for bullseye.
+
+ -- Maintainer <maint@debian.org>  Sat, 01 Jan 2022 12:00:00 +0000

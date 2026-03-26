@@ -1,0 +1,29 @@
+%YAML 1.2
+---
+# See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/unstable/dpkg-dev/deb-substvars.5.en.html
+name: substvars (Debian)
+file_extensions:
+  - substvars
+first_line_match: '^\w[\w:.-]+=\S'
+scope: source.debian.substvars
+
+contexts:
+  main:
+    - include: debian-common.sublime-syntax#comments
+    - include: entries
+
+  entries:
+    # variable=value, variable?=value, variable!=value, variable$=value
+    - match: ^([\w][\w:.-]*)([$?!]?=)
+      captures:
+        1: meta.mapping.key.debian variable.language.debian.substvars
+        2: punctuation.separator.mapping.key-value.debian.substvars
+      push:
+        - meta_scope: meta.mapping.debian.substvars
+        - meta_content_scope: meta.mapping.value.debian.substvars
+        - include: debian-common.sublime-syntax#pop-eol
+        - include: debian-common.sublime-syntax#semver-flag
+        - match: ','
+          scope: punctuation.separator.sequence.debian.substvars
+        - include: debian-common.sublime-syntax#package-name

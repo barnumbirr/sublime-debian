@@ -1,0 +1,221 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-copyright.sublime-syntax"
+
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+#^^^^^ meta.mapping.key.debian keyword.control.debian.copyright
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.copyright
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+Upstream-Name: backuppc
+Source: http://backuppc.sourceforge.net/
+#^^^^^ meta.mapping.key.debian keyword.control.debian.copyright
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.copyright
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+
+Files: *
+#^^^^ meta.mapping.key.debian keyword.control.debian.copyright
+#    ^ punctuation.separator.mapping.key-value.debian.copyright
+#     ^^ meta.mapping.value.debian.copyright
+#      ^ keyword.operator.glob.debian.copyright
+
+# Test Copyright header keyword
+Copyright: 2001-2015 Craig Barratt
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.copyright
+#        ^ punctuation.separator.mapping.key-value.debian.copyright
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.copyright
+#          ^^^^ constant.numeric.integer.decimal.debian.copyright
+#              ^ punctuation.separator.range.debian.copyright
+#               ^^^^ constant.numeric.integer.decimal.debian.copyright
+
+# Test Copyright multi-line continuation (assertions on last line only)
+Copyright: 2001-2015 Craig Barratt
+           2005-2013 Craig Barratt and Rich Duzenbury
+#          ^^^^ constant.numeric.integer.decimal.debian.copyright
+#              ^ punctuation.separator.range.debian.copyright
+#               ^^^^ constant.numeric.integer.decimal.debian.copyright
+License: GPL-2+
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.copyright
+#      ^ punctuation.separator.mapping.key-value.debian.copyright
+#        ^^^^^ support.constant.license.debian.copyright
+
+Files: conf/sorttable.js
+Copyright: 1997-2003 Stuart Langridge <sil@kryogenix.org>
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.copyright
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.copyright
+#          ^^^^ constant.numeric.integer.decimal.debian.copyright
+#              ^ punctuation.separator.range.debian.copyright
+#               ^^^^ constant.numeric.integer.decimal.debian.copyright
+#                                     ^^^^^^^^^^^^^^^^^^^ meta.reference.email.debian
+#                                     ^ punctuation.definition.reference.email.begin.debian
+#                                      ^^^^^^^^^^^^^^^^^ entity.name.reference.email.debian
+#                                         ^ punctuation.separator.email.debian
+#                                                   ^ punctuation.separator.domain.debian
+#                                                       ^ punctuation.definition.reference.email.end.debian
+License: X11
+Comment: See https://kryogenix.org/code/browser/sorttable/ and
+ https://kryogenix.org/code/browser/licence.html
+
+Files: lib/BackupPC/Xfer/Ftp.pm
+Copyright: 2008, Paul Mantz, Zmanda Inc.
+#          ^^^^ constant.numeric.integer.decimal.debian.copyright
+License: GPL-2+
+
+Files: lib/BackupPC/Zip/*
+#                       ^ keyword.operator.glob.debian.copyright
+
+# Test Copyright multi-line with single year
+Copyright: 2002-2015 Craig Barratt
+           2000 Ned Konz
+#          ^^^^ constant.numeric.integer.decimal.debian.copyright
+License: GPL-2+
+
+Files: debian/*
+#             ^ keyword.operator.glob.debian.copyright
+Copyright: 2004-2016 Ludovic Drolez <ldrolez@debian.org>
+License: GPL-2+
+
+Files: debian/BackupPC_deleteFile debian/jLib.pm
+Copyright: 2008-2013 Jeff Kosowsky
+License: GPL-2+
+Comment: Source of jLib.pm is
+ https://sourceforge.net/p/backuppc/mailman/message/27416276/
+
+License: GPL-2+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; version 2 dated June, 1991, or (at
+ your option) any later version.
+ On Debian systems, the complete text of version 2 of the GNU General
+ Public License can be found in '/usr/share/common-licenses/GPL-2'.
+
+License: X11
+ Permission is hereby granted, free of charge, to any person obtaining
+ a copy of this software and associated documentation files (the
+ "Software"), to deal in the Software without restriction, including
+ without limitation the rights to use, copy, modify, merge, publish,
+ distribute, sublicense, and/or sell copies of the Software, and to
+ permit persons to whom the Software is furnished to do so, subject to
+ the following conditions:
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+ BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+Disclaimer: This software is provided "as is" without any warranty.
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.copyright
+#         ^ punctuation.separator.mapping.key-value.debian.copyright
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.copyright
+
+Upstream-Contact: John Doe <jdoe@example.com>
+#^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.copyright
+#               ^ punctuation.separator.mapping.key-value.debian.copyright
+#                          ^^^^^^^^^^^^^^^^^ meta.reference.email.debian
+#                          ^ punctuation.definition.reference.email.begin.debian
+#                           ^^^^^^^^^^^^^^^ entity.name.reference.email.debian
+#                               ^ punctuation.separator.email.debian
+#                                       ^ punctuation.separator.domain.debian
+#                                           ^ punctuation.definition.reference.email.end.debian
+
+Copyright: 2020 Jane Smith <jane@example.org>
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.copyright
+#        ^ punctuation.separator.mapping.key-value.debian.copyright
+#          ^^^^ constant.numeric.integer.decimal.debian.copyright
+#                          ^^^^^^^^^^^^^^^^^^ meta.reference.email.debian
+#                          ^ punctuation.definition.reference.email.begin.debian
+#                           ^^^^^^^^^^^^^^^^ entity.name.reference.email.debian
+#                               ^ punctuation.separator.email.debian
+#                                       ^ punctuation.separator.domain.debian
+#                                           ^ punctuation.definition.reference.email.end.debian
+
+# License identifier tests
+License: MIT
+#        ^^^ support.constant.license.debian.copyright
+License: Apache-2.0
+#        ^^^^^^^^^^ support.constant.license.debian.copyright
+License: BSD-3-Clause
+#        ^^^^^^^^^^^^ support.constant.license.debian.copyright
+License: LGPL-2.1+
+#        ^^^^^^^^ support.constant.license.debian.copyright
+License: GPL-3
+#        ^^^^^ support.constant.license.debian.copyright
+License: ISC
+#        ^^^ support.constant.license.debian.copyright
+License: CC-BY-SA-4.0
+#        ^^^^^^^^^^^^ support.constant.license.debian.copyright
+License: CC0-1.0
+#        ^^^^^^^ support.constant.license.debian.copyright
+License: Zlib
+#        ^^^^ support.constant.license.debian.copyright
+License: MPL-2.0
+#        ^^^^^^^ support.constant.license.debian.copyright
+
+# License combinator tests
+License: GPL-2+ or MIT
+#        ^^^^^ support.constant.license.debian.copyright
+#               ^^ keyword.operator.word.debian.copyright
+#                  ^^^ support.constant.license.debian.copyright
+License: Apache-2.0 and GPL-3
+#        ^^^^^^^^^^ support.constant.license.debian.copyright
+#                   ^^^ keyword.operator.word.debian.copyright
+#                       ^^^^^ support.constant.license.debian.copyright
+
+# Copyright symbol tests
+Copyright: (c) 2020 John Doe
+#          ^^^ keyword.operator.copyright.debian.copyright
+#              ^^^^ constant.numeric.integer.decimal.debian.copyright
+Copyright: © 2021 Jane Smith
+#          ^ keyword.operator.copyright.debian.copyright
+#            ^^^^ constant.numeric.integer.decimal.debian.copyright
+Copyright: (C) 2019-2023 Acme Corp.
+#          ^^^ keyword.operator.copyright.debian.copyright
+#              ^^^^ constant.numeric.integer.decimal.debian.copyright
+#                  ^ punctuation.separator.range.debian.copyright
+#                   ^^^^ constant.numeric.integer.decimal.debian.copyright
+
+# WITH exception tests
+License: GPL-2.0-or-later WITH Classpath-exception-2.0
+#        ^^^^^^^^^^^^^^^^ support.constant.license.debian.copyright
+#                         ^^^^ keyword.operator.word.debian.copyright
+#                              ^^^^^^^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+License: Apache-2.0 WITH LLVM-exception
+#        ^^^^^^^^^^ support.constant.license.debian.copyright
+#                   ^^^^ keyword.operator.word.debian.copyright
+#                        ^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+License: GPL-3.0-only WITH GCC-exception-3.1
+#        ^^^^^^^^^^^^ support.constant.license.debian.copyright
+#                     ^^^^ keyword.operator.word.debian.copyright
+#                          ^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+
+# Expanded SPDX identifier tests
+License: 0BSD
+#        ^^^^ support.constant.license.debian.copyright
+License: PostgreSQL
+#        ^^^^^^^^^^ support.constant.license.debian.copyright
+License: OFL-1.1
+#        ^^^^^^^ support.constant.license.debian.copyright
+License: GFDL-1.3-or-later
+#        ^^^^^^^^^^^^^^^^^ support.constant.license.debian.copyright
+License: EUPL-1.2
+#        ^^^^^^^^ support.constant.license.debian.copyright
+License: Python-2.0
+#        ^^^^^^^^^^ support.constant.license.debian.copyright
+License: Vim
+#        ^^^ support.constant.license.debian.copyright
+License: LPPL-1.3c
+#        ^^^^^^^^^ support.constant.license.debian.copyright
+License: NTP
+#        ^^^ support.constant.license.debian.copyright
+License: OpenSSL
+#        ^^^^^^^ support.constant.license.debian.copyright
+License: curl
+#        ^^^^ support.constant.license.debian.copyright
+
+# Glob pattern tests
+Files: src/*.c src/*.h
+#          ^ keyword.operator.glob.debian.copyright
+#                  ^ keyword.operator.glob.debian.copyright
+Files: tests/?_test.py
+#            ^ keyword.operator.glob.debian.copyright

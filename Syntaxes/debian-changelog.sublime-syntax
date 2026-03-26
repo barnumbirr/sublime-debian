@@ -1,10 +1,12 @@
 %YAML 1.2
 ---
 # See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/unstable/dpkg-dev/deb-changelog.5.en.html
 name: changelog (Debian)
 file_extensions:
   - changelog
   - NEWS
+first_line_match: '^[\w][\w.+-]+\s+\('
 scope: source.debian.changelog
 
 contexts:
@@ -21,18 +23,26 @@ contexts:
     - match: \(
       scope: punctuation.section.group.begin.debian.changelog
       push:
-        - meta_scope: meta.version-number.debian.changelog
+        - meta_scope: meta.number.version.debian.changelog
                       meta.parens.debian.changelog
         - include: debian-common.sublime-syntax#semantic-version
         - match: \)
           scope: punctuation.section.group.end.debian.changelog
           pop: true
         - include: debian-common.sublime-syntax#pop-eol
-    - match: \b(?:(?:old){0,2}stable|testing|unstable|experimental)\b
+    - match: \bUNRELEASED\b
       scope: constant.language.debian.changelog
-    - include: debian-common.sublime-syntax#debian-versions
+    - include: debian-common.sublime-syntax#suites
     - match: ;
       scope: punctuation.separator.sequence.debian.changelog
+    - match: (urgency)(=)
+      captures:
+        1: meta.mapping.key.debian.changelog
+        2: punctuation.separator.mapping.key-value.debian.changelog
+      push:
+        - meta_content_scope: meta.mapping.value.debian.changelog
+        - include: debian-common.sublime-syntax#urgency
+        - include: debian-common.sublime-syntax#pop-eol
     - match: (\S+)(=)(\S+)
       captures:
         1: meta.mapping.key.debian.changelog
@@ -55,7 +65,7 @@ contexts:
                  punctuation.definition.annotation.end.debian.changelog
           pop: true
         - include: debian-common.sublime-syntax#pop-eol
-    - include: content-close-bug
+    - include: debian-common.sublime-syntax#bug-close
     - include: content-code-span
     - include: debian-common.sublime-syntax#url
     - match: ^[ \t]{2,}([*+-])
@@ -73,22 +83,6 @@ contexts:
         - include: debian-common.sublime-syntax#date-iso
         - include: debian-common.sublime-syntax#pop-eol
     - include: debian-common.sublime-syntax#pop-eol
-
-  content-close-bug:
-    - match: (?=(?:[Cc]loses|LP):\s*(?:[Bb]ug|#\d))
-      push:
-        - match: ([Cc]loses|LP)(:)
-          captures:
-            1: meta.mapping.key.debian.changelog
-            2: punctuation.separator.mapping.key-value.debian.changelog
-        - match: ','
-          scope: punctuation.separator.sequence.debian.changelog
-        - match: (?:[Bb]ug)?\s*((#)(\d+))
-          captures:
-            1: meta.tag.issue.debian.changelog
-            2: punctuation.definition.debian.changelog
-            3: constant.numeric.integer.decimal.debian.changelog
-        - include: debian-common.sublime-syntax#pop-eol
 
   content-code-span:
     - match: (`+)(?!`)

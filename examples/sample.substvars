@@ -1,0 +1,6 @@
+# Auto-generated substvars
+misc:Depends=adduser, lsb-base (>= 3.0-6)
+misc:Pre-Depends=
+shlibs:Depends=libfoo1 (>= 1.0), libbar2 (>= 2.0)
+perl:Depends=perl (>= 5.28)
+gir:Depends=gir1.2-foo-1.0 (>= 1.0)

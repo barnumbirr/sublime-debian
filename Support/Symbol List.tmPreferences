@@ -3,7 +3,7 @@
 <dict>
     <key>scope</key>
     <string>
-        source.debian.changelog meta.version-number,
+        source.debian.changelog meta.number.version,
         source.debian.control keyword.control
     </string>
     <key>settings</key>

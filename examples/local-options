@@ -1,0 +1,25 @@
+# dpkg-source local options (debian/source/local-options)
+# Supports all options from debian/source/options plus local-only options
+unapply-patches
+no-unapply-patches
+abort-on-upstream-changes
+auto-commit
+single-debian-patch
+compression=xz
+compression-level=9
+diff-ignore=.*\.orig$
+extend-diff-ignore=.*\.po$
+tar-ignore=.git
+include-binaries
+include-removal
+include-timestamp
+create-empty-orig
+no-preparation
+allow-version-of-quilt-db=3
+diff-ignore=.*\.orig$
+no-unapply-patches
+abort-on-upstream-changes
+include-removal
+include-timestamp
+create-empty-orig
+threads-max=4

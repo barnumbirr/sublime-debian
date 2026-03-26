@@ -1,0 +1,37 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-triggers.sublime-syntax"
+
+# Comment line
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^ comment.line.debian
+
+interest /usr/share/icons/hicolor
+# <- keyword.control.debian.triggers
+#        ^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.other.debian.triggers
+
+interest-noawait /usr/share/icons/hicolor
+#^^^^^^^ keyword.control.debian.triggers
+#       ^^^^^^^^ storage.modifier.debian.triggers
+#                ^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.other.debian.triggers
+
+activate-await ldconfig
+#^^^^^^^ keyword.control.debian.triggers
+#       ^^^^^^ storage.modifier.debian.triggers
+#              ^^^^^^^^ entity.name.other.debian.triggers
+
+activate /usr/share/mime/packages
+# <- keyword.control.debian.triggers
+#        ^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.other.debian.triggers
+
+activate-noawait ldconfig
+#^^^^^^^ keyword.control.debian.triggers
+#       ^^^^^^^^ storage.modifier.debian.triggers
+#                ^^^^^^^^ entity.name.other.debian.triggers
+
+interest /usr/share/glib-2.0/schemas
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.triggers
+#        ^^^^^^^^^^^^^^^^^^^^^^ entity.name.other.debian.triggers
+
+interest-noawait /usr/lib/ldconfig
+#^^^^^^^ keyword.control.debian.triggers
+#       ^^^^^^^^ storage.modifier.debian.triggers
+#                ^^^^^^^^^^^^^^^^^ entity.name.other.debian.triggers

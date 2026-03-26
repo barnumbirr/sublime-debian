@@ -1,0 +1,6 @@
+# Quilt patch series
+01-fix-spelling-errors.patch
+02-fix-systemd-unit.patch -p1
+patches/03-debian-changes.diff -p0
+04-reload-user.patch
+05-hardcode-rundir.patch

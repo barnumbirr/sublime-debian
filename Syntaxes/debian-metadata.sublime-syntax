@@ -1,9 +1,11 @@
 %YAML 1.2
 ---
 # See https://www.sublimetext.com/docs/syntax.html
+# https://dep-team.pages.debian.net/deps/dep12/
 name: metadata (Debian)
 file_extensions:
   - metadata
+first_line_match: '^(?:Bug-Database|Bug-Submit|Repository|Repository-Browse|Security-Contact):'
 scope: source.debian.metadata
 
 contexts:

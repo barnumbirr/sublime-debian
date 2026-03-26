@@ -1,0 +1,16 @@
+# dpkg-source options (debian/source/options)
+compression=xz
+compression-level=6
+diff-ignore=.*\.orig$
+extend-diff-ignore=.*\.po$
+tar-ignore=.git
+include-binaries
+include-removal
+include-timestamp
+create-empty-orig
+auto-commit
+single-debian-patch
+no-preparation
+allow-version-of-quilt-db=3
+diff-ignore=.*\.orig$
+threads-max=4

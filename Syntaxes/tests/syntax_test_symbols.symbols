@@ -1,0 +1,64 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-symbols.sublime-syntax"
+
+# Comment
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^ comment.line.debian
+
+libfoo.so.1 libfoo1 #MINVER#
+#^^^^^^^^^^ entity.name.class.library.debian.symbols
+#           ^^^^^^^ entity.name.other.dependency.debian.symbols
+#                   ^^^^^^^^ string.unquoted.version-template.debian.symbols
+ * Build-Depends-Package: libfoo-dev
+#^ punctuation.definition.metadata.debian.symbols
+#  ^^^^^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.symbols
+#                       ^ punctuation.separator.mapping.key-value.debian.symbols
+#                         ^^^^^^^^^^ meta.mapping.value.debian.symbols
+#                         ^^^^^^^^^ support.module.debian
+ foo_init@Base 1.0
+#^^^^^^^^ entity.name.function.symbol.debian.symbols
+#        ^ punctuation.separator.symbol.debian.symbols
+#         ^^^^ constant.other.version-node.debian.symbols
+#              ^^^ meta.number.version.debian
+#              ^ constant.numeric.integer.decimal.debian
+#               ^ punctuation.separator.sequence.debian
+#                ^ constant.numeric.integer.decimal.debian
+ foo_destroy@Base 1.0
+#^^^^^^^^^^^ entity.name.function.symbol.debian.symbols
+#           ^ punctuation.separator.symbol.debian.symbols
+#            ^^^^ constant.other.version-node.debian.symbols
+ foo_process@Base 1.2-1
+#^^^^^^^^^^^ entity.name.function.symbol.debian.symbols
+#           ^ punctuation.separator.symbol.debian.symbols
+#            ^^^^ constant.other.version-node.debian.symbols
+#                 ^^^^^ meta.number.version.debian
+ (optional)foo_extra@Base 1.0
+#^ punctuation.section.group.begin.debian.symbols
+# ^^^^^^^^ storage.modifier.debian.symbols
+#         ^ punctuation.section.group.end.debian.symbols
+ (arch=amd64)bar_func@PRIVATE 2.0
+#^ punctuation.section.group.begin.debian.symbols
+# ^^^^^^^^^^ storage.modifier.debian.symbols
+#           ^ punctuation.section.group.end.debian.symbols
+#            ^^^^^^^^ entity.name.function.symbol.debian.symbols
+#                    ^ punctuation.separator.symbol.debian.symbols
+#                     ^^^^^^^ constant.other.version-node.debian.symbols
+ (c++)_ZN3Foo3barEv@Base 1.0
+#^ punctuation.section.group.begin.debian.symbols
+# ^^^ storage.modifier.debian.symbols
+#    ^ punctuation.section.group.end.debian.symbols
+ #MISSING: 1.1-1# foo_removed@Base 1.0
+#^^^^^^^^^^^^^^^^ comment.line.missing.debian.symbols
+ #include "libfoo.symbols.common"
+#^^^^^^^^ keyword.control.import.debian.symbols
+#         ^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian.symbols
+
+libbar.so.2 libbar2 #MINVER#
+#^^^^^^^^^^ entity.name.class.library.debian.symbols
+#           ^^^^^^^ entity.name.other.dependency.debian.symbols
+ * Build-Depends-Package: libbar-dev
+#^ punctuation.definition.metadata.debian.symbols
+#  ^^^^^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.symbols
+ bar_open@LIBBAR_2.0 2.0
+#^^^^^^^^ entity.name.function.symbol.debian.symbols
+#        ^ punctuation.separator.symbol.debian.symbols
+#         ^^^^^^^^^^ constant.other.version-node.debian.symbols

@@ -1,12 +1,19 @@
-sublime-debian
---------------
+Debian Syntax
+=============
 
-Thank you for installing sublime-debian, a Debian packaging file syntax
-highlighter for Sublime Text.
+Thank you for installing Debian Syntax for Sublime Text!
 
-You're almost there, you'll only need to close and reopen all Debian related
-files (debian/changelog, debian/control, ...) or restart Sublime Text.
+Provides syntax highlighting for 27 Debian packaging file types including:
+  - debian/control, copyright, changelog, watch, compat, rules
+  - debian/source/format, options, local-options
+  - debian/patches/series, gbp.conf, upstream/metadata
+  - debian/tests/control (autopkgtest)
+  - debhelper configs (*.install, *.triggers, *.symbols, *.templates, etc.)
+  - .dsc, .changes, .buildinfo
+  - /etc/apt/sources.list and .sources (deb822)
+
+Close and reopen any Debian packaging files, or restart Sublime Text,
+to activate syntax highlighting.
 
 If you have any questions, comments, concerns, bugs, or patches, please open an
 issue or pull request over on GitHub (https://github.com/barnumbirr/sublime-debian).
-You can also find me on Twitter @barnumbirr.

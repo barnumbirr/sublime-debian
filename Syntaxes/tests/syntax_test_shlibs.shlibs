@@ -1,0 +1,28 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-shlibs.sublime-syntax"
+
+# Comment line
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^ comment.line.debian
+
+libfoo 1 libfoo1 (>= 1.0)
+#^^^^^ entity.name.class.library.debian.shlibs
+#      ^ constant.numeric.integer.decimal.debian.shlibs
+#        ^^^^^^^ support.module.debian
+
+libbar 2 libbar2 (>= 2.0), libbar-common (>= 2.0)
+#^^^^^ entity.name.class.library.debian.shlibs
+#      ^ constant.numeric.integer.decimal.debian.shlibs
+#        ^^^^^^^ support.module.debian
+#                        ^ punctuation.separator.sequence.debian.shlibs
+
+udeb: libfoo 1 libfoo1-udeb (>= 1.0)
+# <- storage.type.debian.shlibs
+#     ^^^^^^ entity.name.class.library.debian.shlibs
+#            ^ constant.numeric.integer.decimal.debian.shlibs
+#              ^^^^^^^^^^^^ support.module.debian
+
+private: libprivate 3 libprivate3
+# <- storage.type.debian.shlibs
+#        ^^^^^^^^^^ entity.name.class.library.debian.shlibs
+#                   ^ constant.numeric.integer.decimal.debian.shlibs
+#                     ^^^^^^^^^^^ support.module.debian

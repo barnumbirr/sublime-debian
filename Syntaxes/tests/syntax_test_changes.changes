@@ -1,0 +1,137 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-changes.sublime-syntax"
+
+Format: 1.8
+#^^^^^ meta.mapping.key.debian keyword.control.debian.changes
+#     ^ punctuation.separator.mapping.key-value.debian.changes
+#      ^^^^ meta.mapping.value.debian.changes
+
+Date: Wed, 30 Dec 2020 17:20:09 +0100
+#^^^ meta.mapping.key.debian keyword.control.debian.changes
+#   ^ punctuation.separator.mapping.key-value.debian.changes
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.number.date.debian constant.numeric.debian
+
+Source: backuppc
+#^^^^^ meta.mapping.key.debian keyword.control.debian.changes
+#     ^ punctuation.separator.mapping.key-value.debian.changes
+#      ^^^^^^^^^ meta.mapping.value.debian.changes
+#       ^^^^^^^^ support.module.debian
+
+Binary: backuppc libbackuppc-xs-perl
+#^^^^^ meta.mapping.key.debian keyword.control.debian.changes
+#     ^ punctuation.separator.mapping.key-value.debian.changes
+#       ^^^^^^^^ support.module.debian
+#                ^^^^^^^^^^^^^^^^^^ support.module.debian
+
+Architecture: amd64 source
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.changes
+#           ^ punctuation.separator.mapping.key-value.debian.changes
+#             ^^^^^ constant.other.architecture.debian
+#                   ^^^^^^ storage.type.debian.changes
+
+Version: 4.4.0-2
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.changes
+#      ^ punctuation.separator.mapping.key-value.debian.changes
+#       ^^^^^^^^ meta.mapping.value.debian.changes
+#        ^^^^^^^ meta.number.version.debian
+#        ^ constant.numeric.integer.decimal.debian
+#         ^ punctuation.separator.sequence.debian
+#          ^ constant.numeric.integer.decimal.debian
+#           ^ punctuation.separator.sequence.debian
+#            ^ constant.numeric.integer.decimal.debian
+#             ^ punctuation.separator.sequence.debian
+#              ^ string.unquoted.debian
+
+Distribution: unstable
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.changes
+#           ^ punctuation.separator.mapping.key-value.debian.changes
+#            ^^^^^^^^^ meta.mapping.value.debian.changes
+#             ^^^^^^^^ support.constant.debian
+
+Distribution: bookworm-security
+#             ^^^^^^^^ support.constant.debian
+#                     ^^^^^^^^^ support.constant.debian
+
+Urgency: medium
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.changes
+#      ^ punctuation.separator.mapping.key-value.debian.changes
+#       ^^^^^^^ meta.mapping.value.debian.changes
+#        ^^^^^^ support.constant.urgency.debian
+
+Urgency: critical
+#        ^^^^^^^^ support.constant.urgency.debian
+
+Maintainer: Axel Beckert <abe@debian.org>
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.changes
+#         ^ punctuation.separator.mapping.key-value.debian.changes
+#                        ^^^^^^^^^^^^^^^^ meta.reference.email.debian
+
+Changed-By: John Doe <jdoe@debian.org>
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.changes
+#         ^ punctuation.separator.mapping.key-value.debian.changes
+#                    ^^^^^^^^^^^^^^^^^ meta.reference.email.debian
+#                    ^ punctuation.definition.reference.email.begin.debian
+#                     ^^^^^^^^^^^^^^^ entity.name.reference.email.debian
+#                         ^ punctuation.separator.email.debian
+#                                ^ punctuation.separator.domain.debian
+#                                    ^ punctuation.definition.reference.email.end.debian
+
+# Test Checksums-Sha256 header keyword
+Checksums-Sha256:
+#^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.changes
+#               ^ punctuation.separator.mapping.key-value.debian.changes
+
+# Test checksum continuation values (assertions on last line only)
+Checksums-Sha256:
+ a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4 12345 backuppc_4.4.0-2.dsc
+ abc123def456abc123def456abc123ffee 67890 backuppc_4.4.0-2_amd64.deb
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.integer.hexadecimal.debian
+#                                   ^^^^^ constant.numeric.integer.decimal.debian
+#                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian
+
+# Test Checksums-Sha1 header keyword
+Checksums-Sha1:
+#^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.changes
+
+# Test Checksums-Sha1 continuation values
+Checksums-Sha1:
+ a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4 12345 backuppc_4.4.0-2.dsc
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.integer.hexadecimal.debian
+
+# Test Files header keyword
+Files:
+#^^^^ meta.mapping.key.debian keyword.control.debian.changes
+#    ^ punctuation.separator.mapping.key-value.debian.changes
+
+# Test Files continuation values
+Files:
+ a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4 12345 backuppc_4.4.0-2.dsc
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.integer.hexadecimal.debian
+
+# Test Changes header keyword
+Changes:
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.changes
+
+# Test Changes bug close references (assertions on last continuation line only)
+Changes:
+ backuppc (4.4.0-2) unstable; urgency=medium
+ .
+ * Fix dpkg-statoverride warning (Closes: #873075)
+ * Multiple bugs fixed (Closes: #102030, #102031)
+#                       ^^^^^^ meta.mapping.key.debian
+#                             ^ punctuation.separator.mapping.key-value.debian
+#                               ^^^^^^^ meta.tag.issue.debian
+#                               ^ punctuation.definition.debian
+#                                ^^^^^^ constant.numeric.integer.decimal.debian
+#                                      ^ punctuation.separator.sequence.debian
+#                                        ^^^^^^^ meta.tag.issue.debian
+
+Closes: 123456 789012
+#^^^^^ meta.mapping.key.debian keyword.control.debian.changes
+#     ^ punctuation.separator.mapping.key-value.debian.changes
+#      ^^^^^^^^^^^^^^ meta.mapping.value.debian.changes
+
+# Source field with version constraint
+Source: backuppc (= 4.4.0-2)
+#       ^^^^^^^^ support.module.debian
+#                ^ punctuation.section.group.begin.debian.control
+#                 ^ keyword.operator.comparison.debian.control

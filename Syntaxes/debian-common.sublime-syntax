@@ -1,6 +1,7 @@
 %YAML 1.2
 ---
 # See https://www.sublimetext.com/docs/syntax.html
+# https://www.debian.org/doc/debian-policy/
 name: Debian utility matches
 file_extensions: []
 scope: source.debian.common
@@ -14,10 +15,6 @@ contexts:
     - match: (?=$|\n)
       pop: true
 
-  else-pop:
-    - match: (?=\S)
-      pop: true
-
   comments:
     - match: '#'
       scope: punctuation.definition.comment.debian
@@ -28,11 +25,57 @@ contexts:
 
   debian-versions:
     - match: |-
-        (?:buzz|rex|bo|hamm|slink|potato|woody|sarge|etch|lenny|squeeze
-          |wheezy|jessie|stretch|buster|bullseye|bookworm|trixie|forky|duke)
-      scope: constant.language.debian
+        \b(?:buzz|rex|bo|hamm|slink|potato|woody|sarge|etch|lenny|squeeze
+          |wheezy|jessie|stretch|buster|bullseye|bookworm|trixie|forky|duke|sid)\b
+      scope: support.constant.debian
+
+  ubuntu-versions:
+    - match: |-
+        (?x:\b(?:
+          warty|hoary|breezy|dapper|edgy|feisty|gutsy|hardy
+          |intrepid|jaunty|karmic|lucid|maverick|natty|oneiric|precise
+          |quantal|raring|saucy|trusty|utopic|vivid|wily|xenial
+          |yakkety|zesty|artful|bionic|cosmic|disco|eoan|focal
+          |groovy|hirsute|impish|jammy|kinetic|lunar|mantic|noble
+          |oracular|plucky|questing|resolute
+        )\b)
+      scope: support.constant.debian
+
+  suite-aliases:
+    - match: \b(?:(?:old){0,2}stable|testing|unstable|experimental)\b
+      scope: support.constant.debian
+
+  suite-suffixes:
+    - match: -(?:security|(?:proposed-)?updates|backports)\b
+      scope: support.constant.debian
+
+  suites:
+    - include: debian-versions
+    - include: ubuntu-versions
+    - include: suite-aliases
+    - include: suite-suffixes
+
+  # Single suite token (codename + optional suffix) with pop — for positional formats.
+  # Uses `set` into suite-pop-body to reuse debian-versions/ubuntu-versions without
+  # duplicating codename lists.
+  suite-pop:
+    - match: (?=\S)
+      set: suite-pop-body
+
+  suite-pop-body:
+    - include: debian-versions
+    - include: ubuntu-versions
+    - include: suite-aliases
+    - include: suite-suffixes
+    - match: (?=\s|$)
+      pop: true
+    - match: '\S+'
+      pop: true
 
   email-address:
+    # Maintainer name preceding <email>
+    - match: '(\S[^<]*?)(?=\s*<\S+?(?i:@|at)\S+?(?i:\.|dot)\S+?>)'
+      scope: entity.name.other.debian
     # email reference
     - match: <(?=\S+?(?i:@|at)\S+?(?i:\.|dot)\S+?>)
       scope: punctuation.definition.reference.email.begin.debian
@@ -74,7 +117,7 @@ contexts:
           (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[ ]
           (?:(?:19|20)\d\d)[ ]
           (?:\d\d(:)\d\d(?:(:)\d\d)?)?
-          (?:[ ]([+-])\d{4})?
+          (?:[ ][+-]\d{4})?
         )
       scope: meta.number.date.debian
              constant.numeric.debian
@@ -82,7 +125,6 @@ contexts:
         1: punctuation.separator.sequence.debian
         2: punctuation.separator.sequence.debian
         3: punctuation.separator.sequence.debian
-        4: keyword.operator.arithmetic.debian
 
   semantic-version:
     - match: |-
@@ -118,34 +160,174 @@ contexts:
 
   standards-version-value:
     - meta_content_scope: meta.mapping.value.debian.control
-    - match: ^(?!\s*(?:--|$)|\1\s)
+    - match: ^(?=\S)
       pop: true
     - include: semantic-version
 
   semver-flag:
-    - match: (?=\((?:>?=?|<?<?)[ ]?\d(?:\.\d){0,2})
+    - match: (?=\((?:>>|>=|<<|<=|=)[ ]?\d(?:\.\d){0,2})
       push:
-        - match: (\()(>?=?|<?<?)\s+
+        - match: (\()(>>|>=|<<|<=|=)\s+
           captures:
             1: punctuation.section.group.begin.debian.control
-            2: keyword.operator.arithmetic.debian.control
+            2: keyword.operator.comparison.debian.control
         - include: semantic-version
         - match: (\))
           scope: punctuation.section.group.end.debian.control
           pop: true
         - include: pop-eol
 
-  pgp-signatures:
-    - match: ^\s*(\-+)(BEGIN (PGP SIGNATURE))(\-+)\n
+  # Known architecture names (Policy §11.1)
+  architectures:
+    - match: |-
+        (?x:\b(?:
+          any|all
+          |(?:(?:linux|kfreebsd|hurd|any)-)?
+           (?:amd64|arm64|armel|armhf|i386|mips64el|mipsel
+             |ppc64el|ppc64|s390x|riscv64|ia64|sparc64
+             |alpha|hppa|m68k|powerpc|sh4|x32|loong64|any)
+        )\b)
+      scope: constant.other.architecture.debian
+
+  # Shared dpkg-source option patterns (used by source-options and local-options)
+  dpkg-source-options:
+    # Compression format — closed set
+    - match: ^(compression)(=)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian
+        2: punctuation.separator.mapping.key-value.debian
+      push:
+        - meta_content_scope: meta.mapping.value.debian
+        - include: pop-eol
+        - include: compression-formats
+    # Numeric options: compression-level, threads-max, quilt-db version
+    - match: ^(compression-level|threads-max|allow-version-of-quilt-db)(=)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian
+        2: punctuation.separator.mapping.key-value.debian
+      push:
+        - meta_content_scope: meta.mapping.value.debian
+        - include: pop-eol
+        - match: \b\d+\b
+          scope: constant.numeric.integer.decimal.debian
+    # Pattern/regex options
+    - match: ^((?:extend-)?diff-ignore|tar-ignore)(=)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian
+        2: punctuation.separator.mapping.key-value.debian
+      push:
+        - meta_content_scope: meta.mapping.value.debian
+                              string.unquoted.pattern.debian
+        - include: pop-eol
+    # Shared boolean/flag options (no value)
+    - match: |-
+        ^(?x:
+          (include-(?:binaries|removal|timestamp)
+            |create-empty-orig|auto-commit
+            |single-debian-patch|no-preparation
+        ))\s*$
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian
+
+  # Compression format constants (shared by source-options, local-options, watch)
+  compression-formats:
+    - match: \b(?:xz|gzip|bzip2|lzma|zstd)\b
+      scope: support.constant.debian
+
+  # Shared deb822 field value patterns — include these in your push contexts
+  # Usage: each file defines its own push with meta_content_scope and pop,
+  # then includes these for the common value-level matching.
+
+  # Dependency field values: version constraints, package names, separators
+  deb822-dependency-value:
+    - include: comments
+    - include: semver-flag
+    - match: \,|\|
+      scope: punctuation.separator.sequence.debian
+    - include: package-name
+
+  # Checksum field values: hash, size, filename triplets
+  deb822-checksum-value:
+    - include: checksum-line
+
+  # General field values: PGP, email, URL, version constraints, separators
+  deb822-general-value:
+    - include: pgp-signatures
+    - include: other-signatures
+    - include: email-address
+    - include: url
+    - include: semver-flag
+    - match: \,|\|
+      scope: punctuation.separator.sequence.debian
+
+  # Urgency levels (used in .changes and changelog)
+  urgency:
+    - match: \b(?:low|medium|high|critical|emergency)\b
+      scope: support.constant.urgency.debian
+
+  # Bug close references: Closes: #12345, LP: #12345
+  bug-close:
+    - match: (?=(?:[Cc]loses|LP):\s*(?:[Bb]ug|#\d))
+      push:
+        - match: ([Cc]loses|LP)(:)
+          captures:
+            1: meta.mapping.key.debian
+            2: punctuation.separator.mapping.key-value.debian
+        - match: ','
+          scope: punctuation.separator.sequence.debian
+        - match: (?:[Bb]ug)?\s*((#)(\d+))
+          captures:
+            1: meta.tag.issue.debian
+            2: punctuation.definition.debian
+            3: constant.numeric.integer.decimal.debian
+        - include: pop-eol
+
+  # Debian package name pattern (Policy §5.6.1)
+  package-name:
+    - match: '([a-z0-9][a-z0-9.+\-]+)(:)([\w-]+)'
+      captures:
+        1: support.module.debian
+        2: punctuation.separator.architecture.debian
+        3: constant.other.architecture.debian
+    - match: '[a-z0-9][a-z0-9.+\-]+'
+      scope: support.module.debian
+
+  # Checksum continuation lines:  <hex-hash> <size> <filename>
+  checksum-line:
+    - match: '^\s+([0-9a-f]+)\s+(\d+)\s+(\S+)'
+      captures:
+        1: constant.numeric.integer.hexadecimal.debian
+        2: constant.numeric.integer.decimal.debian
+        3: string.unquoted.filename.debian
+
+  # PGP signed message wrapper (appears before deb822 content in signed .dsc/.changes/.buildinfo)
+  pgp-signed-message:
+    - match: ^\s*(\-+)(BEGIN PGP SIGNED MESSAGE)(\-+)$
       captures:
         1: punctuation.definition.section.begin.debian
         2: entity.name.section.debian
-        4: punctuation.definition.section.end.debian
+        3: punctuation.definition.section.end.debian
+      push:
+        - meta_scope: markup.raw.block.signature.debian
+        - match: ^(Hash)(:)\s*(\S+)$
+          captures:
+            1: meta.mapping.key.debian keyword.control.debian
+            2: punctuation.separator.mapping.key-value.debian
+            3: support.constant.debian
+        - match: ^$
+          pop: true
+
+  pgp-signatures:
+    - match: ^\s*(\-+)(BEGIN PGP SIGNATURE)(\-+)\n
+      captures:
+        1: punctuation.definition.section.begin.debian
+        2: entity.name.section.debian
+        3: punctuation.definition.section.end.debian
       push: pgp-signature-body
 
   pgp-signature-body:
     - meta_scope: markup.raw.block.signature.debian
-    - match: ^\s*(\-+)(END \3)(\-+)\n
+    - match: ^\s*(\-+)(END PGP SIGNATURE)(\-+)\n
       captures:
         1: punctuation.definition.section.begin.debian
         2: entity.name.section.debian
@@ -156,7 +338,16 @@ contexts:
     - match: ^\s*(\-+)(BEGIN ([ \w]+))(\-+)\n
       scope: markup.raw.block.signature.debian
       captures:
-        1: punctuation.definition.section.begin
+        1: punctuation.definition.section.begin.debian
         2: entity.name.section.debian
-        4: punctuation.definition.section.end
-      push: pgp-signature-body
+        4: punctuation.definition.section.end.debian
+      push: other-signature-body
+
+  other-signature-body:
+    - meta_scope: markup.raw.block.signature.debian
+    - match: ^\s*(\-+)(END [ \w]+)(\-+)\n
+      captures:
+        1: punctuation.definition.section.begin.debian
+        2: entity.name.section.debian
+        3: punctuation.definition.section.end.debian
+      pop: true

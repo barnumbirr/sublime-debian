@@ -1,0 +1,5 @@
+# dpkg-maintscript-helper commands
+rm_conffile /etc/backuppc/config.pl 4.0.0-1~
+mv_conffile /etc/backuppc/hosts 4.0.0-1~ /etc/backuppc/hosts.old
+symlink_to_dir /usr/share/doc/backuppc /usr/share/doc/backuppc-doc 4.3.0-1~
+dir_to_symlink /usr/share/doc/backuppc /usr/share/doc/backuppc-doc 4.4.0-1~

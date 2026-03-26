@@ -1,0 +1,64 @@
+# APT deb822 sources format
+Types: deb deb-src
+URIs: http://deb.debian.org/debian/
+Suites: trixie trixie-updates
+Components: main non-free-firmware contrib non-free
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+Architectures: amd64 arm64
+Languages: en de fr
+Targets: Packages Sources
+Enabled: yes
+
+Types: deb
+URIs: http://security.debian.org/debian-security
+Suites: trixie-security
+Components: main non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+Enabled: yes
+
+# Suite name variants
+Types: deb
+URIs: http://deb.debian.org/debian/
+Suites: stable oldstable oldoldstable testing unstable experimental
+Components: main
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+# Suite with proposed-updates suffix
+Types: deb
+URIs: http://deb.debian.org/debian/
+Suites: trixie-proposed-updates bookworm-backports
+Components: main
+
+# All boolean/option fields
+Types: deb
+URIs: https://custom.repo.example.com/apt
+Suites: bookworm
+Components: main
+Trusted: yes
+PDiffs: no
+By-Hash: yes
+Allow-Insecure: no
+Allow-Weak: no
+Allow-Downgrade-To-Insecure: no
+Check-Valid-Until: yes
+Check-Date: yes
+Valid-Until-Min: 3600
+Valid-Until-Max: 604800
+Date-Max-Future: 86400
+InRelease-Path: dists/bookworm/InRelease
+Snapshot: 20250101T000000Z
+Include: backuppc*
+Exclude: backuppc-dbgsym
+
+# Inline PGP key
+Types: deb
+URIs: https://example.com/apt
+Suites: stable
+Components: main
+Signed-By:
+    -----BEGIN PGP PUBLIC KEY BLOCK-----
+
+    mQINBGkJdvYBEADWhdySHM8j/ADp4YuVsnB6RkLVJoQI9A50uMiuDuNk8f05NpZJ
+    AwZ5B2NwXZBg532zpvLNBlhp
+    -----END PGP PUBLIC KEY BLOCK-----
+Enabled: no

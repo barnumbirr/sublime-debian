@@ -1,0 +1,26 @@
+Debian Syntax 2.0.0
+====================
+
+This is a major release with significantly expanded file type coverage and deeper scope granularity.
+
+New file types:
+  - sources.list (one-line format), debian/tests/control (autopkgtest)
+  - debian/*.alternatives, *.shlibs, substvars
+  - debian/source/options, gbp.conf, patches/series
+  - debhelper file lists, *.maintscript, *.symbols, *.triggers
+  - .buildinfo, .changes
+
+Expanded scope coverage:
+  - Deep value-level scoping for control, copyright, watch, and all deb822 files
+  - Architecture names, section names, priorities, booleans, license identifiers,
+    copyright years, version constraints, glob patterns, and more now get
+    context-aware coloring
+  - PGP signed message support for .dsc, .changes, .buildinfo
+  - Debian and Ubuntu release codenames highlighted in all suite contexts
+
+Breaking scope changes:
+  If you have custom color scheme rules targeting Debian Syntax scopes,
+  see CHANGELOG.md for the full list of renamed scopes.
+
+Full changelog:
+  https://github.com/barnumbirr/sublime-debian/blob/master/CHANGELOG.md

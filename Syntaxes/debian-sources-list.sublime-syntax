@@ -1,0 +1,53 @@
+%YAML 1.2
+---
+# See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/unstable/apt/sources.list.5.en.html
+# One-line format: deb [option=value] uri suite [component1] [component2] [...]
+name: sources.list (Debian)
+file_extensions:
+  - list
+first_line_match: '^\s*deb(?:-src)?\s'
+scope: source.debian.sources-list
+
+contexts:
+  main:
+    - include: debian-common.sublime-syntax#comments
+    - include: entries
+
+  entries:
+    # deb or deb-src
+    - match: \b(?:deb-src|deb)\b
+      scope: storage.type.debian.sources-list
+    # Options block [key=value,...]
+    - match: '\['
+      scope: punctuation.section.brackets.begin.debian.sources-list
+      push: options-body
+    # URIs (including cdrom with brackets)
+    - match: 'cdrom:\[[^\]]*\]\S*'
+      scope: markup.underline.link.debian.sources-list
+    - match: '(?:https?|ftp|ssh)://\S+'
+      scope: markup.underline.link.debian.sources-list
+    - match: '(?:mirror(?:\+file)?|copy|file):\S+'
+      scope: markup.underline.link.debian.sources-list
+    # Suite codenames and aliases
+    - include: debian-common.sublime-syntax#suites
+    # Components
+    - match: \b(?:main|contrib|non-free-firmware|non-free|universe|restricted|multiverse)\b
+      scope: support.constant.component.debian.sources-list
+
+  options-body:
+    - match: '([\w-]+)(=)'
+      captures:
+        1: variable.parameter.debian.sources-list
+        2: punctuation.separator.mapping.key-value.debian.sources-list
+    - match: \b(?:yes|no)\b
+      scope: constant.language.boolean.debian.sources-list
+    - match: '/[^\]\s]+'
+      scope: string.unquoted.path.debian.sources-list
+    - match: ','
+      scope: punctuation.separator.sequence.debian.sources-list
+    - include: debian-common.sublime-syntax#architectures
+    - match: '\]'
+      scope: punctuation.section.brackets.end.debian.sources-list
+      pop: true
+    - include: debian-common.sublime-syntax#pop-eol

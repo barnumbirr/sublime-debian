@@ -1,0 +1,6 @@
+# Shared library dependencies
+libfoo 1 libfoo1 (>= 1.0)
+libbar 2 libbar2 (>= 2.0), libbar-common (>= 2.0)
+libpng 16 libpng16-16 (>= 1.6.31)
+udeb: libfoo 1 libfoo1-udeb (>= 1.0)
+private: libprivate 3 libprivate3

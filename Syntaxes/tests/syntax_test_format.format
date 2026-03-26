@@ -1,0 +1,32 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-format.sublime-syntax"
+
+3.0 (quilt)
+#^ punctuation.separator.sequence.debian
+# ^ constant.numeric.integer.decimal.debian
+#    ^^^^^ keyword.control.debian.source.format
+#         ^ punctuation.section.group.end.debian.source.format
+
+3.0 (native)
+#    ^^^^^^ keyword.control.debian.source.format
+
+3.0 (git)
+#    ^^^ keyword.control.debian.source.format
+
+# This is a comment
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^^^^^^^ comment.line.debian
+
+3.0 (custom)
+#^ punctuation.separator.sequence.debian
+# ^ constant.numeric.integer.decimal.debian
+#    ^^^^^^ keyword.control.debian.source.format
+#          ^ punctuation.section.group.end.debian.source.format
+
+3.0 (bzr)
+#    ^^^ keyword.control.debian.source.format
+
+1.0 (native)
+#^ punctuation.separator.sequence.debian
+# ^ constant.numeric.integer.decimal.debian
+#    ^^^^^^ keyword.control.debian.source.format
+#          ^ punctuation.section.group.end.debian.source.format

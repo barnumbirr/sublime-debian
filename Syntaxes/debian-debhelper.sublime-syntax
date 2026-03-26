@@ -1,0 +1,50 @@
+%YAML 1.2
+---
+# See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/unstable/debhelper/debhelper.7.en.html
+# Generic syntax for debhelper file-list formats:
+# debian/*.install, *.dirs, *.links, *.docs, *.clean,
+# debian/*.manpages, *.examples, *.not-installed
+name: debhelper file list (Debian)
+file_extensions:
+  - install
+  - dirs
+  - links
+  - docs
+  - clean
+  - manpages
+  - examples
+  - not-installed
+  - conffiles
+  - info
+scope: source.debian.debhelper
+
+contexts:
+  main:
+    - include: debian-common.sublime-syntax#comments
+    - include: entries
+
+  entries:
+    # ${variable} substitutions (debhelper compat 13+)
+    - match: (\$\{)(\w+)(})
+      captures:
+        1: punctuation.definition.variable.begin.debian.debhelper
+        2: variable.language.debian.debhelper
+        3: punctuation.definition.variable.end.debian.debhelper
+    # Redirection operator (debhelper compat 13+)
+    - match: =>
+      scope: keyword.operator.assignment.debian.debhelper
+    # Glob patterns
+    - match: '\['
+      scope: punctuation.section.brackets.begin.debian.debhelper keyword.operator.glob.debian.debhelper
+      push:
+        - match: '\]'
+          scope: punctuation.section.brackets.end.debian.debhelper keyword.operator.glob.debian.debhelper
+          pop: true
+        - match: '[^\]]+'
+          scope: constant.other.character-class.debian.debhelper
+    - match: '[*?]'
+      scope: keyword.operator.glob.debian.debhelper
+    # File paths (absolute or relative containing /)
+    - match: (?:^|(?<=\s))\S*\/\S+
+      scope: string.unquoted.path.debian.debhelper

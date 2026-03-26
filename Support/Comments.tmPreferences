@@ -2,7 +2,7 @@
 <plist version="1.0">
 <dict>
     <key>scope</key>
-    <string>source.debian</string>
+    <string>source.debian, text.debian.license</string>
     <key>settings</key>
     <dict>
         <key>shellVariables</key>

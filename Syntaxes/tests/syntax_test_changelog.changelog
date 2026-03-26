@@ -1,9 +1,9 @@
-# SYNTAX TEST "Packages/Debian Syntax/debian-changelog.sublime-syntax"
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-changelog.sublime-syntax"
 
 backuppc (4.4.0-2) unstable; urgency=medium
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.version.debian.changelog
 #^^^^^^^ entity.name.class.debian.changelog
-#        ^^^^^^^^^ meta.version-number.debian.changelog meta.parens.debian.changelog
+#        ^^^^^^^^^ meta.number.version.debian.changelog meta.parens.debian.changelog
 #        ^ punctuation.section.group.begin.debian.changelog
 #         ^^^^^^^ meta.number.version.debian
 #         ^ constant.numeric.integer.decimal.debian
@@ -14,11 +14,11 @@ backuppc (4.4.0-2) unstable; urgency=medium
 #              ^ punctuation.separator.sequence.debian
 #               ^ string.unquoted.debian
 #                ^ punctuation.section.group.end.debian.changelog
-#                  ^^^^^^^^ constant.language.debian.changelog
+#                  ^^^^^^^^ support.constant.debian
 #                          ^ punctuation.separator.sequence.debian.changelog
 #                            ^^^^^^^ meta.mapping.key.debian.changelog
 #                                   ^ punctuation.separator.mapping.key-value.debian.changelog
-#                                    ^^^^^^ meta.mapping.value.debian.changelog string.unquoted.debian.changelog
+#                                    ^^^^^^ meta.mapping.value.debian.changelog support.constant.urgency.debian
 
   * postinst: Fix dpkg-statoverride warning "deprecated --force option".
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.version.debian.changelog
@@ -40,12 +40,12 @@ backuppc (4.4.0-2) unstable; urgency=medium
 #                                     ^ punctuation.separator.sequence.debian
 #                                                     ^ punctuation.separator.sequence.debian
 #                                                        ^ punctuation.separator.sequence.debian
-#                                                            ^ keyword.operator.arithmetic.debian
+#                                                            ^ constant.numeric.debian
 
 backuppc (4.4.0-1) unstable; urgency=medium
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.version.debian.changelog
 #^^^^^^^ entity.name.class.debian.changelog
-#        ^^^^^^^^^ meta.version-number.debian.changelog meta.parens.debian.changelog
+#        ^^^^^^^^^ meta.number.version.debian.changelog meta.parens.debian.changelog
 #        ^ punctuation.section.group.begin.debian.changelog
 #         ^^^^^^^ meta.number.version.debian
 #         ^ constant.numeric.integer.decimal.debian
@@ -56,11 +56,11 @@ backuppc (4.4.0-1) unstable; urgency=medium
 #              ^ punctuation.separator.sequence.debian
 #               ^ string.unquoted.debian
 #                ^ punctuation.section.group.end.debian.changelog
-#                  ^^^^^^^^ constant.language.debian.changelog
+#                  ^^^^^^^^ support.constant.debian
 #                          ^ punctuation.separator.sequence.debian.changelog
 #                            ^^^^^^^ meta.mapping.key.debian.changelog
 #                                   ^ punctuation.separator.mapping.key-value.debian.changelog
-#                                    ^^^^^^ meta.mapping.value.debian.changelog string.unquoted.debian.changelog
+#                                    ^^^^^^ meta.mapping.value.debian.changelog support.constant.urgency.debian
 
   [ Debian Janitor ]
 #^^^^^^^^^^^^^^^^^^^ meta.block.version.debian.changelog
@@ -82,11 +82,11 @@ backuppc (4.4.0-1) unstable; urgency=medium
   * New major upstream release (Closes: #873075)
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.version.debian.changelog
 #^^ punctuation.definition.list_item.debian.changelog
-#                               ^^^^^^ meta.mapping.key.debian.changelog
-#                                     ^ punctuation.separator.mapping.key-value.debian.changelog
-#                                       ^^^^^^^ meta.tag.issue.debian.changelog
-#                                       ^ punctuation.definition.debian.changelog
-#                                        ^^^^^^ constant.numeric.integer.decimal.debian.changelog
+#                               ^^^^^^ meta.mapping.key.debian
+#                                     ^ punctuation.separator.mapping.key-value.debian
+#                                       ^^^^^^^ meta.tag.issue.debian
+#                                       ^ punctuation.definition.debian
+#                                        ^^^^^^ constant.numeric.integer.decimal.debian
     + Add new depends/recommends: libbackuppc-xs-perl,
       libfile-listing-perl, backuppc-rsync, libfile-rsyncp-perl
     + Refresh patches for 4.3.1, debian/{rules,dirs,docs}.
@@ -137,3 +137,105 @@ backuppc (4.4.0-1) unstable; urgency=medium
   * Extend 02-fix-spelling-errors.patch to fix more typos.
 
  -- Axel Beckert <abe@debian.org>  Wed, 30 Dec 2020 17:20:09 +0100
+
+testpkg (1:2.0-1) unstable; urgency=medium
+#^^^^^^ entity.name.class.debian.changelog
+#       ^^^^^^^^^ meta.number.version.debian.changelog meta.parens.debian.changelog
+#       ^ punctuation.section.group.begin.debian.changelog
+#        ^^^^^^^ meta.number.version.debian
+#        ^ constant.numeric.integer.decimal.debian
+#         ^ punctuation.separator.sequence.debian
+#          ^ constant.numeric.integer.decimal.debian
+#           ^ punctuation.separator.sequence.debian
+#            ^ constant.numeric.integer.decimal.debian
+#             ^ punctuation.separator.sequence.debian
+#              ^ string.unquoted.debian
+#               ^ punctuation.section.group.end.debian.changelog
+
+  * Test epoch version and tilde pre-release.
+
+ -- Test User <test@example.org>  Mon, 23 Mar 2026 12:00:00 +0000
+
+testpkg (1.0~beta1-1) unstable; urgency=low
+#^^^^^^ entity.name.class.debian.changelog
+#       ^^^^^^^^^^^^^ meta.number.version.debian.changelog meta.parens.debian.changelog
+#       ^ punctuation.section.group.begin.debian.changelog
+#        ^^^^^^^^^^^ meta.number.version.debian
+#        ^ constant.numeric.integer.decimal.debian
+#         ^ punctuation.separator.sequence.debian
+#          ^ constant.numeric.integer.decimal.debian
+#           ^ punctuation.separator.sequence.debian
+#            ^^^^^^^ string.unquoted.debian
+#                   ^ punctuation.section.group.end.debian.changelog
+
+  * Test tilde pre-release version.
+
+ -- Test User <test@example.org>  Mon, 23 Mar 2026 12:00:00 +0000
+
+libfoo (2.1.0-1) oldstable; urgency=low
+#                ^^^^^^^^^ support.constant.debian
+#                         ^ punctuation.separator.sequence.debian.changelog
+
+  * Rebuild for oldstable point release.
+
+ -- Maintainer <maint@debian.org>  Sat, 15 Mar 2025 10:00:00 +0000
+
+libfoo (2.0.0-1) testing; urgency=medium
+#                ^^^^^^^ support.constant.debian
+
+  * New upstream release for testing migration.
+
+ -- Maintainer <maint@debian.org>  Fri, 14 Mar 2025 09:00:00 +0000
+
+libfoo (1.9.0-1) experimental; urgency=low
+#                ^^^^^^^^^^^^ support.constant.debian
+
+  * Upload to experimental for wider testing.
+
+ -- Maintainer <maint@debian.org>  Thu, 13 Mar 2025 08:00:00 +0000
+
+libfoo (1.8.0-1) bookworm; urgency=medium
+#                ^^^^^^^^ support.constant.debian
+#                        ^ punctuation.separator.sequence.debian.changelog
+
+  * Targeted backport for bookworm.
+
+ -- Maintainer <maint@debian.org>  Wed, 12 Mar 2025 07:00:00 +0000
+
+libfoo (1.7.0-1) trixie; urgency=medium
+#                ^^^^^^ support.constant.debian
+
+  * Upload targeting trixie release.
+
+ -- Maintainer <maint@debian.org>  Tue, 11 Mar 2025 06:00:00 +0000
+
+libfoo (1.6.0-1) unstable; urgency=medium
+
+  * Fix buffer overflow in `parse_input` when handling oversized frames.
+#                          ^^^^^^^^^^^^^ markup.raw.inline.debian
+#                          ^ punctuation.definition.raw.begin.debian
+#                                      ^ punctuation.definition.raw.end.debian
+  * Refactor `config_read` to support new options.
+#            ^^^^^^^^^^^^^ markup.raw.inline.debian
+#            ^ punctuation.definition.raw.begin.debian
+#                        ^ punctuation.definition.raw.end.debian
+  * Fix regression introduced in 1.5.0 (LP: #98765)
+#                                       ^^ meta.mapping.key.debian
+#                                         ^ punctuation.separator.mapping.key-value.debian
+#                                           ^^^^^^ meta.tag.issue.debian
+#                                           ^ punctuation.definition.debian
+#                                            ^^^^^ constant.numeric.integer.decimal.debian
+  * Cherry-pick upstream fix (Closes: #102030, #102031)
+#                             ^^^^^^ meta.mapping.key.debian
+#                                   ^ punctuation.separator.mapping.key-value.debian
+#                                     ^^^^^^^ meta.tag.issue.debian
+#                                     ^ punctuation.definition.debian
+#                                      ^^^^^^ constant.numeric.integer.decimal.debian
+#                                            ^ punctuation.separator.sequence.debian
+#                                              ^^^^^^^ meta.tag.issue.debian
+#                                              ^ punctuation.definition.debian
+#                                               ^^^^^^ constant.numeric.integer.decimal.debian
+  * See discussion at https://bugs.debian.org/12345 for details.
+#                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+
+ -- Maintainer <maint@debian.org>  Mon, 10 Mar 2025 05:00:00 +0000

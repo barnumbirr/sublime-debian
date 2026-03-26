@@ -1,0 +1,25 @@
+%YAML 1.2
+---
+# See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/unstable/quilt/quilt.1.en.html
+name: patches series (Debian)
+file_extensions:
+  - series
+first_line_match: '^[\w/].*\.(?:patch|diff)\b'
+scope: source.debian.series
+
+contexts:
+  main:
+    - include: debian-common.sublime-syntax#comments
+    - include: entries
+
+  entries:
+    - match: (\S+\.(?:patch|diff))\b
+      scope: string.unquoted.filename.debian.series
+    # Plain filenames (without .patch/.diff extension)
+    - match: ^\S+
+      scope: string.unquoted.filename.debian.series
+    - match: (-p)(\d+)
+      captures:
+        1: variable.parameter.debian.series
+        2: constant.numeric.integer.decimal.debian.series

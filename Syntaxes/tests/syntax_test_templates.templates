@@ -1,0 +1,46 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-templates.sublime-syntax"
+
+Template: backuppc/reconfigure-webserver
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#       ^ punctuation.separator.mapping.key-value.debian.templates
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.templates
+
+Type: multiselect
+#^^^ meta.mapping.key.debian keyword.control.debian.templates
+#   ^ punctuation.separator.mapping.key-value.debian.templates
+
+Default: apache2
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#      ^ punctuation.separator.mapping.key-value.debian.templates
+
+_Description: Please choose the web server:
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#           ^ punctuation.separator.mapping.key-value.debian.templates
+
+Choices: apache2, lighttpd
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#      ^ punctuation.separator.mapping.key-value.debian.templates
+
+# This is a comment
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^^^^^^^ comment.line.debian
+
+_Default: en
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#       ^ punctuation.separator.mapping.key-value.debian.templates
+#        ^^^ meta.mapping.value.debian.templates
+
+_Choices: yes, no
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#       ^ punctuation.separator.mapping.key-value.debian.templates
+#        ^^^^^^^^ meta.mapping.value.debian.templates
+
+# Boolean default values
+Type: boolean
+#     ^^^^^^^ support.constant.type.debian.templates
+Default: true
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#      ^ punctuation.separator.mapping.key-value.debian.templates
+#        ^^^^ constant.language.boolean.debian.templates
+Default: false
+#        ^^^^^ constant.language.boolean.debian.templates

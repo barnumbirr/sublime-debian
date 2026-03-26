@@ -1,0 +1,5 @@
+Bug-Database: https://github.com/backuppc/backuppc/issues
+Bug-Submit: https://github.com/backuppc/backuppc/issues/new
+Repository: https://salsa.debian.org/debian/backuppc.git
+Repository-Browse: https://salsa.debian.org/debian/backuppc
+Security-Contact: mailto:security@debian.org

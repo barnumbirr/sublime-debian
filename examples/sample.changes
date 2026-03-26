@@ -1,0 +1,35 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Thu, 31 Dec 2020 16:54:06 +0100
+Source: backuppc
+Binary: backuppc
+Binary-Only: no
+Architecture: amd64 source
+Version: 4.4.0-2
+Distribution: unstable
+Urgency: medium
+Maintainer: Debian BackupPC Team <team+pkg-backuppc@tracker.debian.org>
+Changed-By: Axel Beckert <abe@debian.org>
+Closes: 102030 102031
+Built-For-Profiles: nocheck
+Description:
+ backuppc - high-performance, enterprise-grade backup system
+Changes:
+ backuppc (4.4.0-2) unstable; urgency=medium
+ .
+   * Fix dpkg-statoverride warning.
+   * Make backuppc-rsync a hard dependency.
+Checksums-Sha1:
+ da39a3ee5e6b4b0d3255bfef95601890afd80709 12345 utils optional backuppc_4.4.0-2_amd64.deb
+Checksums-Sha256:
+ e3b0c44298fc1c149afbf4c8996fb924 12345 utils optional backuppc_4.4.0-2_amd64.deb
+Files:
+ d41d8cd98f00b204e9800998ecf8427e 12345 utils optional backuppc_4.4.0-2_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEabc123def456789...
+=abcd
+-----END PGP SIGNATURE-----

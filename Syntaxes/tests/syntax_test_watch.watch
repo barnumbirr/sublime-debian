@@ -1,0 +1,98 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-watch.sublime-syntax"
+
+version=4
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#      ^ punctuation.separator.mapping.key-value.debian.watch
+#       ^ meta.mapping.value.debian.watch
+#       ^ constant.numeric.integer.decimal.debian.watch
+
+opts=dversionmangle=s/\+dfsg//,filenamemangle=s/.*\///
+#^^^ meta.mapping.key.debian keyword.control.debian.watch
+#   ^ punctuation.separator.mapping.key-value.debian.watch
+
+# This is a comment
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^^^^^^^ comment.line.debian
+
+# Test closed-set value options
+opts=compression=xz
+#    ^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#               ^ punctuation.separator.mapping.key-value.debian.watch
+#                ^^ meta.mapping.value.debian.watch
+#                ^^ support.constant.debian.watch
+
+opts=pgpmode=auto
+#    ^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#           ^ punctuation.separator.mapping.key-value.debian.watch
+#            ^^^^ support.constant.debian.watch
+
+opts=mode=git
+#    ^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#        ^ punctuation.separator.mapping.key-value.debian.watch
+#         ^^^ support.constant.debian.watch
+
+# Test numeric value options
+opts=compression-level=9
+#    ^^^^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                     ^ punctuation.separator.mapping.key-value.debian.watch
+#                      ^ constant.numeric.integer.decimal.debian.watch
+
+# Test mangle options — values are regex patterns
+opts=dversionmangle=auto
+#    ^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                  ^ punctuation.separator.mapping.key-value.debian.watch
+#                   ^^^^ meta.mapping.value.debian.watch string.unquoted.regex.debian.watch
+
+opts=filenamemangle=s/.*\///
+#    ^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                  ^ punctuation.separator.mapping.key-value.debian.watch
+
+opts=pgpsigurlmangle=s/$/.asc/
+#    ^^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                   ^ punctuation.separator.mapping.key-value.debian.watch
+
+opts=oversionmangle=s/\+dfsg\d*$//
+#    ^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                  ^ punctuation.separator.mapping.key-value.debian.watch
+
+opts=uversionmangle=s/(\d)[_\.\-\+]?(RC|rc|alpha|beta|pre|dev|b)/$1~$2/
+#    ^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                  ^ punctuation.separator.mapping.key-value.debian.watch
+
+# Test string/path value options
+opts=component=jquery
+#    ^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#             ^ punctuation.separator.mapping.key-value.debian.watch
+
+opts=repacksuffix=+dfsg
+#    ^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                ^ punctuation.separator.mapping.key-value.debian.watch
+
+opts=gitmode=shallow
+#    ^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#           ^ punctuation.separator.mapping.key-value.debian.watch
+
+opts=pretty=describe
+#    ^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#          ^ punctuation.separator.mapping.key-value.debian.watch
+
+opts=searchmode=plain
+#    ^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#              ^ punctuation.separator.mapping.key-value.debian.watch
+#               ^^^^^ support.constant.debian.watch
+
+# Line continuation backslash
+opts=\
+#    ^ punctuation.separator.continuation.line.debian.watch
+  compression=xz
+# ^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#            ^ punctuation.separator.mapping.key-value.debian.watch
+
+# URL in downloadurlmangle — regex pattern, not URL
+opts=downloadurlmangle=s|.*|https://example.org/download|
+#    ^^^^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                     ^ punctuation.separator.mapping.key-value.debian.watch
+
+# Watch body line URL
+https://github.com/foo/bar/tags .*/v?([\d.]+)\.tar\.gz
+# <- markup.underline.link.debian

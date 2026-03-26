@@ -1,0 +1,37 @@
+version=4
+# Example watch file for uscan
+opts=dversionmangle=s/\+dfsg//,filenamemangle=s/.*\///,pgpmode=auto \
+  https://github.com/backuppc/backuppc/tags .*/v?([\d.]+)\.tar\.gz
+
+opts=component=libbackuppc-xs,compression=xz,repack,repacksuffix=+dfsg \
+  https://github.com/backuppc/backuppc-xs/tags .*/v?([\d.]+)\.tar\.gz
+
+opts=uversionmangle=s/_/./g,downloadurlmangle=s/tag/archive/ \
+  https://github.com/backuppc/backuppc/releases .*/v([\d.]+)\.tar\.gz
+
+opts=decompress,bare,mode=git \
+  https://salsa.debian.org/debian/backuppc.git HEAD
+
+opts=pretty=oneline,date=short,searchmode=plain,gitmode=full \
+  https://salsa.debian.org/debian/backuppc.git refs/tags/v([\d.]+)
+
+opts=ctype=nodejs,hrefdecode=percent,user-agent=uscan \
+  https://registry.npmjs.org/backuppc-ui .*/backuppc-ui-([\d.]+)\.tgz
+
+opts=gitexport=all,gitmodules \
+  https://salsa.debian.org/debian/backuppc.git refs/tags/v([\d.]+)
+
+opts=pagemangle=s/[^.]*\.(.*)/\1/,pgpsigurlmangle=s/$/.asc/,unzipopt=-j \
+  https://example.com/releases/ .*/backuppc-([\d.]+)\.tar\.gz
+
+opts=oversionmangle=s/-/./g,dirversionmangle=s/[^0-9]//g \
+  https://example.com/archive/ .*/v([\d.]+)/
+
+opts=template=watch.in,update-script=debian/update-watch \
+  https://example.com/releases/ .*/backuppc-([\d.]+)\.tar\.gz
+
+opts=version-constraint=">= 4.0",version-schema=basic,version-separator=- \
+  https://example.com/releases/ .*/backuppc-([\d.]+)\.tar\.gz
+
+opts=source=https://example.com,matching-pattern=backuppc-(.*).tar.gz \
+  https://example.com/releases/ .*/backuppc-([\d.]+)\.tar\.gz

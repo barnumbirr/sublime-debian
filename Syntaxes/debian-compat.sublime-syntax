@@ -1,9 +1,11 @@
 %YAML 1.2
 ---
 # See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/unstable/debhelper/debhelper.7.en.html
 name: compat (Debian)
 file_extensions:
   - compat
+first_line_match: '^\d+$'
 scope: source.debian.compat
 
 contexts:
@@ -13,4 +15,4 @@ contexts:
 
   body:
     - match: ^\d+$
-      scope: constant.numeric.integer.debian meta.version-number.debian.compat
+      scope: constant.numeric.integer.debian meta.number.version.debian.compat

@@ -1,0 +1,34 @@
+%YAML 1.2
+---
+# See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/testing/debhelper/dh_installdeb.1.en.html
+name: maintscript (Debian)
+file_extensions:
+  - maintscript
+first_line_match: '^(?:(?:mv|rm)_conffile|symlink_to_dir|dir_to_symlink)\b'
+scope: source.debian.maintscript
+
+contexts:
+  main:
+    - include: debian-common.sublime-syntax#comments
+    - include: commands
+
+  commands:
+    - match: ^((?:mv|rm)_conffile|symlink_to_dir|dir_to_symlink)\b
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.maintscript
+      push:
+        - meta_content_scope: meta.mapping.value.debian.maintscript
+        - match: ' (--) '
+          captures:
+            1: punctuation.separator.debian.maintscript
+        - include: debian-common.sublime-syntax#semantic-version
+        - match: (?=/)
+          push:
+            - meta_content_scope: string.unquoted.path.debian.maintscript
+            - match: /
+              scope: punctuation.separator.path.debian.maintscript
+            - match: (?=\s|$)
+              pop: true
+        - include: debian-common.sublime-syntax#package-name
+        - include: debian-common.sublime-syntax#pop-eol

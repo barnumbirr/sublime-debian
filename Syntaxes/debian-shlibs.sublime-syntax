@@ -1,0 +1,32 @@
+%YAML 1.2
+---
+# See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/unstable/dpkg-dev/deb-shlibs.5.en.html
+# Format: [type:] library-name soversion dependencies
+name: shlibs (Debian)
+file_extensions:
+  - shlibs
+first_line_match: '^(?:(?:udeb|private):[ ])?lib\S+\s+\d'
+scope: source.debian.shlibs
+
+contexts:
+  main:
+    - include: debian-common.sublime-syntax#comments
+    - include: entries
+
+  entries:
+    # Optional type prefix: udeb: or private:
+    - match: ^((?:udeb|private)(:)\s+)?(\S+)\s+(\S+)\s+
+      captures:
+        1: storage.type.debian.shlibs
+        2: punctuation.separator.mapping.key-value.debian.shlibs
+        3: entity.name.class.library.debian.shlibs
+        4: constant.numeric.integer.decimal.debian.shlibs
+      push:
+        - meta_scope: meta.mapping.debian.shlibs
+        - meta_content_scope: meta.mapping.value.debian.shlibs
+        - include: debian-common.sublime-syntax#pop-eol
+        - include: debian-common.sublime-syntax#semver-flag
+        - match: \,
+          scope: punctuation.separator.sequence.debian.shlibs
+        - include: debian-common.sublime-syntax#package-name

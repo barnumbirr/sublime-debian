@@ -1,0 +1,91 @@
+%YAML 1.2
+---
+# See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/unstable/debhelper/dh_installalternatives.1.en.html
+name: alternatives (Debian)
+file_extensions:
+  - alternatives
+first_line_match: '^Name:\s*'
+scope: source.debian.alternatives
+
+contexts:
+  main:
+    - include: debian-common.sublime-syntax#comments
+    - include: fields
+
+  fields:
+    # Name field — alternative name
+    - match: ^(Name)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.alternatives
+        2: punctuation.separator.mapping.key-value.debian.alternatives
+      push:
+        - meta_scope: meta.mapping.debian.alternatives
+        - meta_content_scope: meta.mapping.value.debian.alternatives
+        - match: ^(?=\S)
+          pop: true
+        - match: '\S+'
+          scope: entity.name.function.debian.alternatives
+    # Link field — symlink path
+    - match: ^(Link)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.alternatives
+        2: punctuation.separator.mapping.key-value.debian.alternatives
+      push:
+        - meta_scope: meta.mapping.debian.alternatives
+        - meta_content_scope: meta.mapping.value.debian.alternatives
+        - match: ^(?=\S)
+          pop: true
+        - match: (?=/)
+          push:
+            - meta_content_scope: string.unquoted.path.debian.alternatives
+            - match: /
+              scope: punctuation.separator.path.debian.alternatives
+            - match: (?=\s|$)
+              pop: true
+    # Alternative field — alternative path
+    - match: ^(Alternative)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.alternatives
+        2: punctuation.separator.mapping.key-value.debian.alternatives
+      push:
+        - meta_scope: meta.mapping.debian.alternatives
+        - meta_content_scope: meta.mapping.value.debian.alternatives
+        - match: ^(?=\S)
+          pop: true
+        - match: (?=/)
+          push:
+            - meta_content_scope: string.unquoted.path.debian.alternatives
+            - match: /
+              scope: punctuation.separator.path.debian.alternatives
+            - match: (?=\s|$)
+              pop: true
+    # Priority field — numeric priority
+    - match: ^(Priority)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.alternatives
+        2: punctuation.separator.mapping.key-value.debian.alternatives
+      push:
+        - meta_scope: meta.mapping.debian.alternatives
+        - meta_content_scope: meta.mapping.value.debian.alternatives
+        - match: ^(?=\S)
+          pop: true
+        - match: \b\d+\b
+          scope: constant.numeric.integer.decimal.debian.alternatives
+    # Dependents field — link name path pairs
+    - match: ^(Dependents)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.alternatives
+        2: punctuation.separator.mapping.key-value.debian.alternatives
+      push:
+        - meta_scope: meta.mapping.debian.alternatives
+        - meta_content_scope: meta.mapping.value.debian.alternatives
+        - match: ^(?=\S)
+          pop: true
+        - match: (?=/)
+          push:
+            - meta_content_scope: string.unquoted.path.debian.alternatives
+            - match: /
+              scope: punctuation.separator.path.debian.alternatives
+            - match: (?=\s|$)
+              pop: true

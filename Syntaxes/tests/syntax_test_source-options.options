@@ -1,0 +1,38 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-source-options.sublime-syntax"
+
+# Comment line
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^ comment.line.debian
+
+compression=xz
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#          ^ punctuation.separator.mapping.key-value.debian
+#           ^^ meta.mapping.value.debian
+#           ^^ support.constant.debian
+
+extend-diff-ignore=.*\.po$
+#^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#                 ^ punctuation.separator.mapping.key-value.debian
+#                  ^^^^^^^ meta.mapping.value.debian string.unquoted.pattern.debian
+
+tar-ignore=.git
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+
+compression-level=9
+#^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#                ^ punctuation.separator.mapping.key-value.debian
+#                 ^ meta.mapping.value.debian
+#                 ^ constant.numeric.integer.decimal.debian
+
+diff-ignore=.*\.orig$
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#          ^ punctuation.separator.mapping.key-value.debian
+#           ^^^^^^^^^ meta.mapping.value.debian string.unquoted.pattern.debian
+
+include-binaries
+#^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+
+threads-max=4
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#          ^ punctuation.separator.mapping.key-value.debian
+#           ^ constant.numeric.integer.decimal.debian

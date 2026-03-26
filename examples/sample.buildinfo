@@ -1,0 +1,29 @@
+Format: 1.0
+Source: backuppc (4.4.0-2)
+Binary: backuppc
+Architecture: amd64
+Version: 4.4.0-2
+Build-Architecture: amd64
+Build-Date: Thu, 31 Dec 2020 16:54:06 +0100
+Build-Path: /build/backuppc-4.4.0
+Build-Tainted-By: merged-usr-via-aliased-dirs
+Build-Origin: debian
+Build-Kernel-Version: 5.10.0-8-amd64
+Binary-Only-Changes:
+ backuppc (4.4.0-2+b1) unstable; urgency=medium
+ .
+   * Binary-only non-maintainer upload for amd64.
+Installed-Build-Depends:
+ debhelper (= 13.3.4),
+ dpkg-dev (= 1.20.7.1),
+ gcc-10 (= 10.2.1-6),
+ perl (= 5.32.1-4+deb11u2)
+Environment:
+ DEB_BUILD_OPTIONS="parallel=4"
+ SOURCE_DATE_EPOCH="1609430046"
+Checksums-Md5:
+ d41d8cd98f00b204e9800998ecf8427e 12345 backuppc_4.4.0-2_amd64.deb
+Checksums-Sha1:
+ da39a3ee5e6b4b0d3255bfef95601890afd80709 12345 backuppc_4.4.0-2_amd64.deb
+Checksums-Sha256:
+ e3b0c44298fc1c149afbf4c8996fb924 12345 backuppc_4.4.0-2_amd64.deb

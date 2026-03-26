@@ -1,0 +1,14 @@
+%YAML 1.2
+---
+# See https://www.sublimetext.com/docs/syntax.html
+# https://manpages.debian.org/unstable/dpkg-dev/dpkg-source.1.en.html
+name: source options (Debian)
+file_extensions:
+  - options
+first_line_match: '^(?:compression(?:-level)?|(?:extend-)?diff-ignore|tar-ignore)\b'
+scope: source.debian.source.options
+
+contexts:
+  main:
+    - include: debian-common.sublime-syntax#comments
+    - include: debian-common.sublime-syntax#dpkg-source-options

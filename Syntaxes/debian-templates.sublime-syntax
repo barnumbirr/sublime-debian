@@ -4,7 +4,7 @@
 name: templates (Debian)
 file_extensions:
   - templates
-  - .templates
+first_line_match: '^Template:\s*'
 scope: source.debian.templates
 
 contexts:
@@ -14,16 +14,41 @@ contexts:
 
   # https://www.debian.org/doc/manuals/developers-reference/best-pkging-practices.html#templates-fields-definition
   fields:
-    - match: |-
-        ^(?x:
-          (Template|Type|(_*)Default|(_*)(Description)|(_*)Choices
-        ))(:)?
+    # Type field — debconf question types
+    - match: ^(Type)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.templates
         2: punctuation.separator.mapping.key-value.debian.templates
       push:
+        - meta_scope: meta.mapping.debian.templates
         - meta_content_scope: meta.mapping.value.debian.templates
         - match: ^(?=\S)
           pop: true
+        - match: \b(?:boolean|multiselect|select|string|text|note|password|error)\b
+          scope: support.constant.type.debian.templates
+    # Choices fields — comma-separated values
+    - match: ^(_*Choices(?:-C)?)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.templates
+        2: punctuation.separator.mapping.key-value.debian.templates
+      push:
+        - meta_scope: meta.mapping.debian.templates
+        - meta_content_scope: meta.mapping.value.debian.templates
+        - match: ^(?=\S)
+          pop: true
+        - match: ','
+          scope: punctuation.separator.sequence.debian.templates
+    # Other fields — Template, Default, Description
+    - match: ^(_*(?:Template|Default|Description))(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.templates
+        2: punctuation.separator.mapping.key-value.debian.templates
+      push:
+        - meta_scope: meta.mapping.debian.templates
+        - meta_content_scope: meta.mapping.value.debian.templates
+        - match: ^(?=\S)
+          pop: true
+        - match: \b(?:true|false)\b
+          scope: constant.language.boolean.debian.templates
         - include: debian-common.sublime-syntax#email-address
         - include: debian-common.sublime-syntax#url

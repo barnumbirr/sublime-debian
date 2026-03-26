@@ -1,0 +1,15 @@
+Tests: run-tests
+Depends: @, python3-all
+Restrictions: needs-root, isolation-container, allow-stderr
+Features: test-name=custom-feature
+Tests-Directory: debian/tests
+Architecture: amd64 arm64
+
+Tests: check-install, smoke-test
+Depends: @builddeps@, curl
+Restrictions: needs-internet, build-needed
+
+Test-Command: /usr/bin/test-backuppc --verbose
+Depends: @recommends@
+Restrictions: breaks-testbed, needs-sudo
+Classes: default

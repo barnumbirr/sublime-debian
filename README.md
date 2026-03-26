@@ -4,36 +4,36 @@ Debian packaging file syntax highlighting for Sublime Text.
 
 ## Features
 
-Provides syntax highlighting for the following files:
+Provides syntax highlighting for the following Debian packaging files:
 
- - `debian/source/format`
- - `debian/source/local-options`
- - `debian/tests/control` (autopkgtest)
- - `debian/upstream/metadata`
- - `debian/changelog`
- - `debian/compat`
- - `debian/control`
- - `debian/copyright`
- - `debian/*.doc-base`
- - `debian/*.lintian-overrides`
- - `debian/NEWS`
- - `debian/*.templates`
- - `debian/watch`
- - `.dsc`
- - `/etc/apt/sources.list.d/*.sources`
+#### Source package metadata
+ - `debian/control`, `debian/copyright`, `debian/changelog`, `debian/NEWS`
+ - `debian/upstream/metadata`, `debian/tests/control` (autopkgtest)
 
-## Screenshots
+#### Source format & build options
+ - `debian/source/format`, `debian/source/options`, `debian/source/local-options`
+ - `debian/compat`, `debian/watch`, `debian/patches/series`, `debian/gbp.conf`
 
-Debian `changelog`, `control` and `copyright` files with Sublime Text 3's default `Monokai` color scheme:
+#### Debhelper & packaging helpers
+ - `debian/*.install`, `*.dirs`, `*.links`, `*.docs`, `*.clean`, `*.manpages`, `*.examples`, `*.not-installed`, `*.conffiles`, `*.info`
+ - `debian/*.maintscript`, `*.triggers`, `*.symbols`, `*.templates`
+ - `debian/*.doc-base`, `*.lintian-overrides`, `*.alternatives`, `*.shlibs`
+ - `debian/substvars`
 
-<p align="center">
-    <a href="https://i.imgur.com/nL14qlN.png" target="_blank"> <img src="https://i.imgur.com/nL14qlN.png" width="32%"/></a>
-    <a href="https://i.imgur.com/iG9EMUD.png" target="_blank"> <img src="https://i.imgur.com/iG9EMUD.png" width="32%"/></a>
-    <a href="https://i.imgur.com/W1vqFuL.png" target="_blank"> <img src="https://i.imgur.com/W1vqFuL.png" width="32%"/></a>
-    <i>Click images to enlarge.</i>
-</p>
+#### Generated files
+ - `.dsc`, `.changes`, `.buildinfo`
 
-All files used in these screenshots are part of [Debian's backupppc 4.4.0-2 package](https://salsa.debian.org/debian/backuppc/-/tree/debian/4.4.0-2).
+#### APT sources
+ - `/etc/apt/sources.list` (one-line format)
+ - `/etc/apt/sources.list.d/*.sources` (deb822 format)
+
+## Preview
+
+Debian `changelog` and `control` files with Sublime Text's default `Monokai` color scheme:
+
+![sublime-debian preview](preview.png)
+
+All files used in these screenshots are part of the [backuppc](https://salsa.debian.org/debian/backuppc) Debian package.
 
 ## Installation
 
@@ -44,7 +44,7 @@ All files used in these screenshots are part of [Debian's backupppc 4.4.0-2 pack
 
     | Platform      | Install Command                                                   |
     | --------------| ----------------------------------------------------------------- |
-    | OS X          | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> → Package Control: Install Package → Debian Syntax  |
+    | macOS         | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> → Package Control: Install Package → Debian Syntax  |
     | Linux/Windows | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> → Package Control: Install Package → Debian Syntax |
 
 3. Reopen all Debian packaging files or restart Sublime Text
@@ -55,14 +55,14 @@ All files used in these screenshots are part of [Debian's backupppc 4.4.0-2 pack
 
     | Platform | Installation Path                                           |
     | -------- | ----------------------------------------------------------- |
-    | Linux    | `~/.config/sublime-text-3/Packages/`                        |
-    | OSX      | `~/Library/Application\ Support/Sublime\ Text\ 3/Packages/` |
-    | Windows  | `%AppData%\Roaming\Sublime Text 3\Packages`                 |
+    | Linux    | `~/.config/sublime-text/Packages/`                          |
+    | macOS    | `~/Library/Application\ Support/Sublime\ Text/Packages/`    |
+    | Windows  | `%AppData%\Roaming\Sublime Text\Packages`                   |
 
 2. Clone this repository into `Debian Syntax` directory
 
     ```bash
-    git clone git://github.com/barnumbirr/sublime-debian.git 'Debian Syntax'
+    git clone https://github.com/barnumbirr/sublime-debian.git 'Debian Syntax'
     ```
 
 ## Credit
@@ -77,7 +77,7 @@ A heartfelt thank you goes out to the following people for making `sublime-debia
 ## License:
 
 ```
-Copyright 2020-2021 Martin Simon
+Copyright 2020-2026 Martin Simon
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

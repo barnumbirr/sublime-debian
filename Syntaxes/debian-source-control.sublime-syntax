@@ -3,36 +3,144 @@
 # See https://www.sublimetext.com/docs/syntax.html
 name: source control (Debian)
 file_extensions:
-  - .dsc
+  - dsc
+first_line_match: '^-----BEGIN PGP|^Format:\s*[23]\.\d'
 scope: source.debian.source.control
 
 contexts:
   main:
     - include: debian-common.sublime-syntax#comments
+    - include: debian-common.sublime-syntax#pgp-signed-message
+    - include: debian-common.sublime-syntax#pgp-signatures
     - include: fields
 
   # https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-debiansourcecontrolfiles
   fields:
+    # Dependency fields — contain package names
     - match: |-
         ^(?x:
-          (Format|Source|Binary|Architecture|Version|Maintainer|Uploaders|Homepage
-            |Vcs-(Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)|Testsuite|Dgit
-            |Standards-Version|Build-Depends(-Arch|-Indep)?
-            |Build-Conflicts(-Arch|-Indep)?|Package-List|Checksums-(Sha1|Sha256)
-            |Files|Hash|
+          (Binary|Build-Depends(?:-Arch|-Indep)?
+            |Build-Conflicts(?:-Arch|-Indep)?
         ))(:)?
       captures:
         1: meta.mapping.key.debian keyword.control.debian.source.control
         2: punctuation.separator.mapping.key-value.debian.source.control
       push:
+        - meta_scope: meta.mapping.debian.source.control
         - meta_content_scope: meta.mapping.value.debian.source.control
-        - include: debian-common.sublime-syntax#standards-version
-        - include: debian-common.sublime-syntax#semver-flag
         - match: ^(?=\S)
           pop: true
-        - include: debian-common.sublime-syntax#pgp-signatures
-        - include: debian-common.sublime-syntax#other-signatures
-        - include: debian-common.sublime-syntax#email-address
-        - include: debian-common.sublime-syntax#url
-        - match: \,|\|
-          scope: punctuation.separator.sequence.debian.source.control
+        - include: debian-common.sublime-syntax#deb822-dependency-value
+    # Checksum fields — contain hash, size, filename triplets
+    - match: ^(Checksums-(?:Sha1|Sha256)|Files)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.source.control
+        2: punctuation.separator.mapping.key-value.debian.source.control
+      push:
+        - meta_scope: meta.mapping.debian.source.control
+        - meta_content_scope: meta.mapping.value.debian.source.control
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#deb822-checksum-value
+    # Version field — semantic version
+    - match: ^(Version)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.source.control
+        2: punctuation.separator.mapping.key-value.debian.source.control
+      push:
+        - meta_scope: meta.mapping.debian.source.control
+        - meta_content_scope: meta.mapping.value.debian.source.control
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#semantic-version
+    # Source field — package name
+    - match: ^(Source)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.source.control
+        2: punctuation.separator.mapping.key-value.debian.source.control
+      push:
+        - meta_scope: meta.mapping.debian.source.control
+        - meta_content_scope: meta.mapping.value.debian.source.control
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#package-name
+    # Format field — version number with optional source format type
+    - match: ^(Format)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.source.control
+        2: punctuation.separator.mapping.key-value.debian.source.control
+      push:
+        - meta_scope: meta.mapping.debian.source.control
+        - meta_content_scope: meta.mapping.value.debian.source.control
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#semantic-version
+        - match: (\()
+          scope: punctuation.section.group.begin.debian.source.control
+          push:
+            - match: \b(?:native|quilt|custom|git|bzr)\b
+              scope: keyword.control.debian.source.control
+            - match: (\))
+              scope: punctuation.section.group.end.debian.source.control
+              pop: true
+            - include: debian-common.sublime-syntax#pop-eol
+    # Architecture field — architecture constants
+    - match: ^(Architecture)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.source.control
+        2: punctuation.separator.mapping.key-value.debian.source.control
+      push:
+        - meta_scope: meta.mapping.debian.source.control
+        - meta_content_scope: meta.mapping.value.debian.source.control
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#architectures
+    # Package-List field — package tuples with key=value metadata
+    - match: ^(Package-List)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.source.control
+        2: punctuation.separator.mapping.key-value.debian.source.control
+      push:
+        - meta_scope: meta.mapping.debian.source.control
+        - meta_content_scope: meta.mapping.value.debian.source.control
+        - match: ^(?=\S)
+          pop: true
+        - match: '(section|priority|arch|profile|essential)(=)(\S+)'
+          captures:
+            1: variable.parameter.debian.source.control
+            2: punctuation.separator.mapping.key-value.debian.source.control
+            3: string.unquoted.debian.source.control
+        - include: debian-common.sublime-syntax#package-name
+    # Dgit field — commit hash and debian tag reference
+    - match: ^(Dgit)(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.source.control
+        2: punctuation.separator.mapping.key-value.debian.source.control
+      push:
+        - meta_scope: meta.mapping.debian.source.control
+        - meta_content_scope: meta.mapping.value.debian.source.control
+        - match: ^(?=\S)
+          pop: true
+        - match: '[0-9a-f]{7,}'
+          scope: constant.numeric.integer.hexadecimal.debian
+        - match: '\S+'
+          scope: string.unquoted.debian.source.control
+    # Other fields
+    - match: |-
+        ^(?x:
+          (Origin|Description
+            |Maintainer|Uploaders|Homepage
+            |Vcs-(?:Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)|Testsuite
+            |Standards-Version
+            |Testsuite-Triggers
+        ))(:)?
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.source.control
+        2: punctuation.separator.mapping.key-value.debian.source.control
+      push:
+        - meta_scope: meta.mapping.debian.source.control
+        - meta_content_scope: meta.mapping.value.debian.source.control
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#standards-version
+        - include: debian-common.sublime-syntax#deb822-general-value

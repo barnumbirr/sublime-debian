@@ -9,8 +9,10 @@ first_line_match: '^Name:\s*'
 scope: source.debian.alternatives
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: fields
 
   fields:
@@ -18,7 +20,7 @@ contexts:
     - match: ^(Name)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.alternatives
-        2: punctuation.separator.mapping.key-value.debian.alternatives
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.alternatives
       push:
         - meta_scope: meta.mapping.debian.alternatives
         - meta_content_scope: meta.mapping.value.debian.alternatives
@@ -30,41 +32,29 @@ contexts:
     - match: ^(Link)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.alternatives
-        2: punctuation.separator.mapping.key-value.debian.alternatives
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.alternatives
       push:
         - meta_scope: meta.mapping.debian.alternatives
         - meta_content_scope: meta.mapping.value.debian.alternatives
         - match: ^(?=\S)
           pop: true
-        - match: (?=/)
-          push:
-            - meta_content_scope: string.unquoted.path.debian.alternatives
-            - match: /
-              scope: punctuation.separator.path.debian.alternatives
-            - match: (?=\s|$)
-              pop: true
+        - include: path-value
     # Alternative field — alternative path
     - match: ^(Alternative)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.alternatives
-        2: punctuation.separator.mapping.key-value.debian.alternatives
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.alternatives
       push:
         - meta_scope: meta.mapping.debian.alternatives
         - meta_content_scope: meta.mapping.value.debian.alternatives
         - match: ^(?=\S)
           pop: true
-        - match: (?=/)
-          push:
-            - meta_content_scope: string.unquoted.path.debian.alternatives
-            - match: /
-              scope: punctuation.separator.path.debian.alternatives
-            - match: (?=\s|$)
-              pop: true
+        - include: path-value
     # Priority field — numeric priority
     - match: ^(Priority)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.alternatives
-        2: punctuation.separator.mapping.key-value.debian.alternatives
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.alternatives
       push:
         - meta_scope: meta.mapping.debian.alternatives
         - meta_content_scope: meta.mapping.value.debian.alternatives
@@ -76,16 +66,21 @@ contexts:
     - match: ^(Dependents)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.alternatives
-        2: punctuation.separator.mapping.key-value.debian.alternatives
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.alternatives
       push:
         - meta_scope: meta.mapping.debian.alternatives
         - meta_content_scope: meta.mapping.value.debian.alternatives
         - match: ^(?=\S)
           pop: true
-        - match: (?=/)
-          push:
-            - meta_content_scope: string.unquoted.path.debian.alternatives
-            - match: /
-              scope: punctuation.separator.path.debian.alternatives
-            - match: (?=\s|$)
-              pop: true
+        - include: path-value
+    # Catch-all for unknown fields
+    - include: debian-common.sublime-syntax#deb822-unknown-field
+
+  path-value:
+    - match: (?=/)
+      push:
+        - meta_content_scope: string.unquoted.path.debian.alternatives
+        - match: /
+          scope: punctuation.separator.path.debian.alternatives
+        - match: (?=\s|$)
+          pop: true

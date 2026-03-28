@@ -1,42 +1,115 @@
 # SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-doc-base.sublime-syntax"
 
-# Comment line
+# This is a comment
 # <- punctuation.definition.comment.debian
-#^^^^^^^^^^^^^^ comment.line.debian
+#^^^^^^^^^^^^^^^^^^^ comment.line.debian
 
 Document: backuppc
 #^^^^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
 #       ^ punctuation.separator.mapping.key-value.debian.doc-base
 #        ^^^^^^^^^ meta.mapping.value.debian.doc-base
-
 Title: BackupPC Documentation
 #^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
 #    ^ punctuation.separator.mapping.key-value.debian.doc-base
-
+#     ^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.doc-base
 Author: Craig Barratt
 #^^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
-
-Section: Network/Backup
-#^^^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
-
-Format: HTML
-#^^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
-
-Index: /usr/share/doc/backuppc/index.html
-#^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
-
-Files: /usr/share/doc/backuppc/*.html
-#^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
-
+#     ^ punctuation.separator.mapping.key-value.debian.doc-base
+#      ^^^^^^^^^^^^^^^ meta.mapping.value.debian.doc-base
 Abstract: BackupPC is a high-performance, enterprise-grade system for
 #^^^^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
 #       ^ punctuation.separator.mapping.key-value.debian.doc-base
 #        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.doc-base
- backing up Linux and Windows PCs and laptops to a server's disk.
+ backing up Linux, Windows and macOS PCs and laptops to a server's disk.
+ BackupPC is highly configurable and easy to install and maintain.
+Section: Network/Backup
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
+#      ^ punctuation.separator.mapping.key-value.debian.doc-base
+#       ^^^^^^^^^^^^^^^ meta.mapping.value.debian.doc-base
+#        ^^^^^^^ support.constant.section.debian.doc-base
+#               ^ punctuation.separator.path.debian.doc-base
+#                ^^^^^^ support.constant.section.debian.doc-base
+
+Format: HTML
+#^^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
+#     ^ punctuation.separator.mapping.key-value.debian.doc-base
+#      ^^^^^ meta.mapping.value.debian.doc-base
+#       ^^^^ support.constant.format.debian.doc-base
+Index: /usr/share/doc/backuppc/index.html
+#^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
+#    ^ punctuation.separator.mapping.key-value.debian.doc-base
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.doc-base
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.doc-base
+#      ^ punctuation.separator.path.debian.doc-base
+#          ^ punctuation.separator.path.debian.doc-base
+#                ^ punctuation.separator.path.debian.doc-base
+#                    ^ punctuation.separator.path.debian.doc-base
+#                             ^ punctuation.separator.path.debian.doc-base
+Files: /usr/share/doc/backuppc/*.html
+#^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
+#    ^ punctuation.separator.mapping.key-value.debian.doc-base
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.doc-base
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.doc-base
+#      ^ punctuation.separator.path.debian.doc-base
+#          ^ punctuation.separator.path.debian.doc-base
+#                ^ punctuation.separator.path.debian.doc-base
+#                    ^ punctuation.separator.path.debian.doc-base
+#                             ^^^^^^ string.unquoted.path.debian.doc-base
+
+Format: Text
+#^^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
+#     ^ punctuation.separator.mapping.key-value.debian.doc-base
+#       ^^^^ support.constant.format.debian.doc-base
+Files: /usr/share/doc/backuppc/README.txt
+#^^^^ meta.mapping.key.debian keyword.control.debian.doc-base
+#    ^ punctuation.separator.mapping.key-value.debian.doc-base
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.doc-base
+
+# Additional format constants
+Format: PDF
+#       ^^^ support.constant.format.debian.doc-base
+Format: info
+#       ^^^^ support.constant.format.debian.doc-base
+Format: DVI
+#       ^^^ support.constant.format.debian.doc-base
+Format: PostScript
+#       ^^^^^^^^^^ support.constant.format.debian.doc-base
+Format: TeX
+#       ^^^ support.constant.format.debian.doc-base
+Format: debiandoc-sgml
+#       ^^^^^^^^^^^^^^ support.constant.format.debian.doc-base
+Format: DocBook
+#       ^^^^^^^ support.constant.format.debian.doc-base
 
 # URL and email in other fields
 Author: Craig Barratt <cbarratt@example.org>
 #                     ^^^^^^^^^^^^^^^^^^^^^^ meta.reference.email.debian
 #                     ^ punctuation.definition.reference.email.begin.debian
+#                      ^^^^^^^^^^^^^^^^^^^^ entity.name.reference.email.debian
+#                                          ^ punctuation.definition.reference.email.end.debian
 Title: Docs at https://backuppc.github.io/
 #              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+
+# Additional section constants
+Section: Apps/Editors
+#        ^^^^ support.constant.section.debian.doc-base
+#            ^ punctuation.separator.path.debian.doc-base
+#             ^^^^^^^ support.constant.section.debian.doc-base
+Section: Programming/Tools
+#        ^^^^^^^^^^^ support.constant.section.debian.doc-base
+#                   ^ punctuation.separator.path.debian.doc-base
+#                    ^^^^^ support.constant.section.debian.doc-base
+Section: Science/Math
+#        ^^^^^^^ support.constant.section.debian.doc-base
+#               ^ punctuation.separator.path.debian.doc-base
+#                ^^^^ support.constant.section.debian.doc-base
+
+# Regression: catch-all for unknown fields
+X-Custom: something
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#       ^ punctuation.separator.mapping.key-value.debian
+#        ^^^^^^^^^^ meta.mapping.value.debian
+
+# Regression: invalid.illegal for Format field
+Format: ODT
+#       ^^^ invalid.illegal.value.debian.doc-base

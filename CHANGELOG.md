@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 This file format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).\
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-03-28
+
+### Breaking
+- Renamed `meta.mapping.key.debian.sources` → `meta.mapping.key.debian` in `debian-sources` to align with all other deb822 syntaxes
+- Renamed `constant.language.boolean.{true,false}.debian.sources` → `constant.language.boolean.{true,false}.debian` in `debian-sources` — boolean fields now use the shared context from `debian-common`
+- Renamed `entity.name.tag.debian.lintian-overrides` → `entity.name.other.debian.lintian-overrides` for `[[screen-name]]` annotations (missed in v2.0.0 rename)
+- Added `meta.mapping.key.debian` scope to colon separator captures across all deb822 field definitions — color schemes targeting `meta.mapping.key.debian` now consistently cover colons
+- Comments now only match at line start (`^\s*#`) instead of anywhere on a line — correct per deb822 spec
+
+### New
+- Added `watch` file version 5 support (RFC 822 paragraph format with `Version: 5` header)
+- Added `detect_copyright.py` plugin to work around a file extension conflict with the A File Icon package
+- Added `invalid.illegal` validation for closed-set fields: `Priority`, `Multi-Arch`, `Essential`, `Package-Type` (control); `Enabled`, `Types`, `By-Hash`, boolean fields (sources)
+- Added watch template name constants (`GitHub`, `GitLab`, `Npmregistry`, `Pypi`, `CRAN`, `Bioconductor`, `Metacpan`)
+- Added uscan substitution variable highlighting (`@PACKAGE@`, `@ANY_VERSION@`, etc.)
+- Added parenthesized bug-close form support: `(Closes: #12345, #12346)`
+- Added URL scheme and separator sub-scoping (`markup.underline.link.scheme`, `markup.underline.link.separator`)
+- Added `deb822-unknown-field` catch-all to `debian-alternatives`
+- Added shared contexts in `debian-common`: `suite-pop`, `compression-formats`, `dpkg-source-options`, `bug-close-inner`
+
+### Changes
+- Moved comment handling into `prototype` context across all 25 applicable syntaxes (Sublime Text best practice — comments now work in all sub-contexts)
+- Made colon mandatory in all deb822 field matchers (`(:)?` → `(:)`)
+- Extracted shared `path-value` context in `debian-alternatives` (was duplicated 3 times)
+- Extracted shared `watch-constants` and `watch-variables` contexts in `debian-watch`
+- Replaced `syntax_test_debian.sources` with expanded `syntax_test_sources.sources` (107 → 210 lines)
+- Separated semantic version build metadata into distinct capture groups
+- Removed dead `standards-version` context from `debian-common` (now handled by generic `semantic-version`)
+- Removed duplicate `needs-recommends` from autopkgtest restrictions regex
+- Simplified watch `option-value-end` regex
+- Expanded `examples/watch` with version 5 example
+
 ## [2.0.0] - 2026-03-26
 
 ### Breaking

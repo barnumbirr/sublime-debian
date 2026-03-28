@@ -9,6 +9,8 @@ first_line_match: '^(?:compression(?:-level)?|(?:extend-)?diff-ignore|tar-ignore
 scope: source.debian.source.options
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: debian-common.sublime-syntax#dpkg-source-options

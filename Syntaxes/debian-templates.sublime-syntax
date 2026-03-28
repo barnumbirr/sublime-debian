@@ -8,8 +8,10 @@ first_line_match: '^Template:\s*'
 scope: source.debian.templates
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: fields
 
   # https://www.debian.org/doc/manuals/developers-reference/best-pkging-practices.html#templates-fields-definition
@@ -18,19 +20,21 @@ contexts:
     - match: ^(Type)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.templates
-        2: punctuation.separator.mapping.key-value.debian.templates
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.templates
       push:
         - meta_scope: meta.mapping.debian.templates
         - meta_content_scope: meta.mapping.value.debian.templates
         - match: ^(?=\S)
           pop: true
-        - match: \b(?:boolean|multiselect|select|string|text|note|password|error)\b
+        - match: \b(?:boolean|multiselect|select|string|text|note|password|error|title)\b
           scope: support.constant.type.debian.templates
+        - match: \b\w+\b
+          scope: invalid.illegal.value.debian.templates
     # Choices fields — comma-separated values
     - match: ^(_*Choices(?:-C)?)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.templates
-        2: punctuation.separator.mapping.key-value.debian.templates
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.templates
       push:
         - meta_scope: meta.mapping.debian.templates
         - meta_content_scope: meta.mapping.value.debian.templates
@@ -42,13 +46,17 @@ contexts:
     - match: ^(_*(?:Template|Default|Description))(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.templates
-        2: punctuation.separator.mapping.key-value.debian.templates
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.templates
       push:
         - meta_scope: meta.mapping.debian.templates
         - meta_content_scope: meta.mapping.value.debian.templates
         - match: ^(?=\S)
           pop: true
-        - match: \b(?:true|false)\b
-          scope: constant.language.boolean.debian.templates
+        - match: \btrue\b
+          scope: constant.language.boolean.true.debian.templates
+        - match: \bfalse\b
+          scope: constant.language.boolean.false.debian.templates
         - include: debian-common.sublime-syntax#email-address
         - include: debian-common.sublime-syntax#url
+    # Catch-all for unknown fields
+    - include: debian-common.sublime-syntax#deb822-unknown-field

@@ -1,35 +1,26 @@
 # SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-debhelper.sublime-syntax"
 
-# Comment line
+# Debhelper install file
 # <- punctuation.definition.comment.debian
-#^^^^^^^^^^^^^^ comment.line.debian
+#^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.debian
 
-usr/bin/foo
+usr/bin/backuppc
 # <- string.unquoted.path.debian.debhelper
-usr/share/doc/foo/*.html
+
+usr/share/doc/backuppc/*.html
 # <- string.unquoted.path.debian.debhelper
-${DEB_HOST_MULTIARCH}
+#                     ^^^^^^^ string.unquoted.path.debian.debhelper
+
+usr/lib/${DEB_HOST_MULTIARCH}/libbackuppc*.so.*
+# <- string.unquoted.path.debian.debhelper
+#    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.debhelper
+
+${DEB_HOST_MULTIARCH}/lib*.so
 #^ punctuation.definition.variable.begin.debian.debhelper
 # ^^^^^^^^^^^^^^^^^^ variable.language.debian.debhelper
 #                   ^ punctuation.definition.variable.end.debian.debhelper
-usr/lib/${DEB_HOST_MULTIARCH}/lib*.so.*
+#                        ^ keyword.operator.glob.debian.debhelper
+
+usr/share/man/man?/*
 # <- string.unquoted.path.debian.debhelper
-# Absolute paths
-/usr/bin/foo
-# <- string.unquoted.path.debian.debhelper
-/usr/share/applications/*.desktop
-# <- string.unquoted.path.debian.debhelper
-/etc/default/foo /etc/default/
-# <- string.unquoted.path.debian.debhelper
-# Standalone glob characters
-*
-# <- keyword.operator.glob.debian.debhelper
-?
-# <- keyword.operator.glob.debian.debhelper
-# Redirection operator (compat 13+)
-usr/bin/foo => usr/local/bin/
-#           ^^ keyword.operator.assignment.debian.debhelper
-#              ^^^^^^^^^^^^^^ string.unquoted.path.debian.debhelper
-# Multiple variable substitutions
-/usr/lib/${DEB_HOST_MULTIARCH}/${DEB_BUILD_GNU_TYPE}/foo
-# <- string.unquoted.path.debian.debhelper
+#              ^^^^^ string.unquoted.path.debian.debhelper

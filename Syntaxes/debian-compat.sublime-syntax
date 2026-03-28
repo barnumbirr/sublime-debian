@@ -9,8 +9,10 @@ first_line_match: '^\d+$'
 scope: source.debian.compat
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: body
 
   body:

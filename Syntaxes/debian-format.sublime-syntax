@@ -8,8 +8,10 @@ first_line_match: '^\d+\.\d+\s*\((?:native|quilt|custom|git|bzr)\)'
 scope: source.debian.source.format
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: body
 
   # https://manpages.debian.org/unstable/dpkg-dev/dpkg-source.1.en.html
@@ -28,6 +30,8 @@ contexts:
               (native|quilt|custom|git|bzr)
             )
           scope: keyword.control.debian.source.format
+        - match: \b\w+\b
+          scope: invalid.illegal.value.debian.source.format
         - match: \)
           scope: punctuation.section.group.end.debian.source.format
           pop: true

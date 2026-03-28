@@ -1,30 +1,24 @@
 # SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-series.sublime-syntax"
 
-# Comment line
+# Quilt patch series
 # <- punctuation.definition.comment.debian
-#^^^^^^^^^^^^^^ comment.line.debian
+#^^^^^^^^^^^^^^^^^^^^ comment.line.debian
 
-01-fix-spelling.patch
-#^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian.series
+01-fix-spelling-errors.patch
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian.series
 
-patches/02-fix-build.diff -p0
+02-fix-systemd-unit.patch -p1
 #^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian.series
 #                         ^^ variable.parameter.debian.series
 #                           ^ constant.numeric.integer.decimal.debian.series
 
-03-debian-changes.patch -p1
-#^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian.series
-#                       ^^ variable.parameter.debian.series
-#                         ^ constant.numeric.integer.decimal.debian.series
+patches/03-debian-changes.diff -p0
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian.series
+#                              ^^ variable.parameter.debian.series
+#                                ^ constant.numeric.integer.decimal.debian.series
 
-subdir/deep/nested.diff -p2
-#^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian.series
-#                       ^^ variable.parameter.debian.series
-#                         ^ constant.numeric.integer.decimal.debian.series
+04-reload-user.patch
+#^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian.series
 
-04-backport.patch
-#^^^^^^^^^^^^^^^^ string.unquoted.filename.debian.series
-
-# Plain filenames without .patch/.diff extension
-fix-typo
-# <- string.unquoted.filename.debian.series
+05-hardcode-rundir.patch
+#^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian.series

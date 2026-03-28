@@ -1,39 +1,50 @@
 # SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-maintscript.sublime-syntax"
 
-# Comment line
+# dpkg-maintscript-helper commands
 # <- punctuation.definition.comment.debian
-#^^^^^^^^^^^^^^ comment.line.debian
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.debian
 
 rm_conffile /etc/backuppc/config.pl 4.0.0-1~
 # <- keyword.control.debian.maintscript
 #^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.maintscript
+#           ^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.maintscript
 #           ^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.maintscript
+#           ^ punctuation.separator.path.debian.maintscript
+#               ^ punctuation.separator.path.debian.maintscript
+#                        ^ punctuation.separator.path.debian.maintscript
 #                                   ^^^^^^^ meta.number.version.debian
+#                                   ^ constant.numeric.integer.decimal.debian
+#                                    ^ punctuation.separator.sequence.debian
+#                                     ^ constant.numeric.integer.decimal.debian
+#                                      ^ punctuation.separator.sequence.debian
+#                                       ^ constant.numeric.integer.decimal.debian
+#                                        ^ punctuation.separator.sequence.debian
+#                                         ^ string.unquoted.debian
 
-mv_conffile /etc/foo/old.conf /etc/foo/new.conf 1.2-3~
+mv_conffile /etc/backuppc/hosts 4.0.0-1~ /etc/backuppc/hosts.old
 # <- keyword.control.debian.maintscript
 #^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.maintscript
-#           ^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.maintscript
-#                             ^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.maintscript
-#                                               ^^^^^ meta.number.version.debian
+#           ^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.maintscript
+#           ^ punctuation.separator.path.debian.maintscript
+#               ^ punctuation.separator.path.debian.maintscript
+#                        ^ punctuation.separator.path.debian.maintscript
+#                               ^^^^^^^ meta.number.version.debian
+#                                        ^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.maintscript
 
-symlink_to_dir /usr/share/doc/pkg /usr/share/doc/other 1.0-1~
+symlink_to_dir /usr/share/doc/backuppc /usr/share/doc/backuppc-doc 4.3.0-1~
 # <- keyword.control.debian.maintscript
 #^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.maintscript
-#              ^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.maintscript
-#                                 ^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.maintscript
-#                                                      ^^^^^ meta.number.version.debian
+#              ^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.maintscript
+#              ^ punctuation.separator.path.debian.maintscript
+#                  ^ punctuation.separator.path.debian.maintscript
+#                        ^ punctuation.separator.path.debian.maintscript
+#                            ^ punctuation.separator.path.debian.maintscript
+#                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.maintscript
+#                                                                  ^^^^^^^ meta.number.version.debian
 
-dir_to_symlink /usr/share/doc/pkg /usr/share/doc/other 2.0-1~
+dir_to_symlink /usr/share/doc/backuppc /usr/share/doc/backuppc-doc 4.4.0-1~
 # <- keyword.control.debian.maintscript
 #^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.maintscript
-#              ^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.maintscript
-#                                 ^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.maintscript
-#                                                      ^^^^^ meta.number.version.debian
-
-# -- separator and package name
-rm_conffile /etc/foo/old.conf 1.2-3~ -- foo-pkg
-#           ^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.maintscript
-#                             ^^^^^ meta.number.version.debian
-#                                    ^^ punctuation.separator.debian.maintscript
-#                                       ^^^^^^^ support.module.debian
+#              ^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.maintscript
+#                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.maintscript
+#                                                                  ^^^^^^^ meta.number.version.debian

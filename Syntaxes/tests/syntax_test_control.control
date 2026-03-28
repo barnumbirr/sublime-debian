@@ -1,19 +1,24 @@
 # SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-control.sublime-syntax"
 
+# This is a comment
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^^^^^^ comment.line.debian
+
 Source: backuppc
 #^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #     ^ punctuation.separator.mapping.key-value.debian.control
 #      ^^^^^^^^^ meta.mapping.value.debian.control
+#       ^^^^^^^^ support.module.debian
 Section: utils
 #^^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #      ^ punctuation.separator.mapping.key-value.debian.control
 #       ^^^^^^ meta.mapping.value.debian.control
-#        ^^^^^ support.constant.section.debian.control
+#        ^^^^^ support.constant.section.debian
 Priority: optional
 #^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #       ^ punctuation.separator.mapping.key-value.debian.control
 #        ^^^^^^^^^ meta.mapping.value.debian.control
-#         ^^^^^^^^ support.constant.priority.debian.control
+#         ^^^^^^^^ support.constant.priority.debian
 Maintainer: Debian BackupPC Team <team+pkg-backuppc@tracker.debian.org>
 #^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #         ^ punctuation.separator.mapping.key-value.debian.control
@@ -26,67 +31,183 @@ Maintainer: Debian BackupPC Team <team+pkg-backuppc@tracker.debian.org>
 #                                                                 ^ punctuation.separator.domain.debian
 #                                                                     ^ punctuation.definition.reference.email.end.debian
 Uploaders: Tobias Frost <tobi@debian.org>,
-           Axel Beckert <abe@debian.org>,
-           Jonathan Wiltshire <jmw@debian.org>
-
-# Test Build-Depends header keyword
-Build-Depends: debhelper-compat (= 13)
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#        ^ punctuation.separator.mapping.key-value.debian.control
+#                       ^^^^^^^^^^^^^^^^^ meta.reference.email.debian
+#                                        ^ punctuation.separator.sequence.debian.control
+           Axel Beckert <abe@debian.org>
+#                       ^^^^^^^^^^^^^^^^ meta.reference.email.debian
+Build-Depends: debhelper-compat (= 13),
 #^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #            ^ punctuation.separator.mapping.key-value.debian.control
 #              ^^^^^^^^^^^^^^^ support.module.debian
-
-# Test Build-Depends continuation values (assertions on last line only)
-Build-Depends: debhelper-compat (= 13),
+#                               ^ punctuation.section.group.begin.debian.control
+#                                ^ keyword.operator.comparison.debian.control
+#                                  ^^ meta.number.version.debian
+#                                    ^ punctuation.section.group.end.debian.control
+#                                     ^ punctuation.separator.sequence.debian.control
                iputils-ping | inetutils-ping,
+#              ^^^^^^^^^^^^ support.module.debian
+#                           ^ punctuation.separator.sequence.debian.control
+#                             ^^^^^^^^^^^^^^ support.module.debian
+#                                           ^ punctuation.separator.sequence.debian.control
                libbackuppc-xs-perl (>= 0.62),
+#              ^^^^^^^^^^^^^^^^^^ support.module.debian
+#                                  ^ punctuation.section.group.begin.debian.control
+#                                   ^^ keyword.operator.comparison.debian.control
+#                                      ^^^^ meta.number.version.debian
+#                                          ^ punctuation.section.group.end.debian.control
                libcgi-pm-perl,
-               libfile-listing-perl,
+#              ^^^^^^^^^^^^^^ support.module.debian
                par2,
-               patch,
-               perl,
-               rrdtool
-#              ^^^^^^ support.module.debian
-Architecture: any
+#              ^^^^ support.module.debian
+               perl (>> 5.28),
+#              ^^^^ support.module.debian
+#                   ^ punctuation.section.group.begin.debian.control
+#                    ^^ keyword.operator.comparison.debian.control
+#                       ^^^^ meta.number.version.debian
+#                           ^ punctuation.section.group.end.debian.control
+               rrdtool (<= 1.8.0)
+#              ^^^^^^^ support.module.debian
+#                      ^ punctuation.section.group.begin.debian.control
+#                       ^^ keyword.operator.comparison.debian.control
+#                          ^^^^^ meta.number.version.debian
+#                               ^ punctuation.section.group.end.debian.control
+Build-Depends-Arch: libsystemd-dev
+#^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#                 ^ punctuation.separator.mapping.key-value.debian.control
+#                   ^^^^^^^^^^^^^ support.module.debian
+Build-Depends-Indep: libhtml-parser-perl
+#^^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#                  ^ punctuation.separator.mapping.key-value.debian.control
+#                    ^^^^^^^^^^^^^^^^^^ support.module.debian
+Build-Conflicts: libfoo-dev
+#^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#              ^ punctuation.separator.mapping.key-value.debian.control
+#                ^^^^^^^^^^ support.module.debian
+Build-Conflicts-Arch: libbad-dev
+#^^^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#                   ^ punctuation.separator.mapping.key-value.debian.control
+#                     ^^^^^^^^^ support.module.debian
+Build-Conflicts-Indep: libconflict-dev
+#^^^^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#                    ^ punctuation.separator.mapping.key-value.debian.control
+#                      ^^^^^^^^^^^^^^^ support.module.debian
+Build-Driver: debian-rules
 #^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #           ^ punctuation.separator.mapping.key-value.debian.control
-#            ^^^^ meta.mapping.value.debian.control
-#             ^^^ constant.other.architecture.debian
+#            ^^^^^^^^^^^^^ meta.mapping.value.debian.control
+Build-Essential: no
+#^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#              ^ punctuation.separator.mapping.key-value.debian.control
+#               ^^^ meta.mapping.value.debian.control
+#                ^^ constant.language.boolean.false.debian
+Build-Profiles: <!nocheck>
+#^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#             ^ punctuation.separator.mapping.key-value.debian.control
+#               ^ punctuation.section.group.begin.debian.control
+#                ^ keyword.operator.logical.debian
+#                 ^^^^^^^ support.constant.build-profile.debian.control
+#                        ^ punctuation.section.group.end.debian.control
 Rules-Requires-Root: binary-targets
 #^^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #                  ^ punctuation.separator.mapping.key-value.debian.control
 #                   ^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
 #                    ^^^^^^^^^^^^^^ support.constant.debian.control
-Standards-Version: 4.5.1
+Standards-Version: 4.7.0
+#^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#                ^ punctuation.separator.mapping.key-value.debian.control
+#                 ^^^^^^ meta.mapping.value.debian.control
+#                  ^^^^^ meta.number.version.debian
 Homepage: https://backuppc.github.io/backuppc/
 #^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #       ^ punctuation.separator.mapping.key-value.debian.control
-#        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
 #         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
 Vcs-Git: https://salsa.debian.org/debian/backuppc.git
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#      ^ punctuation.separator.mapping.key-value.debian.control
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
 Vcs-Browser: https://salsa.debian.org/debian/backuppc
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#          ^ punctuation.separator.mapping.key-value.debian.control
+#            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+Vcs-Svn: svn://svn.debian.org/svn/backuppc/trunk
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#      ^ punctuation.separator.mapping.key-value.debian.control
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
+Vcs-Hg: https://hg.example.com/backuppc
+#^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#     ^ punctuation.separator.mapping.key-value.debian.control
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+Vcs-Bzr: https://code.launchpad.net/backuppc
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#      ^ punctuation.separator.mapping.key-value.debian.control
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+Vcs-Cvs: :pserver:anonymous@cvs.example.com:/cvsroot
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#      ^ punctuation.separator.mapping.key-value.debian.control
+Vcs-Darcs: https://darcs.example.com/backuppc
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#        ^ punctuation.separator.mapping.key-value.debian.control
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+Vcs-Mtn: mtn.example.com?net.example.backuppc
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#      ^ punctuation.separator.mapping.key-value.debian.control
+Vcs-Arch: https://arch.example.com/backuppc
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#       ^ punctuation.separator.mapping.key-value.debian.control
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+Testsuite: autopkgtest
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#        ^ punctuation.separator.mapping.key-value.debian.control
+#         ^^^^^^^^^^^^ meta.mapping.value.debian.control
+#          ^^^^^^^^^^^ support.constant.debian.control
+Testsuite-Triggers: perl, python3-all
+#^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#                 ^ punctuation.separator.mapping.key-value.debian.control
+#                   ^^^^ support.module.debian
+#                       ^ punctuation.separator.sequence.debian.control
+#                         ^^^^^^^^^^ support.module.debian
+Origin: debian
+#^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#     ^ punctuation.separator.mapping.key-value.debian.control
+#      ^^^^^^^ meta.mapping.value.debian.control
+Bugs: https://bugs.debian.org/
+#^^^ meta.mapping.key.debian keyword.control.debian.control
+#   ^ punctuation.separator.mapping.key-value.debian.control
+#     ^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
 
 Package: backuppc
-Architecture: amd64 arm64 i386
-#             ^^^^^ constant.other.architecture.debian
-#                   ^^^^^ constant.other.architecture.debian
-#                         ^^^^ constant.other.architecture.debian
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#      ^ punctuation.separator.mapping.key-value.debian.control
+#       ^^^^^^^^^ meta.mapping.value.debian.control
+#        ^^^^^^^^ support.module.debian
+Architecture: any
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#           ^ punctuation.separator.mapping.key-value.debian.control
+#            ^^^^ meta.mapping.value.debian.control
+#             ^^^ constant.other.architecture.debian
+Essential: no
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#        ^ punctuation.separator.mapping.key-value.debian.control
+#         ^^^ meta.mapping.value.debian.control
+#          ^^ constant.language.boolean.false.debian
+Protected: yes
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#        ^ punctuation.separator.mapping.key-value.debian.control
+#         ^^^^ meta.mapping.value.debian.control
+#          ^^^ constant.language.boolean.true.debian
+Installed-Size: 4096
+#^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#             ^ punctuation.separator.mapping.key-value.debian.control
+#              ^^^^^ meta.mapping.value.debian.control
+#               ^^^^ constant.numeric.integer.decimal.debian.control
 Multi-Arch: same
 #^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #         ^ punctuation.separator.mapping.key-value.debian.control
 #          ^^^^^ meta.mapping.value.debian.control
 #           ^^^^ support.constant.multi-arch.debian.control
-Essential: yes
-#        ^ punctuation.separator.mapping.key-value.debian.control
-#         ^^^^ meta.mapping.value.debian.control
-#          ^^^ constant.language.boolean.true.debian.control
-Package-Type: udeb
-#           ^ punctuation.separator.mapping.key-value.debian.control
-#             ^^^^ storage.type.debian.control
-Installed-Size: 1024
-#               ^^^^ constant.numeric.integer.decimal.debian.control
-Section: non-free/games
-#        ^^^^^^^^^^^^^^ support.constant.section.debian.control
-#                ^ punctuation.separator.path.debian.control
 Pre-Depends: ${misc:Pre-Depends}
 #^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #          ^ punctuation.separator.mapping.key-value.debian.control
@@ -94,175 +215,241 @@ Pre-Depends: ${misc:Pre-Depends}
 #            ^^^^^^^^^^^^^^^^^^^ variable.language.debian
 #            ^^ punctuation.definition.variable.begin.debian.control
 #                              ^ punctuation.definition.variable.end.debian.control
-
-# Test Depends header keyword
-Depends: adduser
-#^^^^^^ meta.mapping.key.debian keyword.control.debian.control
-#       ^^^^^^^^ meta.mapping.value.debian.control
-
-# Test Depends continuation values with version constraints and alternatives
 Depends: adduser,
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#      ^ punctuation.separator.mapping.key-value.debian.control
+#       ^^^^^^^^ meta.mapping.value.debian.control
+#        ^^^^^^^ support.module.debian
+#               ^ punctuation.separator.sequence.debian.control
          apache2 | httpd,
-         apache2-utils,
-         backuppc-rsync (>= 3.1.3),
-         perl (>> 5.28),
-         rrdtool (<= 1.8.0),
-         libfoo (<< 2.0),
-         bzip2,
-         default-mta | exim4 | mail-transport-agent,
-         iputils-ping | inetutils-ping,
-         libarchive-zip-perl,
-         libbackuppc-xs-perl (>= 0.62),
-         libcgi-pm-perl,
-         libdigest-md5-perl,
-         libfile-listing-perl,
-         libio-compress-perl | libcompress-zlib-perl,
-         libtime-parsedate-perl,
-         lsb-base,
-         ucf,
-         ${misc:Depends},
-         ${perl:Depends},
-         ${shlibs:Depends}
-#        ^^^^^^^^^^^^^^^^^ variable.language.debian
-
-# Test Depends with version constraints on a single line
-Depends: backuppc-rsync (>= 3.1.3)
-#        ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
-#                       ^ punctuation.section.group.begin.debian.control
-#                        ^^ keyword.operator.comparison.debian.control
-#                           ^^^^^ meta.number.version.debian
-#                           ^ constant.numeric.integer.decimal.debian
-#                            ^ punctuation.separator.sequence.debian
-#                             ^ constant.numeric.integer.decimal.debian
-#                              ^ punctuation.separator.sequence.debian
-#                               ^ constant.numeric.integer.decimal.debian
-#                                ^ punctuation.section.group.end.debian.control
-
-# Test Depends with alternative operators
-Depends: apache2 | httpd
 #        ^^^^^^^ support.module.debian
 #                ^ punctuation.separator.sequence.debian.control
 #                  ^^^^^ support.module.debian
-
-# Test Depends with comparison operators
-Depends: perl (>> 5.28)
-#              ^^ keyword.operator.comparison.debian.control
-Depends: rrdtool (<= 1.8.0)
-#                 ^^ keyword.operator.comparison.debian.control
-Depends: libfoo (<< 2.0)
-#                ^^ keyword.operator.comparison.debian.control
-
-Recommends: libio-dirent-perl,
-            openssh-client | ssh-client,
-            rrdtool,
-            samba-common-bin,
-            smbclient
-Suggests: certbot | acme-tiny | acmetool | dehydrated | lacme | lecm | lego,
-          libscgi-perl,
-          par2,
-          rsync,
-          w3m | www-browser
-
-# Test Description header
-Description: high-performance, enterprise-grade system for backing up PCs
-#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
-#          ^ punctuation.separator.mapping.key-value.debian.control
-#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.description.synopsis.debian.control
-
-# Test Description body with paragraph markers
-Description: test paragraph separator
- First paragraph text.
- Second paragraph text.
- .
- Third paragraph text.
- .
-#^ punctuation.separator.paragraph.debian.control
-
-Package: libfoo-dev
-Architecture: any
-Multi-Arch: same
-
-# Test Depends with substvar on single line
-Depends: libfoo1 (= ${binary:Version})
-#                ^ punctuation.section.group.begin.debian.control
-#                 ^ keyword.operator.comparison.debian.control
-#                   ^^^^^^^^^^^^^^^^^ variable.language.debian
-#                   ^^ punctuation.definition.variable.begin.debian.control
-#                                    ^ punctuation.section.group.end.debian.control
-
-# Test Depends continuation with substvars (assertions on last line only)
-Depends: libfoo1 (= ${binary:Version}),
-         libbar-dev (>= ${binary:Version}),
-         libfoo1 (>= ${source:Version}),
-         ${shlibs:Depends},
-         ${perl:Depends},
-         ${gir:Depends},
-         ${misc:Depends}
+         backuppc-rsync (>= 3.1.3),
+#        ^^^^^^^^^^^^^^ support.module.debian
+#                       ^ punctuation.section.group.begin.debian.control
+#                        ^^ keyword.operator.comparison.debian.control
+#                           ^^^^^ meta.number.version.debian
+#                                ^ punctuation.section.group.end.debian.control
+         default-mta | exim4 | mail-transport-agent,
+#        ^^^^^^^^^^^ support.module.debian
+#                    ^ punctuation.separator.sequence.debian.control
+#                      ^^^^^ support.module.debian
+#                            ^ punctuation.separator.sequence.debian.control
+#                              ^^^^^^^^^^^^^^^^^^^^ support.module.debian
+         lsb-base,
+#        ^^^^^^^^ support.module.debian
+         ucf,
+#        ^^^ support.module.debian
+         ${misc:Depends},
 #        ^^^^^^^^^^^^^^^ variable.language.debian
 #        ^^ punctuation.definition.variable.begin.debian.control
 #                      ^ punctuation.definition.variable.end.debian.control
-Recommends: libfoo-doc [linux-amd64]
+         ${perl:Depends},
+#        ^^^^^^^^^^^^^^^ variable.language.debian
+         ${shlibs:Depends},
+#        ^^^^^^^^^^^^^^^^^ variable.language.debian
+         ${gir:Depends}
+#        ^^^^^^^^^^^^^^ variable.language.debian
+Recommends: libfoo-doc [amd64],
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#         ^ punctuation.separator.mapping.key-value.debian.control
 #           ^^^^^^^^^^ support.module.debian
+#                       ^^^^^ support.module.debian
+#                             ^ punctuation.separator.sequence.debian.control
+            openssh-client | ssh-client
+#           ^^^^^^^^^^^^^^ support.module.debian
+#                          ^ punctuation.separator.sequence.debian.control
+#                            ^^^^^^^^^^ support.module.debian
+Suggests: certbot | acme-tiny [!i386]
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#       ^ punctuation.separator.mapping.key-value.debian.control
+#         ^^^^^^^ support.module.debian
+#                 ^ punctuation.separator.sequence.debian.control
+#                   ^^^^^^^^^ support.module.debian
+Breaks: backuppc-rsync (<< 3.0)
+#^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#     ^ punctuation.separator.mapping.key-value.debian.control
+#       ^^^^^^^^^^^^^^ support.module.debian
 #                      ^ punctuation.section.group.begin.debian.control
-#                       ^^^^^^^^^^^ constant.other.architecture.debian
-#                                  ^ punctuation.section.group.end.debian.control
-Suggests: libfoo-extra [!linux-i386]
-#         ^^^^^^^^^^^^ support.module.debian
-#                      ^ punctuation.section.group.begin.debian.control
-#                       ^ keyword.operator.logical.debian
-#                        ^^^^^^^^^^ constant.other.architecture.debian
-#                                  ^ punctuation.section.group.end.debian.control
-Description: development files for libfoo
-
-# Test Uploaders header keyword
-Uploaders: Axel Beckert <abe@debian.org>
+#                       ^^ keyword.operator.comparison.debian.control
+#                          ^^^ meta.number.version.debian
+#                             ^ punctuation.section.group.end.debian.control
+Conflicts: backuppc-rsync (<< 2.0)
 #^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #        ^ punctuation.separator.mapping.key-value.debian.control
-#                       ^^^^^^^^^^^^^^^^ meta.reference.email.debian
-
-# Test Uploaders multi-line (assertions on last line only)
-Uploaders: Tobias Frost <tobi@debian.org>,
-           Axel Beckert <abe@debian.org>
-#                       ^^^^^^^^^^^^^^^^ meta.reference.email.debian
-
-Build-Profiles: <!nocheck> <cross> <!pkg.foo.bar>
-#^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
-#             ^ punctuation.separator.mapping.key-value.debian.control
-#               ^ punctuation.section.group.begin.debian.control
-#                ^ keyword.operator.logical.debian
-#                 ^^^^^^^ support.constant.build-profile.debian.control
-#                        ^ punctuation.section.group.end.debian.control
-#                          ^ punctuation.section.group.begin.debian.control
-#                           ^^^^^ support.constant.build-profile.debian.control
-#                                ^ punctuation.section.group.end.debian.control
-#                                  ^ punctuation.section.group.begin.debian.control
-#                                   ^ keyword.operator.logical.debian
-#                                    ^^^^^^^^^^^ support.constant.build-profile.debian.control
-#                                               ^ punctuation.section.group.end.debian.control
-
-Tag: role::program, interface::commandline, suite::debian
+#          ^^^^^^^^^^^^^^ support.module.debian
+Provides: backup-solution
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#       ^ punctuation.separator.mapping.key-value.debian.control
+#         ^^^^^^^^^^^^^^^ support.module.debian
+Replaces: backuppc-rsync (<< 2.0)
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#       ^ punctuation.separator.mapping.key-value.debian.control
+#         ^^^^^^^^^^^^^^ support.module.debian
+Enhances: amanda-client
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#       ^ punctuation.separator.mapping.key-value.debian.control
+#         ^^^^^^^^^^^^^ support.module.debian
+Built-Using: golang-1.19 (= 1.19.8-2)
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#          ^ punctuation.separator.mapping.key-value.debian.control
+#            ^^^^^^^^^^^ support.module.debian
+#                        ^ punctuation.section.group.begin.debian.control
+#                         ^ keyword.operator.comparison.debian.control
+#                           ^^^^^^^^ meta.number.version.debian
+#                                   ^ punctuation.section.group.end.debian.control
+Static-Built-Using: libfoo (= 1.0-1)
+#^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#                 ^ punctuation.separator.mapping.key-value.debian.control
+#                   ^^^^^^ support.module.debian
+Tag: role::program, suite::debian
 #^^ meta.mapping.key.debian keyword.control.debian.control
 #  ^ punctuation.separator.mapping.key-value.debian.control
 #    ^^^^ entity.name.namespace.debian.control
 #        ^^ punctuation.separator.mapping.key-value.debian.control
 #          ^^^^^^^ support.constant.debian.control
 #                 ^ punctuation.separator.sequence.debian.control
-#                   ^^^^^^^^^ entity.name.namespace.debian.control
-#                            ^^ punctuation.separator.mapping.key-value.debian.control
-#                              ^^^^^^^^^^^ support.constant.debian.control
-#                                         ^ punctuation.separator.sequence.debian.control
-
-Tests: run-tests
-#^^^^ meta.mapping.key.debian keyword.control.debian.control
-#    ^ punctuation.separator.mapping.key-value.debian.control
-#     ^^^^^^^^^^ meta.mapping.value.debian.control
-Depends: @, python3-all
-Restrictions: needs-root, isolation-container, allow-stderr
+#                   ^^^^^ entity.name.namespace.debian.control
+#                        ^^ punctuation.separator.mapping.key-value.debian.control
+#                          ^^^^^^ support.constant.debian.control
+Package-Type: deb
 #^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #           ^ punctuation.separator.mapping.key-value.debian.control
-#            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
-#             ^^^^^^^^^^ support.constant.restriction.debian
-#                       ^ punctuation.separator.sequence.debian.control
-#                         ^^^^^^^^^^^^^^^^^^^ support.constant.restriction.debian
-#                                            ^ punctuation.separator.sequence.debian.control
-#                                              ^^^^^^^^^^^^ support.constant.restriction.debian
+#            ^^^^ meta.mapping.value.debian.control
+#             ^^^ storage.type.debian.control
+Subarchitecture: generic
+#^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#              ^ punctuation.separator.mapping.key-value.debian.control
+#               ^^^^^^^^ meta.mapping.value.debian.control
+Kernel-Version: 6.1
+#^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#             ^ punctuation.separator.mapping.key-value.debian.control
+Installer-Menu-Item: 99
+#^^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#                  ^ punctuation.separator.mapping.key-value.debian.control
+#                    ^^ constant.numeric.integer.decimal.debian
+Description: high-performance, enterprise-grade system for backing up PCs
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#          ^ punctuation.separator.mapping.key-value.debian.control
+#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.description.synopsis.debian.control
+ BackupPC is disk based and not tape based. This particularity allows
+ features not found in any other backup solution:
+ .
+#^ punctuation.separator.paragraph.debian.control
+  * Clever pooling scheme minimizes disk storage and disk I/O.
+  * Optional compression provides additional reductions in storage.
+  * A powerful http/cgi user interface allows administrators to view log files.
+
+Package: backuppc-dbgsym
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#      ^ punctuation.separator.mapping.key-value.debian.control
+#        ^^^^^^^^^^^^^^^ support.module.debian
+Architecture: any
+Depends: backuppc (= ${binary:Version}),
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#      ^ punctuation.separator.mapping.key-value.debian.control
+#        ^^^^^^^^ support.module.debian
+#                 ^ punctuation.section.group.begin.debian.control
+#                  ^ keyword.operator.comparison.debian.control
+#                    ^^^^^^^^^^^^^^^^^ variable.language.debian
+#                    ^^ punctuation.definition.variable.begin.debian.control
+#                                    ^ punctuation.definition.variable.end.debian.control
+#                                     ^ punctuation.section.group.end.debian.control
+         libbar (>= ${source:Version}),
+#        ^^^^^^ support.module.debian
+#               ^ punctuation.section.group.begin.debian.control
+#                ^^ keyword.operator.comparison.debian.control
+#                   ^^^^^^^^^^^^^^^^^ variable.language.debian
+#                   ^^ punctuation.definition.variable.begin.debian.control
+#                                   ^ punctuation.definition.variable.end.debian.control
+#                                    ^ punctuation.section.group.end.debian.control
+         ${shlibs:Depends},
+#        ^^^^^^^^^^^^^^^^^ variable.language.debian
+         ${misc:Built-Using}
+#        ^^^^^^^^^^^^^^^^^^^ variable.language.debian
+Description: debug symbols for backuppc
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#          ^ punctuation.separator.mapping.key-value.debian.control
+
+Tests: run-tests
+#^^^^ meta.mapping.key.debian keyword.control.debian
+#    ^ punctuation.separator.mapping.key-value.debian
+#     ^^^^^^^^^^ meta.mapping.value.debian
+Tests-Directory: debian/tests
+#^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#              ^ punctuation.separator.mapping.key-value.debian
+#                ^^^^^^ meta.mapping.value.debian
+Depends: @, python3-all
+Restrictions: rw-build-tree, breaks-testbed, needs-root, needs-sudo,
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#           ^ punctuation.separator.mapping.key-value.debian
+#             ^^^^^^^^^^^^^ meta.mapping.value.debian
+              build-needed, allow-stderr, isolation-container,
+#             ^^^^^^^^^^^^ source.debian.control
+              isolation-machine, needs-reboot, needs-internet,
+#             ^^^^^^^^^^^^^^^^^ source.debian.control
+              needs-recommends, flaky, skippable, skip-not-installable,
+#             ^^^^^^^^^^^^^^^^^ source.debian.control
+              skip-foreign-architecture, hint-testsuite-triggers, superficial
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^ source.debian.control
+Features: test-name=custom-feature
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#       ^ punctuation.separator.mapping.key-value.debian
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian
+Test-Command: /usr/bin/test-backuppc
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#           ^ punctuation.separator.mapping.key-value.debian
+#             ^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian
+Classes: default
+#^^^^^^ meta.mapping.key.debian keyword.control.debian
+#      ^ punctuation.separator.mapping.key-value.debian
+#       ^^^^^^^^ meta.mapping.value.debian
+Architecture: amd64 arm64
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#           ^ punctuation.separator.mapping.key-value.debian.control
+#             ^^^^^ constant.other.architecture.debian
+#                   ^^^^^ constant.other.architecture.debian
+
+# Regression: Multi-Arch: no must be highlighted
+Multi-Arch: no
+#           ^^ support.constant.multi-arch.debian.control
+
+# Regression: Multi-Arch: foreign and allowed
+Multi-Arch: foreign
+#           ^^^^^^^ support.constant.multi-arch.debian.control
+Multi-Arch: allowed
+#           ^^^^^^^ support.constant.multi-arch.debian.control
+
+# Regression: Rules-Requires-Root: no must be highlighted
+Rules-Requires-Root: no
+#                    ^^ constant.language.boolean.false.debian
+
+# Regression: Package-Type: udeb must be highlighted
+Package-Type: udeb
+#             ^^^^ storage.type.debian.control
+
+# Regression: catch-all for unknown fields
+X-Custom: some value
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#       ^ punctuation.separator.mapping.key-value.debian
+#        ^^^^^^^^^^^ meta.mapping.value.debian
+
+# Regression: invalid.illegal for closed-set fields
+Priority: bogus
+#         ^^^^^ invalid.illegal.value.debian.control
+
+Multi-Arch: bogus
+#           ^^^^^ invalid.illegal.value.debian.control
+
+Essential: maybe
+#          ^^^^^ invalid.illegal.value.debian.control
+
+Package-Type: rpm
+#             ^^^ invalid.illegal.value.debian.control
+
+# Regression: URL sub-component scoping
+Homepage: https://example.com/path
+#         ^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+#         ^^^^^ markup.underline.link.scheme.debian
+#              ^^^ markup.underline.link.separator.debian

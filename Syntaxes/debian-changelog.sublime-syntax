@@ -10,8 +10,10 @@ first_line_match: '^[\w][\w.+-]+\s+\('
 scope: source.debian.changelog
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: header
 
   header:

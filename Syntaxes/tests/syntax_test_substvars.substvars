@@ -1,38 +1,55 @@
 # SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-substvars.sublime-syntax"
 
-# Comment line
+# Auto-generated substvars
 # <- punctuation.definition.comment.debian
-#^^^^^^^^^^^^^^ comment.line.debian
+#^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.debian
 
 misc:Depends=adduser, lsb-base (>= 3.0-6)
 #^^^^^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
 #           ^ punctuation.separator.mapping.key-value.debian.substvars
-#            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.substvars
+#            ^^^^^^^ meta.mapping.value.debian.substvars
 #            ^^^^^^^ support.module.debian
 #                   ^ punctuation.separator.sequence.debian.substvars
 #                     ^^^^^^^^ support.module.debian
 #                              ^ punctuation.section.group.begin.debian.control
 #                               ^^ keyword.operator.comparison.debian.control
+#                                  ^^^^^ meta.number.version.debian
+#                                  ^ constant.numeric.integer.decimal.debian
+#                                   ^ punctuation.separator.sequence.debian
+#                                    ^ constant.numeric.integer.decimal.debian
+#                                     ^ punctuation.separator.sequence.debian
+#                                      ^ string.unquoted.debian
+#                                       ^ punctuation.section.group.end.debian.control
 
-shlibs:Depends=libfoo1 (>= 1.0)
-#^^^^^^^^^^^^^ variable.language.debian.substvars
+misc:Pre-Depends=
+#^^^^^^^^^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
+#               ^ punctuation.separator.mapping.key-value.debian.substvars
+
+shlibs:Depends=libfoo1 (>= 1.0), libbar2 (>= 2.0)
+#^^^^^^^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
 #             ^ punctuation.separator.mapping.key-value.debian.substvars
+#              ^^^^^^^ support.module.debian
+#                      ^ punctuation.section.group.begin.debian.control
+#                       ^^ keyword.operator.comparison.debian.control
+#                             ^ punctuation.section.group.end.debian.control
+#                              ^ punctuation.separator.sequence.debian.substvars
+#                                ^^^^^^^ support.module.debian
+#                                        ^ punctuation.section.group.begin.debian.control
+#                                         ^^ keyword.operator.comparison.debian.control
+#                                               ^ punctuation.section.group.end.debian.control
 
 perl:Depends=perl (>= 5.28)
-#^^^^^^^^^^^ variable.language.debian.substvars
+#^^^^^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
 #           ^ punctuation.separator.mapping.key-value.debian.substvars
+#            ^^^^ support.module.debian
+#                 ^ punctuation.section.group.begin.debian.control
+#                  ^^ keyword.operator.comparison.debian.control
+#                         ^ punctuation.section.group.end.debian.control
 
-# Conditional assignment
-misc:Pre-Depends?=adduser
-#^^^^^^^^^^^^^^^ variable.language.debian.substvars
-#               ^^ punctuation.separator.mapping.key-value.debian.substvars
-
-# Append assignment
-misc:Depends$=extra-package
-#^^^^^^^^^^^ variable.language.debian.substvars
-#           ^^ punctuation.separator.mapping.key-value.debian.substvars
-
-# Delete variable
-misc:Depends!=
-#^^^^^^^^^^^ variable.language.debian.substvars
-#           ^^ punctuation.separator.mapping.key-value.debian.substvars
+gir:Depends=gir1.2-foo-1.0 (>= 1.0)
+#^^^^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
+#          ^ punctuation.separator.mapping.key-value.debian.substvars
+#           ^^^^^^^^^^^^^^ support.module.debian
+#                          ^ punctuation.section.group.begin.debian.control
+#                           ^^ keyword.operator.comparison.debian.control
+#                                 ^ punctuation.section.group.end.debian.control

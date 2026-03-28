@@ -13,8 +13,10 @@ first_line_match: |-
 scope: source.debian.source.local-options
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: options
 
   # local-options supports all source/options plus local-only options

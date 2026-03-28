@@ -20,13 +20,15 @@ file_extensions:
 scope: source.debian.debhelper
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: entries
 
   entries:
     # ${variable} substitutions (debhelper compat 13+)
-    - match: (\$\{)(\w+)(})
+    - match: (\$\{)([\w:]+)(})
       captures:
         1: punctuation.definition.variable.begin.debian.debhelper
         2: variable.language.debian.debhelper

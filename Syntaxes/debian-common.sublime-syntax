@@ -16,8 +16,9 @@ contexts:
       pop: true
 
   comments:
-    - match: '#'
-      scope: punctuation.definition.comment.debian
+    - match: '^\s*(#)'
+      captures:
+        1: punctuation.definition.comment.debian
       push:
         - meta_scope: comment.line.debian
         - match: \n
@@ -25,8 +26,12 @@ contexts:
 
   debian-versions:
     - match: |-
-        \b(?:buzz|rex|bo|hamm|slink|potato|woody|sarge|etch|lenny|squeeze
-          |wheezy|jessie|stretch|buster|bullseye|bookworm|trixie|forky|duke|sid)\b
+        (?x:\b(?:
+          buzz|rex|bo|hamm|slink|potato|woody
+          |sarge|etch|lenny|squeeze|wheezy|jessie
+          |stretch|buster|bullseye|bookworm
+          |trixie|forky|duke|sid
+        )\b)
       scope: support.constant.debian
 
   ubuntu-versions:
@@ -105,8 +110,11 @@ contexts:
       pop: true
 
   url:
-    - match: https?:\/\/\S+
+    - match: (https?)(://)(\S+)
       scope: markup.underline.link.debian
+      captures:
+        1: markup.underline.link.scheme.debian
+        2: markup.underline.link.separator.debian
 
   # Thu, 31 Dec 2020 16:54:06 +0100
   date-iso:
@@ -137,7 +145,7 @@ contexts:
           ([0-9]+))?
           (?:([-+~])((?:[0-9]+|\d*[a-zA-Z-][0-9a-zA-Z-]*)
           (?:\.(?:[0-9]+|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?
-          (?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-])*))?\b
+          (?:(\+)([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-])*))?\b
         )
       scope: meta.number.version.debian
       captures:
@@ -150,19 +158,8 @@ contexts:
         7: constant.numeric.integer.decimal.debian
         8: punctuation.separator.sequence.debian
         9: string.unquoted.debian
-
-  standards-version:
-    - match: ^((?:Standards-)?Version)(:)
-      captures:
-        1: meta.mapping.key.debian keyword.control.debian.control
-        2: punctuation.separator.mapping.key-value.debian.control
-      push: standards-version-value
-
-  standards-version-value:
-    - meta_content_scope: meta.mapping.value.debian.control
-    - match: ^(?=\S)
-      pop: true
-    - include: semantic-version
+        10: punctuation.separator.sequence.debian
+        11: string.unquoted.debian
 
   semver-flag:
     - match: (?=\((?:>>|>=|<<|<=|=)[ ]?\d(?:\.\d){0,2})
@@ -265,22 +262,96 @@ contexts:
     - match: \b(?:low|medium|high|critical|emergency)\b
       scope: support.constant.urgency.debian
 
-  # Bug close references: Closes: #12345, LP: #12345
+  # Bug close references: Closes: #12345, LP: Bug #12345
+  # Handles both bare and parenthesized forms: (Closes: #12345, #12346)
   bug-close:
+    - match: (\()(?=(?:[Cc]loses|LP):\s*(?:[Bb]ug|#\d)|(?:[Ss]ee\s+)?#\d{5,})
+      captures:
+        1: punctuation.section.group.begin.debian
+      push:
+        - include: bug-close-inner
+        - match: '(#)(\d{5,})'
+          captures:
+            1: punctuation.definition.debian
+            2: constant.numeric.integer.decimal.debian
+        - match: (\))
+          scope: punctuation.section.group.end.debian
+          pop: true
+        - include: pop-eol
     - match: (?=(?:[Cc]loses|LP):\s*(?:[Bb]ug|#\d))
       push:
-        - match: ([Cc]loses|LP)(:)
-          captures:
-            1: meta.mapping.key.debian
-            2: punctuation.separator.mapping.key-value.debian
-        - match: ','
-          scope: punctuation.separator.sequence.debian
-        - match: (?:[Bb]ug)?\s*((#)(\d+))
-          captures:
-            1: meta.tag.issue.debian
-            2: punctuation.definition.debian
-            3: constant.numeric.integer.decimal.debian
+        - include: bug-close-inner
         - include: pop-eol
+
+  bug-close-inner:
+    - match: ([Cc]loses|LP)(:)
+      captures:
+        1: meta.mapping.key.debian
+        2: punctuation.separator.mapping.key-value.debian
+    - match: ','
+      scope: punctuation.separator.sequence.debian
+    - match: (?:[Bb]ug)?\s*((#)(\d+))
+      captures:
+        1: meta.tag.issue.debian
+        2: punctuation.definition.debian
+        3: constant.numeric.integer.decimal.debian
+
+  # Known section names (Policy §2.4)
+  sections:
+    - match: |-
+        (?x:\b
+          (?:(?:non-free-firmware|non-free|contrib)(/))?
+          (?:admin|cli-mono|comm|database|debug|devel|doc|editors
+            |education|electronics|embedded|fonts|games|gnome|gnu-r
+            |golang|graphics|hamradio|haskell|httpd|interpreters
+            |introspection|java|javascript|kde|kernel|libdevel|libs
+            |lisp|localization|mail|math|metapackages|misc|net|news
+            |ocaml|oldlibs|otherosfs|perl|php|python|ruby|rust
+            |science|shells|sound|tasks|tex|text|utils|vcs|video
+            |web|x11|zope
+          )\b
+        )
+      scope: support.constant.section.debian
+      captures:
+        1: punctuation.separator.path.debian
+
+  # Known priority values (Policy §2.5)
+  priority-values:
+    - match: \b(?:required|important|standard|optional|extra)\b
+      scope: support.constant.priority.debian
+
+  # Boolean yes/no values (shared across deb822 formats)
+  booleans:
+    - match: \byes\b
+      scope: constant.language.boolean.true.debian
+    - match: \bno\b
+      scope: constant.language.boolean.false.debian
+
+  # Autopkgtest restriction constants (shared between control and tests/control)
+  # https://salsa.debian.org/ci-team/autopkgtest/raw/master/doc/README.package-tests.rst
+  restrictions:
+    - match: |-
+        (?x:\b(?:
+          rw-build-tree|breaks-testbed|needs-root|needs-sudo|build-needed
+          |allow-stderr|isolation-(?:container|machine)
+          |needs-(?:reboot|internet|recommends)
+          |flaky|skippable|skip-(?:not-installable|foreign-architecture)
+          |hint-testsuite-triggers|superficial
+        )\b)
+      scope: support.constant.restriction.debian
+
+  # Catch-all for unknown/unrecognized deb822 field names
+  # Place this last in a fields context to scope any field not explicitly listed
+  deb822-unknown-field:
+    - match: ^([\w][\w-]*)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian
+      push:
+        - meta_scope: meta.mapping.debian
+        - meta_content_scope: meta.mapping.value.debian
+        - match: ^(?=\S)
+          pop: true
 
   # Debian package name pattern (Policy §5.6.1)
   package-name:
@@ -326,6 +397,7 @@ contexts:
       push: pgp-signature-body
 
   pgp-signature-body:
+    - meta_include_prototype: false
     - meta_scope: markup.raw.block.signature.debian
     - match: ^\s*(\-+)(END PGP SIGNATURE)(\-+)\n
       captures:
@@ -344,6 +416,7 @@ contexts:
       push: other-signature-body
 
   other-signature-body:
+    - meta_include_prototype: false
     - meta_scope: markup.raw.block.signature.debian
     - match: ^\s*(\-+)(END [ \w]+)(\-+)\n
       captures:

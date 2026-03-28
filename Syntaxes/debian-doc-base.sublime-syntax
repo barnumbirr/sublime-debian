@@ -9,8 +9,10 @@ first_line_match: '^Document:\s*'
 scope: source.debian.doc-base
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: fields
 
   # /usr/share/doc/doc-base/doc-base.html/
@@ -20,7 +22,7 @@ contexts:
     - match: ^(Section)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.doc-base
-        2: punctuation.separator.mapping.key-value.debian.doc-base
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.doc-base
       push:
         - meta_scope: meta.mapping.debian.doc-base
         - meta_content_scope: meta.mapping.value.debian.doc-base
@@ -30,7 +32,7 @@ contexts:
           scope: punctuation.separator.path.debian.doc-base
         - match: |-
             (?x:\b(?:
-              Accessibility|Apps|Data|Editors|Emacs|Games|GNOME
+              Accessibility|Apps|Backup|Data|Editors|Emacs|Games|GNOME
               |Graphics|Help|Humour|KDE|Logs|Mail|Math
               |Markup|Network|OCaml|Perl|Programming
               |Science|Shells|Sound|System|TeX|Text
@@ -45,23 +47,27 @@ contexts:
               |Typing|Viewers|Word[ ]Processors
             )\b)
           scope: support.constant.section.debian.doc-base
+        - match: '[\w-]+'
+          scope: string.unquoted.debian.doc-base
     # Format field — known document formats
     - match: ^(Format)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.doc-base
-        2: punctuation.separator.mapping.key-value.debian.doc-base
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.doc-base
       push:
         - meta_scope: meta.mapping.debian.doc-base
         - meta_content_scope: meta.mapping.value.debian.doc-base
         - match: ^(?=\S)
           pop: true
-        - match: \b(?:HTML|text|PDF|info|DVI|PostScript|TeX|dvi|debiandoc-sgml|DocBook)\b
+        - match: \b(?i:HTML|text|PDF|info|DVI|PostScript|TeX|debiandoc-sgml|DocBook)\b
           scope: support.constant.format.debian.doc-base
+        - match: \b\w+\b
+          scope: invalid.illegal.value.debian.doc-base
     # Files and Index fields — file paths
     - match: ^(Files|Index)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.doc-base
-        2: punctuation.separator.mapping.key-value.debian.doc-base
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.doc-base
       push:
         - meta_scope: meta.mapping.debian.doc-base
         - meta_content_scope: meta.mapping.value.debian.doc-base
@@ -88,7 +94,7 @@ contexts:
     - match: ^(Document|Title|Author|Abstract)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.doc-base
-        2: punctuation.separator.mapping.key-value.debian.doc-base
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.doc-base
       push:
         - meta_scope: meta.mapping.debian.doc-base
         - meta_content_scope: meta.mapping.value.debian.doc-base
@@ -96,3 +102,5 @@ contexts:
           pop: true
         - include: debian-common.sublime-syntax#email-address
         - include: debian-common.sublime-syntax#url
+    # Catch-all for unknown fields
+    - include: debian-common.sublime-syntax#deb822-unknown-field

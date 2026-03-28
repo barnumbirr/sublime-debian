@@ -1,0 +1,22 @@
+Debian Syntax 2.1.0
+====================
+
+New:
+  - Watch file version 5 support (RFC 822 paragraph format)
+  - Auto-detection plugin for debian/copyright (works around A File Icon conflict)
+  - Invalid value highlighting for closed-set fields (Priority, Multi-Arch, Types, etc.)
+  - Watch template constants (GitHub, GitLab, Pypi, CRAN, etc.)
+  - Uscan substitution variables (@PACKAGE@, @ANY_VERSION@, etc.)
+  - Parenthesized bug-close references: (Closes: #12345, #12346)
+  - URL scheme and separator sub-scoping
+
+Breaking scope changes:
+  - debian-sources: meta.mapping.key.debian.sources -> meta.mapping.key.debian
+  - debian-sources: constant.language.boolean.{true,false}.debian.sources
+    -> constant.language.boolean.{true,false}.debian
+  - lintian-overrides: entity.name.tag -> entity.name.other (missed in v2.0.0)
+  - Comments now only match at line start (correct per deb822 spec)
+  See CHANGELOG.md for the full list.
+
+Full changelog:
+  https://github.com/barnumbirr/sublime-debian/blob/master/CHANGELOG.md

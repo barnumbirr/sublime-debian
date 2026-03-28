@@ -9,35 +9,41 @@ first_line_match: '^Types:\s*deb'
 scope: source.debian.sources
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: fields
 
   fields:
     - match: ^(?i)(Enabled)(:)
       captures:
-        1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: punctuation.separator.mapping.key-value.debian.sources
+        1: meta.mapping.key.debian keyword.control.debian.sources
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.sources
       push:
         - meta_scope: meta.mapping.debian.sources
         - meta_content_scope: meta.mapping.value.debian.sources
         - include: pop-next-content-line
-        - include: booleans
+        - include: debian-common.sublime-syntax#booleans
+        - match: \b\w+\b
+          scope: invalid.illegal.value.debian.sources
 
     - match: ^(?i)(Types)(:)
       captures:
-        1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: punctuation.separator.mapping.key-value.debian.sources
+        1: meta.mapping.key.debian keyword.control.debian.sources
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.sources
       push:
         - meta_scope: meta.mapping.debian.sources
         - meta_content_scope: meta.mapping.value.debian.sources
         - include: pop-next-content-line
         - include: types
+        - match: \b\w[\w-]*\b
+          scope: invalid.illegal.value.debian.sources
 
     - match: ^(?i)(Suites)(:)
       captures:
-        1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: punctuation.separator.mapping.key-value.debian.sources
+        1: meta.mapping.key.debian keyword.control.debian.sources
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.sources
       push:
         - meta_scope: meta.mapping.debian.sources
         - meta_content_scope: meta.mapping.value.debian.sources
@@ -48,8 +54,8 @@ contexts:
 
     - match: ^(?i)(Components)(:)
       captures:
-        1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: punctuation.separator.mapping.key-value.debian.sources
+        1: meta.mapping.key.debian keyword.control.debian.sources
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.sources
       push:
         - meta_scope: meta.mapping.debian.sources
         - meta_content_scope: meta.mapping.value.debian.sources
@@ -61,20 +67,20 @@ contexts:
 
     - match: ^(?i)(URIs)(:)
       captures:
-        1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: punctuation.separator.mapping.key-value.debian.sources
+        1: meta.mapping.key.debian keyword.control.debian.sources
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.sources
       push:
         - meta_scope: meta.mapping.debian.sources
         - meta_content_scope: meta.mapping.value.debian.sources
         - include: pop-next-content-line
-        - match: '(?:mirror(?:\+file)?|copy|file|cdrom|ssh|ftp):\S+'
+        - match: '(?:mirror(?:\+(?:file|https?|ftp))?|copy|file|cdrom|ssh|ftp):\S+'
           scope: markup.underline.link.debian.sources
         - include: debian-common.sublime-syntax#url
 
     - match: ^(?i)(Signed-By)(:)
       captures:
-        1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: punctuation.separator.mapping.key-value.debian.sources
+        1: meta.mapping.key.debian keyword.control.debian.sources
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.sources
       push:
         - meta_scope: meta.mapping.debian.sources
         - meta_content_scope: meta.mapping.value.debian.sources
@@ -83,15 +89,15 @@ contexts:
         - include: debian-common.sublime-syntax#other-signatures
         - match: (?=\S)
           push:
-            - meta_scope: markup.underline.link.debian.sources
+            - meta_scope: string.unquoted.path.debian.sources
             - include: debian-common.sublime-syntax#pop-eol
             - match: /
               scope: punctuation.separator.path.debian.sources
 
     - match: ^(?i)(Architectures)(:)
       captures:
-        1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: punctuation.separator.mapping.key-value.debian.sources
+        1: meta.mapping.key.debian keyword.control.debian.sources
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.sources
       push:
         - meta_scope: meta.mapping.debian.sources
         - meta_content_scope: meta.mapping.value.debian.sources
@@ -100,34 +106,69 @@ contexts:
 
     - match: ^(?i)(Languages|Targets)(:)
       captures:
-        1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: punctuation.separator.mapping.key-value.debian.sources
+        1: meta.mapping.key.debian keyword.control.debian.sources
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.sources
       push:
         - meta_scope: meta.mapping.debian.sources
         - meta_content_scope: meta.mapping.value.debian.sources
         - include: pop-next-content-line
+        - match: \S+
+          scope: string.unquoted.debian.sources
 
+    # By-Hash field — tri-state: yes/no/force
+    - match: ^(?i)(By-Hash)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.sources
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.sources
+      push:
+        - meta_scope: meta.mapping.debian.sources
+        - meta_content_scope: meta.mapping.value.debian.sources
+        - include: pop-next-content-line
+        - include: debian-common.sublime-syntax#booleans
+        - match: \bforce\b
+          scope: support.constant.debian.sources
+        - match: \b\w+\b
+          scope: invalid.illegal.value.debian.sources
+    # Boolean option fields — strict yes/no
     - match: |-
         ^(?xi:
-          (PDiffs|By-Hash|Trusted|Allow-(?:Insecure|Weak|Downgrade-To-Insecure)
-            |Check-(?:Valid-Until|Date)|Valid-Until-(?:Min|Max)
-            |Date-Max-Future|InRelease-Path|Snapshot
-            |Include|Exclude
+          (PDiffs|Trusted|Allow-(?:Insecure|Weak|Downgrade-To-Insecure)
+            |Check-(?:Valid-Until|Date)
         ))(:)
       captures:
-        1: meta.mapping.key.debian.sources keyword.control.debian.sources
-        2: punctuation.separator.mapping.key-value.debian.sources
+        1: meta.mapping.key.debian keyword.control.debian.sources
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.sources
       push:
         - meta_scope: meta.mapping.debian.sources
         - meta_content_scope: meta.mapping.value.debian.sources
         - include: pop-next-content-line
-        - include: booleans
-
-  booleans:
-    - match: \byes\b
-      scope: constant.language.boolean.true.debian.sources
-    - match: \bno\b
-      scope: constant.language.boolean.false.debian.sources
+        - include: debian-common.sublime-syntax#booleans
+        - match: \b\w+\b
+          scope: invalid.illegal.value.debian.sources
+    # Numeric option fields
+    - match: ^(?xi:(Valid-Until-(?:Min|Max)|Date-Max-Future))(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.sources
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.sources
+      push:
+        - meta_scope: meta.mapping.debian.sources
+        - meta_content_scope: meta.mapping.value.debian.sources
+        - include: pop-next-content-line
+        - match: \b\d+\b
+          scope: constant.numeric.integer.decimal.debian.sources
+    # String/path option fields
+    - match: ^(?xi:(InRelease-Path|Snapshot|Include|Exclude))(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.sources
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.sources
+      push:
+        - meta_scope: meta.mapping.debian.sources
+        - meta_content_scope: meta.mapping.value.debian.sources
+        - include: pop-next-content-line
+        - match: \S+
+          scope: string.unquoted.debian.sources
+    # Catch-all for unknown fields
+    - include: debian-common.sublime-syntax#deb822-unknown-field
 
   suites:
     - include: debian-common.sublime-syntax#suites

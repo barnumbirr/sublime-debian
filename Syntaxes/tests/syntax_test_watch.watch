@@ -3,23 +3,71 @@
 version=4
 #^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
 #      ^ punctuation.separator.mapping.key-value.debian.watch
-#       ^ meta.mapping.value.debian.watch
-#       ^ constant.numeric.integer.decimal.debian.watch
+#       ^ meta.mapping.value.debian.watch constant.numeric.integer.decimal.debian.watch
 
-opts=dversionmangle=s/\+dfsg//,filenamemangle=s/.*\///
+# Example watch file for uscan
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.debian
+
+# Test line continuation
+opts=\
 #^^^ meta.mapping.key.debian keyword.control.debian.watch
 #   ^ punctuation.separator.mapping.key-value.debian.watch
+#    ^ punctuation.separator.continuation.line.debian.watch
 
-# This is a comment
-# <- punctuation.definition.comment.debian
-#^^^^^^^^^^^^^^^^^^^^ comment.line.debian
+# Test dversionmangle (mangle option — regex value)
+opts=dversionmangle=s/\+dfsg//
+#    ^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                  ^ punctuation.separator.mapping.key-value.debian.watch
+#                   ^^^^^^^^^^ meta.mapping.value.debian.watch string.unquoted.regex.debian.watch
+
+# Test filenamemangle (mangle option — regex value)
+opts=filenamemangle=s/.*\///
+#    ^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                  ^ punctuation.separator.mapping.key-value.debian.watch
+#                   ^^^^^^^^ meta.mapping.value.debian.watch string.unquoted.regex.debian.watch
+
+# Test pgpsigurlmangle (mangle option)
+opts=pgpsigurlmangle=s/$/.asc/
+#    ^^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                   ^ punctuation.separator.mapping.key-value.debian.watch
+#                    ^^^^^^^^^ meta.mapping.value.debian.watch string.unquoted.regex.debian.watch
+
+# Test uversionmangle (mangle option)
+opts=uversionmangle=s/_/./g
+#    ^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                  ^ punctuation.separator.mapping.key-value.debian.watch
+#                   ^^^^^^^ meta.mapping.value.debian.watch string.unquoted.regex.debian.watch
+
+# Test oversionmangle (mangle option)
+opts=oversionmangle=s/-/./g
+#    ^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                  ^ punctuation.separator.mapping.key-value.debian.watch
+#                   ^^^^^^^ meta.mapping.value.debian.watch string.unquoted.regex.debian.watch
+
+# Test dirversionmangle (mangle option)
+opts=dirversionmangle=s/[^0-9]//g
+#    ^^^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                    ^ punctuation.separator.mapping.key-value.debian.watch
+#                     ^^^^^^^^^^ meta.mapping.value.debian.watch string.unquoted.regex.debian.watch
+
+# Test downloadurlmangle (mangle option)
+opts=downloadurlmangle=s/tag/archive/
+#    ^^^^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                     ^ punctuation.separator.mapping.key-value.debian.watch
+#                      ^^^^^^^^^^^^^^ meta.mapping.value.debian.watch string.unquoted.regex.debian.watch
+
+# Test pagemangle (mangle option)
+opts=pagemangle=s/[^.]*\.(.*)/\1/
+#    ^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#              ^ punctuation.separator.mapping.key-value.debian.watch
+#               ^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.watch string.unquoted.regex.debian.watch
 
 # Test closed-set value options
 opts=compression=xz
 #    ^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
 #               ^ punctuation.separator.mapping.key-value.debian.watch
-#                ^^ meta.mapping.value.debian.watch
-#                ^^ support.constant.debian.watch
+#                ^^ meta.mapping.value.debian.watch support.constant.debian.watch
 
 opts=pgpmode=auto
 #    ^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
@@ -31,36 +79,30 @@ opts=mode=git
 #        ^ punctuation.separator.mapping.key-value.debian.watch
 #         ^^^ support.constant.debian.watch
 
-# Test numeric value options
-opts=compression-level=9
-#    ^^^^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
-#                     ^ punctuation.separator.mapping.key-value.debian.watch
-#                      ^ constant.numeric.integer.decimal.debian.watch
+opts=searchmode=plain
+#    ^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#              ^ punctuation.separator.mapping.key-value.debian.watch
+#               ^^^^^ support.constant.debian.watch
 
-# Test mangle options — values are regex patterns
-opts=dversionmangle=auto
-#    ^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
-#                  ^ punctuation.separator.mapping.key-value.debian.watch
-#                   ^^^^ meta.mapping.value.debian.watch string.unquoted.regex.debian.watch
+opts=ctype=nodejs
+#    ^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#         ^ punctuation.separator.mapping.key-value.debian.watch
 
-opts=filenamemangle=s/.*\///
-#    ^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
-#                  ^ punctuation.separator.mapping.key-value.debian.watch
+opts=hrefdecode=percent
+#    ^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#              ^ punctuation.separator.mapping.key-value.debian.watch
 
-opts=pgpsigurlmangle=s/$/.asc/
-#    ^^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
-#                   ^ punctuation.separator.mapping.key-value.debian.watch
+opts=gitmode=full
+#    ^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#           ^ punctuation.separator.mapping.key-value.debian.watch
+#            ^^^^ support.constant.debian.watch
 
-opts=oversionmangle=s/\+dfsg\d*$//
-#    ^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
-#                  ^ punctuation.separator.mapping.key-value.debian.watch
-
-opts=uversionmangle=s/(\d)[_\.\-\+]?(RC|rc|alpha|beta|pre|dev|b)/$1~$2/
-#    ^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
-#                  ^ punctuation.separator.mapping.key-value.debian.watch
+opts=gitexport=all
+#    ^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#             ^ punctuation.separator.mapping.key-value.debian.watch
 
 # Test string/path value options
-opts=component=jquery
+opts=component=libbackuppc-xs
 #    ^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
 #             ^ punctuation.separator.mapping.key-value.debian.watch
 
@@ -68,31 +110,245 @@ opts=repacksuffix=+dfsg
 #    ^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
 #                ^ punctuation.separator.mapping.key-value.debian.watch
 
-opts=gitmode=shallow
-#    ^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
-#           ^ punctuation.separator.mapping.key-value.debian.watch
+opts=user-agent=uscan
+#    ^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#              ^ punctuation.separator.mapping.key-value.debian.watch
 
-opts=pretty=describe
+opts=unzipopt=-j
+#    ^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#            ^ punctuation.separator.mapping.key-value.debian.watch
+
+opts=template=watch.in
+#    ^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#            ^ punctuation.separator.mapping.key-value.debian.watch
+
+opts=update-script=debian/update-watch
+#    ^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                 ^ punctuation.separator.mapping.key-value.debian.watch
+
+opts=pretty=oneline
 #    ^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
 #          ^ punctuation.separator.mapping.key-value.debian.watch
 
-opts=searchmode=plain
-#    ^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
-#              ^ punctuation.separator.mapping.key-value.debian.watch
-#               ^^^^^ support.constant.debian.watch
+opts=date=short
+#    ^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#        ^ punctuation.separator.mapping.key-value.debian.watch
 
-# Line continuation backslash
-opts=\
-#    ^ punctuation.separator.continuation.line.debian.watch
-  compression=xz
-# ^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
-#            ^ punctuation.separator.mapping.key-value.debian.watch
+opts=version-constraint=">= 4.0"
+#    ^^^^^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                      ^ punctuation.separator.mapping.key-value.debian.watch
 
-# URL in downloadurlmangle — regex pattern, not URL
-opts=downloadurlmangle=s|.*|https://example.org/download|
+opts=version-schema=basic
+#    ^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                  ^ punctuation.separator.mapping.key-value.debian.watch
+
+opts=version-separator=-
 #    ^^^^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
 #                     ^ punctuation.separator.mapping.key-value.debian.watch
+
+opts=source=https://example.com
+#    ^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#          ^ punctuation.separator.mapping.key-value.debian.watch
+#           ^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+
+opts=matching-pattern=backuppc-(.*).tar.gz
+#    ^^^^^^^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+#                    ^ punctuation.separator.mapping.key-value.debian.watch
+
+# Boolean-like string/path options (no =)
+opts=repack
+#    ^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+
+opts=bare
+#    ^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+
+opts=decompress
+#    ^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+
+opts=gitmodules
+#    ^^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
+
+# Uscan substitution variables
+https://github.com/@PACKAGE@/releases .*/v?@ANY_VERSION@\.tar\.gz
+#                  ^^^^^^^^^ markup.underline.link.debian
+#                                          ^^^^^^^^^^^^^ variable.other.constant.debian.watch
+#                                          ^ punctuation.definition.variable.begin.debian.watch
+#                                                      ^ punctuation.definition.variable.end.debian.watch
 
 # Watch body line URL
 https://github.com/foo/bar/tags .*/v?([\d.]+)\.tar\.gz
 # <- markup.underline.link.debian
+
+# Full example lines with continuation from the example file
+opts=dversionmangle=s/\+dfsg//,filenamemangle=s/.*\///,pgpmode=auto \
+#                                                                  ^ source.debian.watch
+  https://github.com/backuppc/backuppc/tags .*/v?([\d.]+)\.tar\.gz
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+
+opts=decompress,bare,mode=git \
+  https://salsa.debian.org/debian/backuppc.git HEAD
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+
+# Regression: Version 5 RFC 822 paragraph format
+
+Version: 5
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#      ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#        ^ meta.mapping.value.debian.watch constant.numeric.integer.decimal.debian.watch
+
+# Regression: v5 mangle fields
+Dversion-Mangle: s/\+dfsg//
+#^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#              ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#                ^^^^^^^^^^ meta.mapping.value.debian.watch string.unquoted.regex.debian.watch
+
+Pgp-Sig-Url-Mangle: s/$/.asc/
+#^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#                 ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#                   ^^^^^^^^^ meta.mapping.value.debian.watch string.unquoted.regex.debian.watch
+
+Oversion-Mangle: s/-/./g
+#^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#              ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#                ^^^^^^^ meta.mapping.value.debian.watch string.unquoted.regex.debian.watch
+
+# Regression: v5 closed-set fields
+Compression: xz
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#          ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#            ^^ support.constant.debian.watch
+
+Mode: git
+#^^^ meta.mapping.key.debian keyword.control.debian.watch
+#   ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#     ^^^ support.constant.debian.watch
+
+Pgp-Mode: auto
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#       ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#         ^^^^ support.constant.debian.watch
+
+Search-Mode: plain
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#          ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#            ^^^^^ support.constant.debian.watch
+
+Git-Mode: full
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#       ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#         ^^^^ support.constant.debian.watch
+
+Git-Export: all
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#         ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#           ^^^ support.constant.debian.watch
+
+# Regression: v5 boolean fields
+Repack: yes
+#^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#     ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#       ^^^ constant.language.boolean.true.debian
+
+Bare: no
+#^^^ meta.mapping.key.debian keyword.control.debian.watch
+#   ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#     ^^ constant.language.boolean.false.debian
+
+Decompress: yes
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#         ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#           ^^^ constant.language.boolean.true.debian
+
+Git-Modules: no
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#          ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#            ^^ constant.language.boolean.false.debian
+
+Release-Only: yes
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#           ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#             ^^^ constant.language.boolean.true.debian
+
+# Regression: v5 numeric field
+Compression-Level: 9
+#^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#                ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#                  ^ constant.numeric.integer.decimal.debian.watch
+
+# Regression: v5 Template field with known template names
+Template: GitHub
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#       ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#         ^^^^^^ support.constant.debian.watch
+
+Template: Pypi
+#         ^^^^ support.constant.debian.watch
+
+Template: Npmregistry
+#         ^^^^^^^^^^^ support.constant.debian.watch
+
+Template: Metacpan
+#         ^^^^^^^^ support.constant.debian.watch
+
+Template: CRAN
+#         ^^^^ support.constant.debian.watch
+
+Template: Bioconductor
+#         ^^^^^^^^^^^^ support.constant.debian.watch
+
+# Regression: v5 Untrackable field
+Untrackable: upstream releases manually
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#          ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#            ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.watch string.unquoted.debian.watch
+
+# Regression: v5 Source field with URL
+Source: https://github.com/backuppc/releases
+#^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#     ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+
+# Regression: v5 Source field with @VAR@ variable (no URL)
+Source: @PACKAGE@/releases
+#       ^^^^^^^^^ variable.other.constant.debian.watch
+#       ^ punctuation.definition.variable.begin.debian.watch
+#               ^ punctuation.definition.variable.end.debian.watch
+
+# Regression: v5 Matching-Pattern field with @VAR@ variables
+Matching-Pattern: @PACKAGE@-(.*)\.tar\.gz
+#^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#               ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+#                 ^^^^^^^^^ variable.other.constant.debian.watch
+#                 ^ punctuation.definition.variable.begin.debian.watch
+#                         ^ punctuation.definition.variable.end.debian.watch
+
+# Regression: v5 string value fields
+Owner: backuppc
+#^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#    ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+
+Project: backuppc
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#      ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+
+Component: libbackuppc-xs
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#        ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+
+User-Agent: uscan/2.21
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#         ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+
+Version-Schema: basic
+#^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#             ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+
+Update-Script: debian/update-watch
+#^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#            ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.watch
+
+# Regression: v5 catch-all for unknown fields
+X-Custom-Field: some value
+#^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#             ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian
+#              ^^^^^^^^^^^ meta.mapping.value.debian

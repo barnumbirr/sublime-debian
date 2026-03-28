@@ -10,8 +10,10 @@ first_line_match: '^(?:(?:udeb|private):[ ])?lib\S+\s+\d'
 scope: source.debian.shlibs
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: entries
 
   entries:

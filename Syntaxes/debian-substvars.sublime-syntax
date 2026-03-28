@@ -9,8 +9,10 @@ first_line_match: '^\w[\w:.-]+=\S'
 scope: source.debian.substvars
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: entries
 
   entries:

@@ -9,8 +9,10 @@ first_line_match: '^(?:interest|activate)(?:-await|-noawait)?'
 scope: source.debian.triggers
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: directives
 
   directives:
@@ -20,6 +22,8 @@ contexts:
         2: storage.modifier.debian.triggers
       push:
         - meta_content_scope: meta.mapping.value.debian.triggers
+        - match: /\S+
+          scope: string.unquoted.path.debian.triggers
         - match: \S+
           scope: entity.name.other.debian.triggers
         - include: debian-common.sublime-syntax#pop-eol

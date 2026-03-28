@@ -1,37 +1,38 @@
 # SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-triggers.sublime-syntax"
 
-# Comment line
+# dpkg triggers for backuppc
 # <- punctuation.definition.comment.debian
-#^^^^^^^^^^^^^^ comment.line.debian
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.debian
 
 interest /usr/share/icons/hicolor
-# <- keyword.control.debian.triggers
-#        ^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.other.debian.triggers
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.triggers
+#        ^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.triggers
+#        ^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.triggers
 
-interest-noawait /usr/share/icons/hicolor
-#^^^^^^^ keyword.control.debian.triggers
-#       ^^^^^^^^ storage.modifier.debian.triggers
-#                ^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.other.debian.triggers
-
-activate-await ldconfig
+interest-await /usr/share/applications
 #^^^^^^^ keyword.control.debian.triggers
 #       ^^^^^^ storage.modifier.debian.triggers
-#              ^^^^^^^^ entity.name.other.debian.triggers
+#              ^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.triggers
+#              ^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.triggers
 
-activate /usr/share/mime/packages
+interest-noawait /usr/share/mime/packages
+#^^^^^^^ keyword.control.debian.triggers
+#       ^^^^^^^^ storage.modifier.debian.triggers
+#                ^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.triggers
+#                ^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.triggers
+
+activate ldconfig
 # <- keyword.control.debian.triggers
-#        ^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.other.debian.triggers
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.triggers
+#        ^^^^^^^^ meta.mapping.value.debian.triggers
+#        ^^^^^^^^ entity.name.other.debian.triggers
+
+activate-await /usr/share/icons/hicolor
+#^^^^^^^ keyword.control.debian.triggers
+#       ^^^^^^ storage.modifier.debian.triggers
+#              ^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.triggers
 
 activate-noawait ldconfig
 #^^^^^^^ keyword.control.debian.triggers
 #       ^^^^^^^^ storage.modifier.debian.triggers
 #                ^^^^^^^^ entity.name.other.debian.triggers
-
-interest /usr/share/glib-2.0/schemas
-#^^^^^^^ meta.mapping.key.debian keyword.control.debian.triggers
-#        ^^^^^^^^^^^^^^^^^^^^^^ entity.name.other.debian.triggers
-
-interest-noawait /usr/lib/ldconfig
-#^^^^^^^ keyword.control.debian.triggers
-#       ^^^^^^^^ storage.modifier.debian.triggers
-#                ^^^^^^^^^^^^^^^^^ entity.name.other.debian.triggers

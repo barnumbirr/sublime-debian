@@ -8,27 +8,44 @@ first_line_match: '^[\w.-]+\s+\w+:'
 scope: source.debian.lintian-overrides
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: body
 
   # https://lintian.debian.org/tags
   # Get list of tags, then  ➔ .*$ to remove " ➔ renamed to xxx-xxx-xxx"
   body:
-    - match: '^(source)(:)\s'
+    # source [archlist]: tag
+    - match: '^(source)(?:\s+(\[)([^\]]+)(\]))?(:)\s'
       captures:
         1: meta.mapping.key.debian storage.type.debian.lintian-overrides
-        2: punctuation.separator.mapping.key-value.debian.lintian-overrides
-    - match: '^(\w+)(?: (\w+))?(:)'
+        2: punctuation.section.brackets.begin.debian.lintian-overrides
+        3: constant.other.architecture.debian
+        4: punctuation.section.brackets.end.debian.lintian-overrides
+        5: punctuation.separator.mapping.key-value.debian.lintian-overrides
+    # [archlist]: tag (no package name)
+    - match: '^(\[)([^\]]+)(\])(:)'
+      captures:
+        1: punctuation.section.brackets.begin.debian.lintian-overrides
+        2: constant.other.architecture.debian
+        3: punctuation.section.brackets.end.debian.lintian-overrides
+        4: punctuation.separator.mapping.key-value.debian.lintian-overrides
+    # package [archlist] [type]: tag
+    - match: '^(\w+)(?:\s+(\[)([^\]]+)(\]))?(?:\s+(\w+))?(:)'
       captures:
         1: meta.mapping.key.debian entity.name.class.debian.lintian-overrides
-        2: meta.mapping.key.debian keyword.control.debian.lintian-overrides
-        3: punctuation.separator.mapping.key-value.debian.lintian-overrides
+        2: punctuation.section.brackets.begin.debian.lintian-overrides
+        3: constant.other.architecture.debian
+        4: punctuation.section.brackets.end.debian.lintian-overrides
+        5: meta.mapping.key.debian keyword.control.debian.lintian-overrides
+        6: punctuation.separator.mapping.key-value.debian.lintian-overrides
     # Override classification screen names
     - match: '(\[\[)([\w-]+)(\]\])'
       captures:
         1: punctuation.definition.annotation.begin.debian.lintian-overrides
-        2: entity.name.tag.debian.lintian-overrides
+        2: entity.name.other.debian.lintian-overrides
         3: punctuation.definition.annotation.end.debian.lintian-overrides
     # absolute/acute/add/adopted/alternates/alternatively/ambiguous/ancient/ansi/anticipated tags
     - match: |-

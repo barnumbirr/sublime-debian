@@ -8,8 +8,10 @@ first_line_match: '^Format:\s*https?://'
 scope: text.debian.license
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: paragraphs
 
   # https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
@@ -18,7 +20,7 @@ contexts:
     - match: ^(Files)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.copyright
-        2: punctuation.separator.mapping.key-value.debian.copyright
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.copyright
       push:
         - meta_scope: meta.mapping.debian.copyright
         - meta_content_scope: meta.mapping.value.debian.copyright
@@ -38,7 +40,7 @@ contexts:
     - match: ^(Copyright)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.copyright
-        2: punctuation.separator.mapping.key-value.debian.copyright
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.copyright
       push:
         - meta_scope: meta.mapping.debian.copyright
         - meta_content_scope: meta.mapping.value.debian.copyright
@@ -48,27 +50,21 @@ contexts:
           scope: keyword.operator.copyright.debian.copyright
         - include: copyright-years
         - include: debian-common.sublime-syntax#email-address
-    # License field — SPDX identifiers with and/or combinators
+    # License field — SPDX expression on first line, body text on continuation
     - match: ^(License)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.copyright
-        2: punctuation.separator.mapping.key-value.debian.copyright
-      push:
-        - meta_scope: meta.mapping.debian.copyright
-        - meta_content_scope: meta.mapping.value.debian.copyright
-        - match: ^(?=\S)
-          pop: true
-        - include: license-identifiers
-        - include: license-operators
-        - include: license-exceptions
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.copyright
+      push: [license-body, license-synopsis]
     # Other fields — email, URL
     - match: |-
         ^(?x:
-          (Format|Upstream-(?:Name|Contact)|Source|Disclaimer|Comment
+          (Format|Source|Disclaimer|Comment
+            |Upstream-(?:Name|Contact)
         ))(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.copyright
-        2: punctuation.separator.mapping.key-value.debian.copyright
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.copyright
       push:
         - meta_scope: meta.mapping.debian.copyright
         - meta_content_scope: meta.mapping.value.debian.copyright
@@ -76,6 +72,23 @@ contexts:
           pop: true
         - include: debian-common.sublime-syntax#email-address
         - include: debian-common.sublime-syntax#url
+    # Catch-all for unknown fields
+    - include: debian-common.sublime-syntax#deb822-unknown-field
+
+  license-synopsis:
+    - meta_content_scope: meta.mapping.value.debian.copyright
+    - include: license-identifiers
+    - include: license-operators
+    - include: license-exceptions
+    - match: $\n?
+      pop: true
+
+  license-body:
+    - meta_scope: meta.mapping.debian.copyright
+    - meta_content_scope: meta.mapping.value.debian.copyright
+    - match: ^(?=\S)
+      pop: true
+    - include: debian-common.sublime-syntax#url
 
   copyright-years:
     - match: \b(\d{4})\s*(-)\s*(\d{4})\b
@@ -93,7 +106,8 @@ contexts:
           |LGPL-[23](?:\.\d)?(?:-(?:only|or-later))?(?:\+)?
           |AGPL-[13](?:\.\d)?(?:-(?:only|or-later))?(?:\+)?
           |MPL-[12](?:\.\d)?
-          |GFDL-1\.[123](?:-(?:only|or-later|(?:no-)?invariants-(?:only|or-later)))?
+          |GFDL-1\.[123](?:-(?:only|or-later
+            |(?:no-)?invariants-(?:only|or-later)))?
           |Apache-[12](?:\.\d)?|Artistic(?:-[12](?:\.\d)?)?
           |BSD-[234]-Clause|0BSD|MIT|ISC|Zlib|BSL-[12](?:\.\d)?
           |CC-BY(?:-(?:SA|NC|ND|NC-SA|NC-ND))?-[1234]\.\d
@@ -103,7 +117,7 @@ contexts:
           |PostgreSQL|Python-2\.0(?:\.1)?|Ruby|Vim|Sleepycat
           |Latex2e|NTP|OpenSSL|curl|FSFAP|PHP-3\.[01]
           |Sendmail(?:-8\.23)?|Unicode-(?:DFS-2016|TOU)
-          |Xerox|diffmark|Spencer-(?:86|94|99)
+          |Xerox|X11|diffmark|Spencer-(?:86|94|99)
         )\b)
       scope: support.constant.license.debian.copyright
 

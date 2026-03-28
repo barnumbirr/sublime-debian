@@ -1,21 +1,31 @@
 # SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-lintian-overrides.sublime-syntax"
 
-# Comment line
+# Lintian overrides for backuppc
 # <- punctuation.definition.comment.debian
-#^^^^^^^^^^^^^^ comment.line.debian
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.debian
 
 backuppc binary: executable-in-usr-lib
 #^^^^^^^ meta.mapping.key.debian entity.name.class.debian.lintian-overrides
 #        ^^^^^^ meta.mapping.key.debian keyword.control.debian.lintian-overrides
 #              ^ punctuation.separator.mapping.key-value.debian.lintian-overrides
+#                ^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
+
+backuppc binary: package-contains-documentation-outside-usr-share-doc
+#^^^^^^^ meta.mapping.key.debian entity.name.class.debian.lintian-overrides
+#        ^^^^^^ meta.mapping.key.debian keyword.control.debian.lintian-overrides
+#              ^ punctuation.separator.mapping.key-value.debian.lintian-overrides
+#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
 
 backuppc source: source-is-missing
 #^^^^^^^ meta.mapping.key.debian entity.name.class.debian.lintian-overrides
 #        ^^^^^^ meta.mapping.key.debian keyword.control.debian.lintian-overrides
 #              ^ punctuation.separator.mapping.key-value.debian.lintian-overrides
+#                ^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
 
-backuppc binary: missing-depends-line
-#                ^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
+backuppc: missing-depends-line
+#^^^^^^^ meta.mapping.key.debian entity.name.class.debian.lintian-overrides
+#       ^ punctuation.separator.mapping.key-value.debian.lintian-overrides
+#         ^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
 
 backuppc binary: debhelper-compat-virtual-relation
 #                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
@@ -23,191 +33,45 @@ backuppc binary: debhelper-compat-virtual-relation
 backuppc binary: copyright-not-using-common-license-for-gpl
 #                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
 
-# Test representative tags from each alphabetical group
-backuppc binary: absolute-symbolic-link-target-in-source
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: apache2-configuration-files-need-conf-suffix
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: apparently-corrupted-elf-binary
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: backgrounded-test-command
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: binaries-have-file-conflict
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: bogus-mail-host
-#                ^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: build-depends-on-1-revision
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: cannot-check-whether-usr-share-doc-symlink-points-to-foreign-package
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: changelog-file-missing-in-native-package
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: circular-installation-prerequisite
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: conffile-has-bad-file-type
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: copyright-contains-dh_make-todo-boilerplate
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: country-in-manual
-#                ^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: data-tarball-compression-format
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: debconf-config-not-executable
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: debian-rules-sets-DEB_BUILD_OPTIONS
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: debian-adds-patch-failure-file
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: debug-file-with-no-debug-symbols
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: dep5-copyright-license-name-not-unique
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: deprecated-configure-filename
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: desktop-contains-deprecated-key
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: dfsg-version-misspelled
-#                ^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: diff-contains-arch-control-dir
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: distribution-and-experimental-mismatch
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: doc-base-abstract-field-is-template
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: dot-before-repack-count
-#                ^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: duplicate-changelog-files
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: elevated-privileges
-#                ^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: empty-binary-package
-#                ^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: epoch-change-without-comment
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: exit-in-shared-library
-#                ^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: faulty-debian-qa-group-phrase
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: font-in-non-font-package
-#                ^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: games-package-should-be-section-games
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: hardening-no-bindnow
-#                ^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: icon-size-and-directory-name-mismatch
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: info-document-not-compressed
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: init.d-script-contains-skeleton-template-content
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: insane-line-length-in-source-file
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: jar-not-in-usr-share
-#                ^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: kill-mode-none
+backuppc binary: no-manual-page
 #                ^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: library-in-debug-or-profile-should-not-be-stripped
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: macos-ds-store-file-in-package
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: maintscript-calls-ldconfig
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: making-assumptions-about-interfaces-in-templates
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: manpage-has-bad-whatis-entry
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: mentions-deprecated-usr-lib-perl5-directory
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: mismatched-override
-#                ^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: missing-build-dependency
-#                ^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: misspelled-closes-bug
-#                ^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: named-copyright-for-single-installable
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: nmu-in-changelog
-#                ^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: non-standard-dir-perm
-#                ^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: no-nmu-in-changelog
-#                ^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: obsolete-crypt-alias
-#                ^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: ocaml-custom-executable
-#                ^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: override-file-in-wrong-location
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: package-contains-linda-override
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: patch-not-forwarded-upstream
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: pear-package-not-using-substvar
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: pod-conversion-message
-#                ^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: possible-documentation-but-no-doc-base-registration
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: pypi-homepage
-#                ^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: quilt-build-dep-but-no-series-file
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: raster-image-in-scalable-directory
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: recommended-field
-#                ^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: root-in-contact
-#                ^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: script-uses-unversioned-python-in-shebang
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: shared-library-is-multi-arch-foreign
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: should-specify-rules-requires-root
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: source-contains-waf-binary
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: space-in-std-shortname-in-dep5-copyright
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: stray-folder-in-manual
-#                ^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: symbols-declared-but-not-shlib
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: systemd-service-alias-without-extension
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: tab-in-license-text
-#                ^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: third-party-package-in-python-dir
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: udeb-contains-documentation-file
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: uncompressed-manual-page
-#                ^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: unmerged-usr
-#                ^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: unused-debconf-template
-#                ^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: useless-autoreconf-build-depends
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: version-refers-to-distribution
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: vim-addon-within-vim-runtime-path
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-backuppc binary: xs-vcs-field-in-debian-control
-#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
 
-# Source-style override
+backuppc binary: systemd-service-file-refers-to-unusual-wantedby-target
+#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
+
+# Source-style override (without package name)
 source: missing-depends-line
 # <- storage.type.debian.lintian-overrides
 #     ^ punctuation.separator.mapping.key-value.debian.lintian-overrides
+#       ^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
 
 # Override classification screen names
 [[pedantic]]
 # <- punctuation.definition.annotation.begin.debian.lintian-overrides
 #^ punctuation.definition.annotation.begin.debian.lintian-overrides
-# ^^^^^^^^ entity.name.tag.debian.lintian-overrides
+# ^^^^^^^^ entity.name.other.debian.lintian-overrides
 #         ^^ punctuation.definition.annotation.end.debian.lintian-overrides
 
-# Tag with continuation value
-backuppc binary: missing-depends-line usr/bin/foo
-#                ^^^^^^^^^^^^^^^^^^^^ support.constant.debian.lintian-overrides
-#                                     ^^^^^^^^^^^ meta.mapping.value.debian.lintian-overrides
+# Regression: source with archlist
+source [amd64]: tag-name
+# <- storage.type.debian.lintian-overrides
+#      ^ punctuation.section.brackets.begin.debian.lintian-overrides
+#       ^^^^^ constant.other.architecture.debian
+#            ^ punctuation.section.brackets.end.debian.lintian-overrides
+#             ^ punctuation.separator.mapping.key-value.debian.lintian-overrides
+
+# Regression: standalone archlist (no package name)
+[linux-any]: tag-name
+# <- punctuation.section.brackets.begin.debian.lintian-overrides
+#^^^^^^^^^ constant.other.architecture.debian
+#         ^ punctuation.section.brackets.end.debian.lintian-overrides
+#          ^ punctuation.separator.mapping.key-value.debian.lintian-overrides
+
+# Regression: package + negated archlist + type
+backuppc [!amd64 !i386] binary: tag-name
+#^^^^^^^ meta.mapping.key.debian entity.name.class.debian.lintian-overrides
+#        ^ punctuation.section.brackets.begin.debian.lintian-overrides
+#         ^^^^^^^^^^^^ constant.other.architecture.debian
+#                     ^ punctuation.section.brackets.end.debian.lintian-overrides
+#                       ^^^^^^ meta.mapping.key.debian keyword.control.debian.lintian-overrides
+#                             ^ punctuation.separator.mapping.key-value.debian.lintian-overrides

@@ -8,8 +8,10 @@ first_line_match: '^(?:Tests|Test-Command):'
 scope: source.debian.tests.control
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: fields
 
   fields:
@@ -17,7 +19,7 @@ contexts:
     - match: ^(Tests)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.tests.control
-        2: punctuation.separator.mapping.key-value.debian.tests.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.tests.control
       push:
         - meta_scope: meta.mapping.debian.tests.control
         - meta_content_scope: meta.mapping.value.debian.tests.control
@@ -31,7 +33,7 @@ contexts:
     - match: ^(Test-Command)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.tests.control
-        2: punctuation.separator.mapping.key-value.debian.tests.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.tests.control
       push:
         - meta_scope: meta.mapping.debian.tests.control
         - meta_content_scope: meta.mapping.value.debian.tests.control
@@ -43,20 +45,20 @@ contexts:
     - match: ^(Restrictions)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.tests.control
-        2: punctuation.separator.mapping.key-value.debian.tests.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.tests.control
       push:
         - meta_scope: meta.mapping.debian.tests.control
         - meta_content_scope: meta.mapping.value.debian.tests.control
         - match: ^(?=\S)
           pop: true
-        - include: restrictions
+        - include: debian-common.sublime-syntax#restrictions
         - match: ','
           scope: punctuation.separator.sequence.debian.tests.control
     # Features field — known feature constants
     - match: ^(Features)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.tests.control
-        2: punctuation.separator.mapping.key-value.debian.tests.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.tests.control
       push:
         - meta_scope: meta.mapping.debian.tests.control
         - meta_content_scope: meta.mapping.value.debian.tests.control
@@ -69,7 +71,7 @@ contexts:
     - match: ^(Depends)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.tests.control
-        2: punctuation.separator.mapping.key-value.debian.tests.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.tests.control
       push:
         - meta_scope: meta.mapping.debian.tests.control
         - meta_content_scope: meta.mapping.value.debian.tests.control
@@ -90,7 +92,7 @@ contexts:
     - match: ^(Architecture)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.tests.control
-        2: punctuation.separator.mapping.key-value.debian.tests.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.tests.control
       push:
         - meta_scope: meta.mapping.debian.tests.control
         - meta_content_scope: meta.mapping.value.debian.tests.control
@@ -101,7 +103,7 @@ contexts:
     - match: ^(Tests-Directory|Classes)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.tests.control
-        2: punctuation.separator.mapping.key-value.debian.tests.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.tests.control
       push:
         - meta_scope: meta.mapping.debian.tests.control
         - meta_content_scope: meta.mapping.value.debian.tests.control
@@ -109,18 +111,12 @@ contexts:
           pop: true
         - match: ','
           scope: punctuation.separator.sequence.debian.tests.control
-
-  restrictions:
-    - match: |-
-        (?x:\b(?:
-          rw-build-tree|breaks-testbed|needs-root|needs-sudo|build-needed
-          |allow-stderr|isolation-(?:container|machine)
-          |needs-(?:reboot|internet|recommends)
-          |flaky|skippable|skip-(?:not-installable|foreign-architecture)
-          |hint-testsuite-triggers|superficial
-        )\b)
-      scope: support.constant.restriction.debian
+    # Catch-all for unknown fields
+    - include: debian-common.sublime-syntax#deb822-unknown-field
 
   features:
-    - match: \btest-name\b
-      scope: support.constant.feature.debian.tests.control
+    - match: (test-name)(=)(\S+)
+      captures:
+        1: support.constant.feature.debian.tests.control
+        2: punctuation.separator.mapping.key-value.debian.tests.control
+        3: string.unquoted.debian.tests.control

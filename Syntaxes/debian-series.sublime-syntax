@@ -9,8 +9,10 @@ first_line_match: '^[\w/].*\.(?:patch|diff)\b'
 scope: source.debian.series
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: entries
 
   entries:

@@ -9,8 +9,10 @@ first_line_match: '^(?:(?:mv|rm)_conffile|symlink_to_dir|dir_to_symlink)\b'
 scope: source.debian.maintscript
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: commands
 
   commands:

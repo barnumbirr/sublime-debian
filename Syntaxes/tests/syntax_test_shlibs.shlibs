@@ -1,28 +1,56 @@
 # SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-shlibs.sublime-syntax"
 
-# Comment line
+# Shared library dependencies
 # <- punctuation.definition.comment.debian
-#^^^^^^^^^^^^^^ comment.line.debian
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.debian
 
 libfoo 1 libfoo1 (>= 1.0)
 #^^^^^ entity.name.class.library.debian.shlibs
 #      ^ constant.numeric.integer.decimal.debian.shlibs
 #        ^^^^^^^ support.module.debian
+#                ^ punctuation.section.group.begin.debian.control
+#                 ^^ keyword.operator.comparison.debian.control
+#                    ^^^ meta.number.version.debian
+#                    ^ constant.numeric.integer.decimal.debian
+#                     ^ punctuation.separator.sequence.debian
+#                      ^ constant.numeric.integer.decimal.debian
+#                       ^ punctuation.section.group.end.debian.control
 
 libbar 2 libbar2 (>= 2.0), libbar-common (>= 2.0)
 #^^^^^ entity.name.class.library.debian.shlibs
 #      ^ constant.numeric.integer.decimal.debian.shlibs
 #        ^^^^^^^ support.module.debian
+#                ^ punctuation.section.group.begin.debian.control
+#                 ^^ keyword.operator.comparison.debian.control
+#                       ^ punctuation.section.group.end.debian.control
 #                        ^ punctuation.separator.sequence.debian.shlibs
+#                          ^^^^^^^^^^^^^ support.module.debian
+#                                        ^ punctuation.section.group.begin.debian.control
+#                                         ^^ keyword.operator.comparison.debian.control
+#                                               ^ punctuation.section.group.end.debian.control
+
+libpng 16 libpng16-16 (>= 1.6.31)
+#^^^^^ entity.name.class.library.debian.shlibs
+#      ^^ constant.numeric.integer.decimal.debian.shlibs
+#         ^^^^^^^^^^ support.module.debian
+#                     ^ punctuation.section.group.begin.debian.control
+#                      ^^ keyword.operator.comparison.debian.control
+#                         ^^^^^^ meta.number.version.debian
+#                               ^ punctuation.section.group.end.debian.control
 
 udeb: libfoo 1 libfoo1-udeb (>= 1.0)
 # <- storage.type.debian.shlibs
+#   ^ punctuation.separator.mapping.key-value.debian.shlibs
 #     ^^^^^^ entity.name.class.library.debian.shlibs
 #            ^ constant.numeric.integer.decimal.debian.shlibs
 #              ^^^^^^^^^^^^ support.module.debian
+#                           ^ punctuation.section.group.begin.debian.control
+#                            ^^ keyword.operator.comparison.debian.control
+#                                  ^ punctuation.section.group.end.debian.control
 
 private: libprivate 3 libprivate3
 # <- storage.type.debian.shlibs
+#      ^ punctuation.separator.mapping.key-value.debian.shlibs
 #        ^^^^^^^^^^ entity.name.class.library.debian.shlibs
 #                   ^ constant.numeric.integer.decimal.debian.shlibs
 #                     ^^^^^^^^^^^ support.module.debian

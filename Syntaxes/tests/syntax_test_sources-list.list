@@ -1,51 +1,83 @@
 # SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-sources-list.sublime-syntax"
 
-# Comment line
+# Debian main repositories
 # <- punctuation.definition.comment.debian
-#^^^^^^^^^^^^^^ comment.line.debian
+# ^^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.debian
 
-deb http://deb.debian.org/debian/ bookworm main contrib non-free
+deb http://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware
 # <- storage.type.debian.sources-list
 #   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list
 #                                 ^^^^^^^^ support.constant.debian
 #                                          ^^^^ support.constant.component.debian.sources-list
 #                                               ^^^^^^^ support.constant.component.debian.sources-list
 #                                                       ^^^^^^^^ support.constant.component.debian.sources-list
+#                                                                ^^^^^^^^^^^^^^^^^ support.constant.component.debian.sources-list
 
-deb-src http://deb.debian.org/debian/ bookworm main
+deb-src http://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware
+# <- storage.type.debian.sources-list
 #^^^^^^ storage.type.debian.sources-list
 #       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list
+#                                     ^^^^^^^^ support.constant.debian
+#                                              ^^^^ support.constant.component.debian.sources-list
+#                                                   ^^^^^^^ support.constant.component.debian.sources-list
+#                                                           ^^^^^^^^ support.constant.component.debian.sources-list
+#                                                                    ^^^^^^^^^^^^^^^^^ support.constant.component.debian.sources-list
 
-deb [arch=amd64 signed-by=/usr/share/keyrings/foo.gpg] https://example.com/repo stable main
+deb http://security.debian.org/debian-security bookworm-security main contrib non-free
+# <- storage.type.debian.sources-list
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list
+#                                              ^^^^^^^^ support.constant.debian
+#                                                      ^^^^^^^^^ support.constant.debian
+#                                                                ^^^^ support.constant.component.debian.sources-list
+#                                                                     ^^^^^^^ support.constant.component.debian.sources-list
+#                                                                             ^^^^^^^^ support.constant.component.debian.sources-list
+
+deb-src http://security.debian.org/debian-security bookworm-security main contrib non-free
+#^^^^^^ storage.type.debian.sources-list
+
+deb http://deb.debian.org/debian/ bookworm-updates main contrib non-free
+#                                 ^^^^^^^^ support.constant.debian
+#                                         ^^^^^^^^ support.constant.debian
+#                                                  ^^^^ support.constant.component.debian.sources-list
+
+deb-src http://deb.debian.org/debian/ bookworm-updates main contrib non-free
+
+deb http://deb.debian.org/debian/ bookworm-backports main contrib non-free
+#                                 ^^^^^^^^ support.constant.debian
+#                                         ^^^^^^^^^^ support.constant.debian
+#                                                    ^^^^ support.constant.component.debian.sources-list
+
+deb [arch=amd64 signed-by=/usr/share/keyrings/example.gpg] https://packages.example.com/debian bookworm main
 #   ^ punctuation.section.brackets.begin.debian.sources-list
 #    ^^^^ variable.parameter.debian.sources-list
 #        ^ punctuation.separator.mapping.key-value.debian.sources-list
 #         ^^^^^ constant.other.architecture.debian
 #               ^^^^^^^^^ variable.parameter.debian.sources-list
 #                        ^ punctuation.separator.mapping.key-value.debian.sources-list
-#                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.sources-list
-#                                                    ^ punctuation.section.brackets.end.debian.sources-list
+#                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.sources-list
+#                                                        ^ punctuation.section.brackets.end.debian.sources-list
 
-deb [arch=amd64,arm64 trusted=yes] https://example.com/repo trixie main
+deb [arch=amd64,arm64 trusted=yes] http://local.example.com/repo stable main
+#   ^ punctuation.section.brackets.begin.debian.sources-list
+#    ^^^^ variable.parameter.debian.sources-list
 #        ^ punctuation.separator.mapping.key-value.debian.sources-list
+#         ^^^^^ constant.other.architecture.debian
 #              ^ punctuation.separator.sequence.debian.sources-list
+#               ^^^^^ constant.other.architecture.debian
 #                     ^^^^^^^ variable.parameter.debian.sources-list
 #                            ^ punctuation.separator.mapping.key-value.debian.sources-list
 #                             ^^^ constant.language.boolean.debian.sources-list
 #                                ^ punctuation.section.brackets.end.debian.sources-list
+#                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list
+#                                                                ^^^^^^ support.constant.debian
 
-# Non-HTTP URI schemes
-deb file:/local/repo stable main
-#   ^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list
-
-deb cdrom:[Debian-12.0]/ bookworm main
+deb file:/var/local/repo stable main
 #   ^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list
+#                        ^^^^^^ support.constant.debian
+#                               ^^^^ support.constant.component.debian.sources-list
 
-# Suite suffixes
-deb http://security.debian.org/debian-security bookworm-security main
-#                                              ^^^^^^^^^^^^^^^^^ support.constant.debian
-
-deb http://deb.debian.org/debian/ unstable main non-free-firmware
-#                                 ^^^^^^^^ support.constant.debian
-#                                          ^^^^ support.constant.component.debian.sources-list
-#                                               ^^^^^^^^^^^^^^^^^ support.constant.component.debian.sources-list
+deb cdrom:[Debian GNU/Linux 12.0 _Bookworm_ - Official amd64 DVD]/ bookworm main contrib
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list
+#                                                                  ^^^^^^^^ support.constant.debian
+#                                                                           ^^^^ support.constant.component.debian.sources-list
+#                                                                                ^^^^^^^ support.constant.component.debian.sources-list

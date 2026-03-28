@@ -35,3 +35,62 @@ opts=version-constraint=">= 4.0",version-schema=basic,version-separator=- \
 
 opts=source=https://example.com,matching-pattern=backuppc-(.*).tar.gz \
   https://example.com/releases/ .*/backuppc-([\d.]+)\.tar\.gz
+
+# Watch file version 5 (RFC 822 paragraph format)
+Version: 5
+
+# Simple HTTP source
+Source: https://github.com/backuppc/backuppc/tags
+Matching-Pattern: .*/v?@ANY_VERSION@@ARCHIVE_EXT@
+Dversion-Mangle: s/\+dfsg//
+Filename-Mangle: s/.*\///
+Pgp-Mode: auto
+Compression: xz
+
+# Using a template
+Template: GitHub
+Owner: backuppc
+Project: backuppc
+Version-Mangle: auto
+
+# Multiple upstream tarballs
+Component: libbackuppc-xs
+Source: https://github.com/backuppc/backuppc-xs/tags
+Matching-Pattern: .*/v?@ANY_VERSION@@ARCHIVE_EXT@
+Repacksuffix: +dfsg
+Repack: yes
+Version-Constraint: same
+
+# Git mode
+Source: https://salsa.debian.org/debian/backuppc.git
+Matching-Pattern: refs/tags/@ANY_VERSION@
+Mode: git
+Git-Mode: shallow
+Git-Pretty: oneline
+Git-Date: short
+Git-Export: all
+Git-Modules: yes
+
+# Node.js with checksum versioning
+Version-Schema: checksum
+Search-Mode: plain
+Source: https://registry.npmjs.org/mongodb
+Matching-Pattern: https://registry.npmjs.org/mongodb/-/mongodb-@ANY_VERSION@@ARCHIVE_EXT@
+
+# Numeric and boolean options
+Compression-Level: 9
+Bare: yes
+Decompress: yes
+Release-Only: yes
+
+# Custom user agent and download options
+User-Agent: uscan
+Unzip-Opt: -j
+Ctype: sha256
+Hrefdecode: perl
+Git-Export: all
+
+# Temporarily disabled tracking
+Untrackable: upstream site is down, will re-enable later
+Source: https://keeped-site-to-be-used-later/
+Matching-Pattern: .*@ANY_VERSION@@ARCHIVE_EXT@

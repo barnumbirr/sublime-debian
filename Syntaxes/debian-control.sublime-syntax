@@ -8,8 +8,10 @@ first_line_match: '^(?:Source|Package)\s*:'
 scope: source.debian.control
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: fields
     - include: autopkgtest
 
@@ -22,16 +24,15 @@ contexts:
             |Pre-Depends|Depends|Recommends|Suggests
             |Breaks|Conflicts|Provides|Replaces|Enhances
             |Built-Using|Static-Built-Using
-        ))(:)?
+        ))(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.control
-        2: punctuation.separator.mapping.key-value.debian.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
       push:
         - meta_scope: meta.mapping.debian.control
         - meta_content_scope: meta.mapping.value.debian.control
         - match: ^(?=\S)
           pop: true
-        - include: debian-common.sublime-syntax#comments
         - include: debian-common.sublime-syntax#semver-flag
         - include: substvar
         - include: binnmu
@@ -39,62 +40,104 @@ contexts:
         - match: \,|\|
           scope: punctuation.separator.sequence.debian.control
         - include: debian-common.sublime-syntax#package-name
-    # Enumerated-value fields — architectures, sections, priorities, booleans, constants
-    - match: |-
-        ^(?x:
-          (Architecture|Section|Priority
-            |Multi-Arch|Essential|Protected|Build-Essential
-            |Rules-Requires-Root|Package-Type|Installed-Size
-        ))(:)?
+    # Closed-set fields — strict value validation with invalid fallback
+    - match: ^(Priority)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.control
-        2: punctuation.separator.mapping.key-value.debian.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
       push:
         - meta_scope: meta.mapping.debian.control
         - meta_content_scope: meta.mapping.value.debian.control
         - match: ^(?=\S)
           pop: true
-        - include: debian-common.sublime-syntax#comments
-        - include: debian-common.sublime-syntax#architectures
-        - include: sections
-        - include: booleans
-        - include: priority-values
+        - include: debian-common.sublime-syntax#priority-values
+        - match: \b\w+\b
+          scope: invalid.illegal.value.debian.control
+    - match: ^(Multi-Arch)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
+      push:
+        - meta_scope: meta.mapping.debian.control
+        - meta_content_scope: meta.mapping.value.debian.control
+        - match: ^(?=\S)
+          pop: true
         - include: multi-arch-values
-        - include: rrr-values
+        - match: \b\w+\b
+          scope: invalid.illegal.value.debian.control
+    - match: ^(Essential|Protected|Build-Essential)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
+      push:
+        - meta_scope: meta.mapping.debian.control
+        - meta_content_scope: meta.mapping.value.debian.control
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#booleans
+        - match: \b\w+\b
+          scope: invalid.illegal.value.debian.control
+    - match: ^(Package-Type)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
+      push:
+        - meta_scope: meta.mapping.debian.control
+        - meta_content_scope: meta.mapping.value.debian.control
+        - match: ^(?=\S)
+          pop: true
         - include: package-type-values
+        - match: \b\w+\b
+          scope: invalid.illegal.value.debian.control
+    # Open-set enumerated fields — no invalid fallback (custom values allowed)
+    - match: |-
+        ^(?x:
+          (Architecture|Section
+            |Rules-Requires-Root|Installed-Size
+        ))(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
+      push:
+        - meta_scope: meta.mapping.debian.control
+        - meta_content_scope: meta.mapping.value.debian.control
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#architectures
+        - include: debian-common.sublime-syntax#sections
+        - include: debian-common.sublime-syntax#booleans
+        - include: rrr-values
         - match: \b\d+\b
           scope: constant.numeric.integer.decimal.debian.control
     # Description field — synopsis on first line, long description on continuation
     - match: ^(Description)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.control
-        2: punctuation.separator.mapping.key-value.debian.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
       push: [description-body, description-synopsis]
     # Uploaders field — comma-separated list of maintainers
-    - match: ^(Uploaders)(:)?
+    - match: ^(Uploaders)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.control
-        2: punctuation.separator.mapping.key-value.debian.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
       push:
         - meta_scope: meta.mapping.debian.control
         - meta_content_scope: meta.mapping.value.debian.control
         - match: ^(?=\S)
           pop: true
-        - include: debian-common.sublime-syntax#comments
         - include: debian-common.sublime-syntax#email-address
         - match: ','
           scope: punctuation.separator.sequence.debian.control
     # Build-Profiles field — angle-bracket-delimited profile names
-    - match: ^(Build-Profiles)(:)?
+    - match: ^(Build-Profiles)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.control
-        2: punctuation.separator.mapping.key-value.debian.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
       push:
         - meta_scope: meta.mapping.debian.control
         - meta_content_scope: meta.mapping.value.debian.control
         - match: ^(?=\S)
           pop: true
-        - include: debian-common.sublime-syntax#comments
         - match: <
           scope: punctuation.section.group.begin.debian.control
         - match: '!'
@@ -104,16 +147,15 @@ contexts:
         - match: '>'
           scope: punctuation.section.group.end.debian.control
     # Tag field — debtag facet::value pairs
-    - match: ^(Tag)(:)?
+    - match: ^(Tag)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.control
-        2: punctuation.separator.mapping.key-value.debian.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
       push:
         - meta_scope: meta.mapping.debian.control
         - meta_content_scope: meta.mapping.value.debian.control
         - match: ^(?=\S)
           pop: true
-        - include: debian-common.sublime-syntax#comments
         - match: '([\w-]+)(::)([\w-]+)'
           captures:
             1: entity.name.namespace.debian.control
@@ -121,28 +163,58 @@ contexts:
             3: support.constant.debian.control
         - match: ','
           scope: punctuation.separator.sequence.debian.control
-    # Other non-dependency fields — email, URL, identifiers
-    - match: |-
-        ^(?x:
-          (Source|Package|Maintainer|Standards-Version
-            |Build-Driver
-            |Homepage|Origin|Bugs
-            |Vcs-(?:Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)
-            |Testsuite(?:-Triggers)?
-            |Subarchitecture|Kernel-Version|Installer-Menu-Item
-        ))(:)?
+    # Package-name fields — Source, Package, Testsuite-Triggers
+    - match: ^(Source|Package|Testsuite-Triggers)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.control
-        2: punctuation.separator.mapping.key-value.debian.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
       push:
         - meta_scope: meta.mapping.debian.control
         - meta_content_scope: meta.mapping.value.debian.control
         - match: ^(?=\S)
           pop: true
-        - include: debian-common.sublime-syntax#comments
-        - include: debian-common.sublime-syntax#standards-version
+        - include: debian-common.sublime-syntax#package-name
+        - match: \,
+          scope: punctuation.separator.sequence.debian.control
+    # Testsuite field — known constants
+    - match: ^(Testsuite)(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
+      push:
+        - meta_scope: meta.mapping.debian.control
+        - meta_content_scope: meta.mapping.value.debian.control
+        - match: ^(?=\S)
+          pop: true
+        - match: \b(?:autopkgtest(?:-pkg-\w+)?)\b
+          scope: support.constant.debian.control
+        - match: \,
+          scope: punctuation.separator.sequence.debian.control
+    # Other non-dependency fields — email, URL, identifiers
+    - match: |-
+        ^(?x:
+          (Version|Maintainer|Standards-Version
+            |Build-Driver
+            |Homepage|Origin|Bugs
+            |Vcs-(?:Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)
+            |Subarchitecture|Kernel-Version|Installer-Menu-Item
+            |Built-For-Profiles|Auto-Built-Package|Build-Ids
+        ))(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
+      push:
+        - meta_scope: meta.mapping.debian.control
+        - meta_content_scope: meta.mapping.value.debian.control
+        - match: ^(?=\S)
+          pop: true
+        - include: debian-common.sublime-syntax#semantic-version
         - include: debian-common.sublime-syntax#email-address
         - include: debian-common.sublime-syntax#url
+        - match: \b\d+\b
+          scope: constant.numeric.integer.decimal.debian.control
+    # Catch-all for unknown fields
+    - include: debian-common.sublime-syntax#deb822-unknown-field
 
   # Description: synopsis + long description with paragraph markers
   description-synopsis:
@@ -161,41 +233,12 @@ contexts:
         2: punctuation.separator.paragraph.debian.control
     - include: debian-common.sublime-syntax#url
 
-  # Known section names (Policy §2.4)
-  sections:
-    - match: |-
-        (?x:\b
-          (?:(?:non-free-firmware|non-free|contrib)(/))?
-          (?:admin|cli-mono|comm|database|debug|devel|doc|editors
-            |education|electronics|embedded|fonts|games|gnome|gnu-r
-            |golang|graphics|hamradio|haskell|httpd|interpreters
-            |introspection|java|javascript|kde|kernel|libdevel|libs
-            |lisp|localization|mail|math|metapackages|misc|net|news
-            |ocaml|oldlibs|otherosfs|perl|php|python|ruby|rust
-            |science|shells|sound|tasks|tex|text|utils|vcs|video
-            |web|x11|zope
-          )\b
-        )
-      scope: support.constant.section.debian.control
-      captures:
-        1: punctuation.separator.path.debian.control
-
-  booleans:
-    - match: \byes\b
-      scope: constant.language.boolean.true.debian.control
-    - match: \bno\b
-      scope: constant.language.boolean.false.debian.control
-
-  priority-values:
-    - match: \b(?:required|important|standard|optional|extra)\b
-      scope: support.constant.priority.debian.control
-
   multi-arch-values:
-    - match: \b(?:same|foreign|allowed)\b
+    - match: \b(?:same|foreign|allowed|no)\b
       scope: support.constant.multi-arch.debian.control
 
   rrr-values:
-    - match: \bbinary-targets\b
+    - match: \b(?:no|binary-targets)\b
       scope: support.constant.debian.control
 
   package-type-values:
@@ -259,30 +302,20 @@ contexts:
         ^(?x:
           (Tests(?:-Directory)?|Test-Command|Restrictions|Features|Depends
             |Classes|Architecture
-        ))(:)?
+        ))(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.control
-        2: punctuation.separator.mapping.key-value.debian.control
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
       push:
         - meta_scope: meta.mapping.debian.control
         - meta_content_scope: meta.mapping.value.debian.control
-        - include: debian-common.sublime-syntax#comments
         - include: debian-common.sublime-syntax#semver-flag
         - match: ^(?=\S)
           pop: true
-        - include: restrictions
+        - include: debian-common.sublime-syntax#restrictions
         - include: debian-common.sublime-syntax#architectures
+        - match: /\S+
+          scope: string.unquoted.path.debian.control
         - match: \,|\|
           scope: punctuation.separator.sequence.debian.control
 
-  restrictions:
-    - match: |-
-        (?x:
-          (?:rw-build-tree|breaks-testbed|needs-root|needs-sudo|build-needed
-            |allow-stderr|isolation-(?:container|machine)
-            |needs-(?:reboot|internet|recommends)
-            |flaky|skippable|skip-(?:not-installable|foreign-architecture)
-            |hint-testsuite-triggers|superficial
-          )
-        )
-      scope: support.constant.restriction.debian

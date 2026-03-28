@@ -1,59 +1,147 @@
 # SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-buildinfo.sublime-syntax"
 
+# This is a comment
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^^^^^^ comment.line.debian
+
 Format: 1.0
 #^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
 #     ^ punctuation.separator.mapping.key-value.debian.buildinfo
 #      ^^^^ meta.mapping.value.debian.buildinfo
-
+#       ^^^ meta.number.version.debian
 Source: backuppc (4.4.0-2)
 #^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
 #     ^ punctuation.separator.mapping.key-value.debian.buildinfo
+#      ^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.buildinfo
 #       ^^^^^^^^ support.module.debian
-
+#                ^ punctuation.section.group.begin.debian.buildinfo
+#                 ^^^^^^^ meta.number.version.debian
+#                        ^ punctuation.section.group.end.debian.buildinfo
 Binary: backuppc
 #^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
 #     ^ punctuation.separator.mapping.key-value.debian.buildinfo
 #       ^^^^^^^^ support.module.debian
-
-Architecture: amd64 source
+Architecture: amd64
 #^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
 #           ^ punctuation.separator.mapping.key-value.debian.buildinfo
+#            ^^^^^^ meta.mapping.value.debian.buildinfo
 #             ^^^^^ constant.other.architecture.debian
-#                   ^^^^^^ storage.type.debian.buildinfo
-
+Version: 4.4.0-2
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#      ^ punctuation.separator.mapping.key-value.debian.buildinfo
+#       ^^^^^^^^^ meta.mapping.value.debian.buildinfo
+#        ^^^^^^^ meta.number.version.debian
+#        ^ constant.numeric.integer.decimal.debian
+#         ^ punctuation.separator.sequence.debian
+#          ^ constant.numeric.integer.decimal.debian
+#           ^ punctuation.separator.sequence.debian
+#            ^ constant.numeric.integer.decimal.debian
+#             ^ punctuation.separator.sequence.debian
+#              ^ string.unquoted.debian
 Build-Architecture: amd64
 #^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
 #                 ^ punctuation.separator.mapping.key-value.debian.buildinfo
+#                  ^^^^^^ meta.mapping.value.debian.buildinfo
 #                   ^^^^^ constant.other.architecture.debian
-
-Build-Date: Wed, 30 Dec 2020 17:20:09 +0100
+Build-Date: Thu, 31 Dec 2020 16:54:06 +0100
 #^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
-#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.number.date.debian constant.numeric.debian
-
+#         ^ punctuation.separator.mapping.key-value.debian.buildinfo
+#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.number.date.debian constant.numeric.debian
 Build-Path: /build/backuppc-4.4.0
 #^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
 #         ^ punctuation.separator.mapping.key-value.debian.buildinfo
-
-Installed-Build-Depends:
- debhelper (= 13.3.4),
-#^^^^^^^^ support.module.debian
-
-Checksums-Sha256:
- a1b2c3d4e5f6a1b2c3d4 12345 backuppc_4.4.0-2_amd64.deb
-#^^^^^^^^^^^^^^^^^^^ constant.numeric.integer.hexadecimal.debian
-#                     ^^^^^ constant.numeric.integer.decimal.debian
-#                           ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian
-
+#          ^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.buildinfo
+#          ^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.buildinfo
 Build-Tainted-By: merged-usr-via-aliased-dirs
 #^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
 #               ^ punctuation.separator.mapping.key-value.debian.buildinfo
-
+#                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.buildinfo
 Build-Origin: debian
 #^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
 #           ^ punctuation.separator.mapping.key-value.debian.buildinfo
-
+#            ^^^^^^^ meta.mapping.value.debian.buildinfo
+Build-Kernel-Version: 5.10.0-8-amd64
+#^^^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#                   ^ punctuation.separator.mapping.key-value.debian.buildinfo
+#                    ^^^^^^^^^^^^^^^^ meta.mapping.value.debian.buildinfo
+Binary-Only-Changes:
+#^^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#                  ^ punctuation.separator.mapping.key-value.debian.buildinfo
+ backuppc (4.4.0-2+b1) unstable; urgency=medium
+ .
+   * Binary-only non-maintainer upload for amd64.
+Installed-Build-Depends:
+#^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#                      ^ punctuation.separator.mapping.key-value.debian.buildinfo
+ debhelper (= 13.3.4),
+#^^^^^^^^^ support.module.debian
+#          ^ punctuation.section.group.begin.debian.control
+#           ^ keyword.operator.comparison.debian.control
+#             ^^^^^^ meta.number.version.debian
+#                   ^ punctuation.section.group.end.debian.control
+#                    ^ punctuation.separator.sequence.debian
+ dpkg-dev (= 1.20.7.1),
+#^^^^^^^^ support.module.debian
+ gcc-10 (= 10.2.1-6),
+#^^^^^^ support.module.debian
+ perl (= 5.32.1-4+deb11u2)
+#^^^^ support.module.debian
+#     ^ punctuation.section.group.begin.debian.control
+#      ^ keyword.operator.comparison.debian.control
 Environment:
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#          ^ punctuation.separator.mapping.key-value.debian.buildinfo
  DEB_BUILD_OPTIONS="parallel=4"
 #^^^^^^^^^^^^^^^^^ variable.parameter.debian.buildinfo
 #                 ^ punctuation.separator.mapping.key-value.debian.buildinfo
 #                  ^^^^^^^^^^^^ string.quoted.double.debian.buildinfo
+ SOURCE_DATE_EPOCH="1609430046"
+#^^^^^^^^^^^^^^^^^ variable.parameter.debian.buildinfo
+#                 ^ punctuation.separator.mapping.key-value.debian.buildinfo
+#                  ^^^^^^^^^^^^ string.quoted.double.debian.buildinfo
+Checksums-Md5:
+#^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#            ^ punctuation.separator.mapping.key-value.debian.buildinfo
+ d41d8cd98f00b204e9800998ecf8427e 12345 backuppc_4.4.0-2_amd64.deb
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.integer.hexadecimal.debian
+#                                 ^^^^^ constant.numeric.integer.decimal.debian
+#                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian
+Checksums-Sha1:
+#^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#             ^ punctuation.separator.mapping.key-value.debian.buildinfo
+ da39a3ee5e6b4b0d3255bfef95601890afd80709 12345 backuppc_4.4.0-2_amd64.deb
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.integer.hexadecimal.debian
+#                                         ^^^^^ constant.numeric.integer.decimal.debian
+#                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian
+Checksums-Sha256:
+#^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
+#               ^ punctuation.separator.mapping.key-value.debian.buildinfo
+ e3b0c44298fc1c149afbf4c8996fb924 12345 backuppc_4.4.0-2_amd64.deb
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.integer.hexadecimal.debian
+#                                 ^^^^^ constant.numeric.integer.decimal.debian
+#                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian
+
+# Regression: Architecture with source keyword
+Architecture: amd64 source
+#             ^^^^^ constant.other.architecture.debian
+#                   ^^^^^^ storage.type.debian.buildinfo
+
+# Regression: catch-all for unknown fields
+X-Custom: something
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#       ^ punctuation.separator.mapping.key-value.debian
+#        ^^^^^^^^^^ meta.mapping.value.debian
+
+# Regression: bare version in parens on Source field
+Source: backuppc (4.4.0-2)
+#       ^^^^^^^^ support.module.debian
+#                ^ punctuation.section.group.begin.debian.buildinfo
+#                 ^^^^^^^ meta.number.version.debian
+#                 ^ constant.numeric.integer.decimal.debian
+#                  ^ punctuation.separator.sequence.debian
+#                   ^ constant.numeric.integer.decimal.debian
+#                    ^ punctuation.separator.sequence.debian
+#                     ^ constant.numeric.integer.decimal.debian
+#                      ^ punctuation.separator.sequence.debian
+#                       ^ string.unquoted.debian
+#                        ^ punctuation.section.group.end.debian.buildinfo

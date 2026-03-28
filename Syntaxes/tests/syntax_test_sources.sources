@@ -1,0 +1,210 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-sources.sublime-syntax"
+
+# This is a comment
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^^^^^^ comment.line.debian
+
+Types: deb deb-src
+#^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#    ^ punctuation.separator.mapping.key-value.debian.sources
+#     ^^^^^^^^^^^^^ meta.mapping.value.debian.sources
+#      ^^^ storage.type.debian.sources
+#          ^^^^^^^ storage.type.debian.sources
+URIs: http://deb.debian.org/debian/
+#^^^ meta.mapping.key.debian keyword.control.debian.sources
+#   ^ punctuation.separator.mapping.key-value.debian.sources
+#    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.sources
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+Suites: trixie trixie-updates
+#^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#     ^ punctuation.separator.mapping.key-value.debian.sources
+#      ^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.sources
+#       ^^^^^^ support.constant.debian
+#              ^^^^^^ support.constant.debian
+#                    ^^^^^^^^ support.constant.debian
+Components: main non-free-firmware contrib non-free
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#         ^ punctuation.separator.mapping.key-value.debian.sources
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.sources
+#           ^^^^ support.constant.component.debian.sources
+#                ^^^^^^^^^^^^^^^^^ support.constant.component.debian.sources
+#                                  ^^^^^^^ support.constant.component.debian.sources
+#                                          ^^^^^^^^ support.constant.component.debian.sources
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#        ^ punctuation.separator.mapping.key-value.debian.sources
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.sources
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.sources
+#          ^ punctuation.separator.path.debian.sources
+#              ^ punctuation.separator.path.debian.sources
+#                    ^ punctuation.separator.path.debian.sources
+#                             ^ punctuation.separator.path.debian.sources
+Architectures: amd64 arm64
+#^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#            ^ punctuation.separator.mapping.key-value.debian.sources
+#             ^^^^^^^^^^^^ meta.mapping.value.debian.sources
+#              ^^^^^ constant.other.architecture.debian
+#                    ^^^^^ constant.other.architecture.debian
+Languages: en de fr
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#        ^ punctuation.separator.mapping.key-value.debian.sources
+#         ^^^^^^^^^ meta.mapping.value.debian.sources
+#          ^^ string.unquoted.debian.sources
+Targets: Packages Sources
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#      ^ punctuation.separator.mapping.key-value.debian.sources
+#       ^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.sources
+#        ^^^^^^^^ string.unquoted.debian.sources
+Enabled: yes
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#      ^ punctuation.separator.mapping.key-value.debian.sources
+#       ^^^^ meta.mapping.value.debian.sources
+#        ^^^ constant.language.boolean.true.debian
+
+Types: deb
+#^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#    ^ punctuation.separator.mapping.key-value.debian.sources
+#      ^^^ storage.type.debian.sources
+URIs: http://security.debian.org/debian-security
+#^^^ meta.mapping.key.debian keyword.control.debian.sources
+#   ^ punctuation.separator.mapping.key-value.debian.sources
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+Suites: trixie-security
+#^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#     ^ punctuation.separator.mapping.key-value.debian.sources
+#       ^^^^^^ support.constant.debian
+#             ^^^^^^^^^ support.constant.debian
+Components: main non-free-firmware
+#           ^^^^ support.constant.component.debian.sources
+#                ^^^^^^^^^^^^^^^^^ support.constant.component.debian.sources
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+Enabled: yes
+#        ^^^ constant.language.boolean.true.debian
+
+# Suite name variants
+Suites: stable oldstable oldoldstable testing unstable experimental
+#       ^^^^^^ support.constant.debian
+#              ^^^^^^^^^ support.constant.debian
+#                        ^^^^^^^^^^^^ support.constant.debian
+#                                     ^^^^^^^ support.constant.debian
+#                                             ^^^^^^^^ support.constant.debian
+#                                                      ^^^^^^^^^^^^ support.constant.debian
+
+# Suite with proposed-updates suffix
+Suites: trixie-proposed-updates bookworm-backports
+#       ^^^^^^ support.constant.debian
+#             ^^^^^^^^^^^^^^^^^ support.constant.debian
+#                               ^^^^^^^^ support.constant.debian
+#                                       ^^^^^^^^^^ support.constant.debian
+
+# All boolean option fields
+Trusted: yes
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#      ^ punctuation.separator.mapping.key-value.debian.sources
+#        ^^^ constant.language.boolean.true.debian
+PDiffs: no
+#^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#     ^ punctuation.separator.mapping.key-value.debian.sources
+#       ^^ constant.language.boolean.false.debian
+By-Hash: yes
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#      ^ punctuation.separator.mapping.key-value.debian.sources
+#        ^^^ constant.language.boolean.true.debian
+Allow-Insecure: no
+#^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#             ^ punctuation.separator.mapping.key-value.debian.sources
+#               ^^ constant.language.boolean.false.debian
+Allow-Weak: no
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#         ^ punctuation.separator.mapping.key-value.debian.sources
+#           ^^ constant.language.boolean.false.debian
+Allow-Downgrade-To-Insecure: no
+#^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#                          ^ punctuation.separator.mapping.key-value.debian.sources
+#                            ^^ constant.language.boolean.false.debian
+Check-Valid-Until: yes
+#^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#                ^ punctuation.separator.mapping.key-value.debian.sources
+#                  ^^^ constant.language.boolean.true.debian
+Check-Date: yes
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#         ^ punctuation.separator.mapping.key-value.debian.sources
+#           ^^^ constant.language.boolean.true.debian
+Valid-Until-Min: 3600
+#^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#              ^ punctuation.separator.mapping.key-value.debian.sources
+#               ^^^^^ meta.mapping.value.debian.sources
+#                ^^^^ constant.numeric.integer.decimal.debian.sources
+Valid-Until-Max: 604800
+#^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#              ^ punctuation.separator.mapping.key-value.debian.sources
+#                ^^^^^^ constant.numeric.integer.decimal.debian.sources
+Date-Max-Future: 86400
+#^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#              ^ punctuation.separator.mapping.key-value.debian.sources
+#                ^^^^^ constant.numeric.integer.decimal.debian.sources
+InRelease-Path: dists/bookworm/InRelease
+#^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#             ^ punctuation.separator.mapping.key-value.debian.sources
+#               ^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.debian.sources
+Snapshot: 20250101T000000Z
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#       ^ punctuation.separator.mapping.key-value.debian.sources
+#         ^^^^^^^^^^^^^^^^ string.unquoted.debian.sources
+Include: backuppc*
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#      ^ punctuation.separator.mapping.key-value.debian.sources
+#        ^^^^^^^^^ string.unquoted.debian.sources
+Exclude: backuppc-dbgsym
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#      ^ punctuation.separator.mapping.key-value.debian.sources
+#        ^^^^^^^^^^^^^^^ string.unquoted.debian.sources
+
+# Non-HTTP URI schemes
+URIs: mirror+file:/path/to/mirror
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources
+URIs: file:/local/repo
+#     ^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources
+URIs: cdrom:[Debian-12.0]
+#     ^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources
+URIs: https://custom.repo.example.com/apt
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+
+# Inline PGP key
+Signed-By:
+    -----BEGIN PGP PUBLIC KEY BLOCK-----
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.sources markup.raw.block.signature.debian
+#   ^^^^^ punctuation.definition.section.begin
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.section.debian
+#                                  ^^^^^ punctuation.definition.section.end
+
+    mQINBGkJdvYBEADWhdySHM8j/ADp4YuVsnB6RkLVJoQI9A50uMiuDuNk8f05NpZJ
+    AwZ5B2NwXZBg532zpvLNBlhp
+    -----END PGP PUBLIC KEY BLOCK-----
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.sources markup.raw.block.signature.debian
+#   ^^^^^ punctuation.definition.section.begin.debian
+#        ^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.section.debian
+#                                ^^^^^ punctuation.definition.section.end.debian
+Enabled: no
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.sources
+#      ^ punctuation.separator.mapping.key-value.debian.sources
+#       ^^^ meta.mapping.value.debian.sources
+#        ^^ constant.language.boolean.false.debian
+
+# Regression: catch-all for unknown fields
+X-Repolib-Name: my-custom-repo
+#^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#             ^ punctuation.separator.mapping.key-value.debian
+#              ^^^^^^^^^^^^^^^^ meta.mapping.value.debian
+
+# Regression: invalid.illegal for Types field
+Types: rpm
+#      ^^^ invalid.illegal.value.debian.sources
+
+# Regression: invalid.illegal for Enabled field
+Enabled: maybe
+#        ^^^^^ invalid.illegal.value.debian.sources
+
+# Regression: invalid.illegal for boolean option fields
+Trusted: dunno
+#        ^^^^^ invalid.illegal.value.debian.sources

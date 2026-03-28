@@ -9,19 +9,33 @@ first_line_match: '^lib\S+\.so\.\d+'
 scope: source.debian.symbols
 
 contexts:
+  prototype:
+    - include: debian-common.sublime-syntax#comments
+
   main:
     - include: library-header
     - include: metadata
     - include: symbol-entry
-    - include: debian-common.sublime-syntax#comments
 
   # libfoo.so.1 libfoo1 #MINVER#
   library-header:
-    - match: ^(\S+\.so\.\S+)\s+(\S+)\s+(.*)$
+    - match: ^(\S+\.so\.\S+)\s+(\S+)
       captures:
         1: entity.name.class.library.debian.symbols
         2: entity.name.other.dependency.debian.symbols
-        3: string.unquoted.version-template.debian.symbols
+      push:
+        - meta_include_prototype: false
+        - include: version-template-var
+        - include: debian-common.sublime-syntax#semantic-version
+        - include: debian-common.sublime-syntax#pop-eol
+
+  # dpkg substitution variables: #MINVER#, #PACKAGE#, #CURVER#
+  version-template-var:
+    - match: '(#)[A-Z_]+(#)'
+      scope: variable.other.constant.debian.symbols
+      captures:
+        1: punctuation.definition.variable.begin.debian.symbols
+        2: punctuation.definition.variable.end.debian.symbols
 
   # * Field: value
   metadata:
@@ -45,7 +59,11 @@ contexts:
         3: punctuation.section.group.end.debian.symbols
 
   #  symbol@Base 1.0
+  #  #MISSING: ver# symbol@Base ver
+  #  #include "file"
+  # These use # structurally, not as comments
   symbol-entry:
+    - meta_include_prototype: false
     - match: ^\s+(?=\()
       push:
         - include: symbol-tags
@@ -54,9 +72,10 @@ contexts:
         - include: debian-common.sublime-syntax#pop-eol
     - match: ^\s+(?=\S+@)
       push: symbol-name-version
-    - match: ^\s+(#MISSING:\s+\S+)
+    - match: ^\s+(#MISSING:\s+\S+#)\s+
       captures:
         1: comment.line.missing.debian.symbols
+      push: symbol-name-version
     - match: ^\s*(#include)\s+(.+)$
       captures:
         1: keyword.control.import.debian.symbols

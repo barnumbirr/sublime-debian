@@ -10,8 +10,10 @@ first_line_match: '^\s*deb(?:-src)?\s'
 scope: source.debian.sources-list
 
 contexts:
-  main:
+  prototype:
     - include: debian-common.sublime-syntax#comments
+
+  main:
     - include: entries
 
   entries:
@@ -27,7 +29,7 @@ contexts:
       scope: markup.underline.link.debian.sources-list
     - match: '(?:https?|ftp|ssh)://\S+'
       scope: markup.underline.link.debian.sources-list
-    - match: '(?:mirror(?:\+file)?|copy|file):\S+'
+    - match: '(?:mirror(?:\+(?:file|https?|ftp))?|copy|file):\S+'
       scope: markup.underline.link.debian.sources-list
     # Suite codenames and aliases
     - include: debian-common.sublime-syntax#suites

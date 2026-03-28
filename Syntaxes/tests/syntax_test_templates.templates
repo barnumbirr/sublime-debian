@@ -1,46 +1,106 @@
 # SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-templates.sublime-syntax"
 
+# This is a comment
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^^^^^^ comment.line.debian
+
 Template: backuppc/reconfigure-webserver
 #^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
 #       ^ punctuation.separator.mapping.key-value.debian.templates
 #        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.templates
-
 Type: multiselect
 #^^^ meta.mapping.key.debian keyword.control.debian.templates
 #   ^ punctuation.separator.mapping.key-value.debian.templates
-
+#    ^^^^^^^^^^^^ meta.mapping.value.debian.templates
+#     ^^^^^^^^^^^ support.constant.type.debian.templates
 Default: apache2
 #^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
 #      ^ punctuation.separator.mapping.key-value.debian.templates
-
-_Description: Please choose the web server:
-#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
-#           ^ punctuation.separator.mapping.key-value.debian.templates
-
-Choices: apache2, lighttpd
+#       ^^^^^^^^ meta.mapping.value.debian.templates
+Description: Please choose the web server(s) to configure automatically:
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#          ^ punctuation.separator.mapping.key-value.debian.templates
+#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.templates
+ BackupPC can be configured to run with any of the following web servers.
+ Select one or more to configure automatically.
+Choices: apache2, lighttpd, nginx
 #^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
 #      ^ punctuation.separator.mapping.key-value.debian.templates
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.templates
+#        ^^^^^^^ meta.mapping.value.debian.templates
+#               ^ punctuation.separator.sequence.debian.templates
+#                 ^^^^^^^^ meta.mapping.value.debian.templates
+#                         ^ punctuation.separator.sequence.debian.templates
+#                           ^^^^^ meta.mapping.value.debian.templates
 
-# This is a comment
-# <- punctuation.definition.comment.debian
-#^^^^^^^^^^^^^^^^^^^^ comment.line.debian
-
-_Default: en
+Template: backuppc/restart-webserver
 #^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
 #       ^ punctuation.separator.mapping.key-value.debian.templates
-#        ^^^ meta.mapping.value.debian.templates
-
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.templates
+Type: boolean
+#^^^ meta.mapping.key.debian keyword.control.debian.templates
+#   ^ punctuation.separator.mapping.key-value.debian.templates
+#     ^^^^^^^ support.constant.type.debian.templates
+_Default: true
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#       ^ punctuation.separator.mapping.key-value.debian.templates
+#        ^^^^^ meta.mapping.value.debian.templates
+#         ^^^^ constant.language.boolean.true.debian.templates
+_Description: Should the web server be restarted now?
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#           ^ punctuation.separator.mapping.key-value.debian.templates
+#            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.templates
 _Choices: yes, no
 #^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
 #       ^ punctuation.separator.mapping.key-value.debian.templates
 #        ^^^^^^^^ meta.mapping.value.debian.templates
+#         ^^^ meta.mapping.value.debian.templates
+#            ^ punctuation.separator.sequence.debian.templates
+#              ^^ meta.mapping.value.debian.templates
+
+Choices-C: apache2, lighttpd, nginx
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#        ^ punctuation.separator.mapping.key-value.debian.templates
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.templates
+#          ^^^^^^^ meta.mapping.value.debian.templates
+#                 ^ punctuation.separator.sequence.debian.templates
+#                   ^^^^^^^^ meta.mapping.value.debian.templates
+#                           ^ punctuation.separator.sequence.debian.templates
+#                             ^^^^^ meta.mapping.value.debian.templates
+
+Template: backuppc/admin-pass
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#       ^ punctuation.separator.mapping.key-value.debian.templates
+Type: password
+#     ^^^^^^^^ support.constant.type.debian.templates
+Description: BackupPC admin password:
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#          ^ punctuation.separator.mapping.key-value.debian.templates
+
+# Additional Type constants
+Type: select
+#     ^^^^^^ support.constant.type.debian.templates
+Type: string
+#     ^^^^^^ support.constant.type.debian.templates
+Type: text
+#     ^^^^ support.constant.type.debian.templates
+Type: note
+#     ^^^^ support.constant.type.debian.templates
+Type: error
+#     ^^^^^ support.constant.type.debian.templates
 
 # Boolean default values
-Type: boolean
-#     ^^^^^^^ support.constant.type.debian.templates
 Default: true
-#^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
-#      ^ punctuation.separator.mapping.key-value.debian.templates
-#        ^^^^ constant.language.boolean.debian.templates
+#        ^^^^ constant.language.boolean.true.debian.templates
 Default: false
-#        ^^^^^ constant.language.boolean.debian.templates
+#        ^^^^^ constant.language.boolean.false.debian.templates
+
+# Regression: catch-all for unknown fields
+X-Custom: something
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#       ^ punctuation.separator.mapping.key-value.debian
+#        ^^^^^^^^^^ meta.mapping.value.debian
+
+# Regression: invalid.illegal for Type field
+Type: dropdown
+#     ^^^^^^^^ invalid.illegal.value.debian.templates

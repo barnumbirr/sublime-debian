@@ -43,21 +43,30 @@ libfoo.so.1 libfoo1 #MINVER#
 #                                ^^^^ constant.other.version-node.debian.symbols
  (arch=amd64 arch=arm64)foo_simd_init@Base 1.2
 #^ punctuation.section.group.begin.debian.symbols
-# ^^^^^^^^^^^^^^^^^^^^^ storage.modifier.debian.symbols
+# ^^^^ variable.parameter.debian.symbols
+#     ^ punctuation.separator.mapping.key-value.debian.symbols
+#      ^^^^^ constant.other.architecture.debian
+#            ^^^^ variable.parameter.debian.symbols
+#                ^ punctuation.separator.mapping.key-value.debian.symbols
+#                 ^^^^^ constant.other.architecture.debian
 #                      ^ punctuation.section.group.end.debian.symbols
 #                       ^^^^^^^^^^^^^ entity.name.function.symbol.debian.symbols
 #                                    ^ punctuation.separator.symbol.debian.symbols
 #                                     ^^^^ constant.other.version-node.debian.symbols
  (arch-bits=64)foo_wide@Base 1.1
 #^ punctuation.section.group.begin.debian.symbols
-# ^^^^^^^^^^^^ storage.modifier.debian.symbols
+# ^^^^^^^^^ variable.parameter.debian.symbols
+#          ^ punctuation.separator.mapping.key-value.debian.symbols
+#           ^^ constant.numeric.integer.decimal.debian.symbols
 #             ^ punctuation.section.group.end.debian.symbols
 #              ^^^^^^^^ entity.name.function.symbol.debian.symbols
 #                      ^ punctuation.separator.symbol.debian.symbols
 #                       ^^^^ constant.other.version-node.debian.symbols
  (arch-endian=little)foo_le_init@Base 1.1
 #^ punctuation.section.group.begin.debian.symbols
-# ^^^^^^^^^^^^^^^^^^ storage.modifier.debian.symbols
+# ^^^^^^^^^^^ variable.parameter.debian.symbols
+#            ^ punctuation.separator.mapping.key-value.debian.symbols
+#             ^^^^^^ support.constant.debian.symbols
 #                   ^ punctuation.section.group.end.debian.symbols
 #                    ^^^^^^^^^^^ entity.name.function.symbol.debian.symbols
 #                               ^ punctuation.separator.symbol.debian.symbols

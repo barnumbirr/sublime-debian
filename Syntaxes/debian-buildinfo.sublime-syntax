@@ -114,6 +114,8 @@ contexts:
           scope: punctuation.definition.string.begin.debian.buildinfo
           push:
             - meta_scope: string.quoted.double.debian.buildinfo
+            - match: \\.
+              scope: constant.character.escape.debian.buildinfo
             - match: '"'
               scope: punctuation.definition.string.end.debian.buildinfo
               pop: true
@@ -132,6 +134,8 @@ contexts:
                               string.unquoted.path.debian.buildinfo
         - match: ^(?=\S)
           pop: true
+        - match: /
+          scope: punctuation.separator.path.debian.buildinfo
     # Other fields
     - match: |-
         ^(?x:

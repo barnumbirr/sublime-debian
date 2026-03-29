@@ -39,8 +39,13 @@ contexts:
         - meta_content_scope: meta.mapping.value.debian.tests.control
         - match: ^(?=\S)
           pop: true
-        - match: /\S+
-          scope: string.unquoted.path.debian.tests.control
+        - match: (?=\S*/)
+          push:
+            - meta_content_scope: string.unquoted.path.debian.tests.control
+            - match: /
+              scope: punctuation.separator.path.debian.tests.control
+            - match: (?=\s|$)
+              pop: true
     # Restrictions field — known restriction constants
     - match: ^(Restrictions)(:)
       captures:
@@ -109,6 +114,13 @@ contexts:
         - meta_content_scope: meta.mapping.value.debian.tests.control
         - match: ^(?=\S)
           pop: true
+        - match: (?=\S*/)
+          push:
+            - meta_content_scope: string.unquoted.path.debian.tests.control
+            - match: /
+              scope: punctuation.separator.path.debian.tests.control
+            - match: (?=\s|$)
+              pop: true
         - match: ','
           scope: punctuation.separator.sequence.debian.tests.control
     # Catch-all for unknown fields

@@ -373,38 +373,42 @@ Description: debug symbols for backuppc
 #          ^ punctuation.separator.mapping.key-value.debian.control
 
 Tests: run-tests
-#^^^^ meta.mapping.key.debian keyword.control.debian
-#    ^ punctuation.separator.mapping.key-value.debian
-#     ^^^^^^^^^^ meta.mapping.value.debian
+#^^^^ meta.mapping.key.debian keyword.control.debian.control
+#    ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
+#      ^^^^^^^^^ meta.mapping.value.debian.control
 Tests-Directory: debian/tests
-#^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
-#              ^ punctuation.separator.mapping.key-value.debian
-#                ^^^^^^ meta.mapping.value.debian
+#^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#              ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
+#                ^^^^^^^^^^^^ meta.mapping.value.debian.control
 Depends: @, python3-all
 Restrictions: rw-build-tree, breaks-testbed, needs-root, needs-sudo,
-#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
-#           ^ punctuation.separator.mapping.key-value.debian
-#             ^^^^^^^^^^^^^ meta.mapping.value.debian
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#           ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
+#             ^^^^^^^^^^^^ support.constant.restriction.debian
               build-needed, allow-stderr, isolation-container,
-#             ^^^^^^^^^^^^ source.debian.control
+#             ^^^^^^^^^^^^ support.constant.restriction.debian
               isolation-machine, needs-reboot, needs-internet,
-#             ^^^^^^^^^^^^^^^^^ source.debian.control
+#             ^^^^^^^^^^^^^^^^^ support.constant.restriction.debian
               needs-recommends, flaky, skippable, skip-not-installable,
-#             ^^^^^^^^^^^^^^^^^ source.debian.control
+#             ^^^^^^^^^^^^^^^^ support.constant.restriction.debian
               skip-foreign-architecture, hint-testsuite-triggers, superficial
-#             ^^^^^^^^^^^^^^^^^^^^^^^^^ source.debian.control
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.restriction.debian
 Features: test-name=custom-feature
-#^^^^^^^ meta.mapping.key.debian keyword.control.debian
-#       ^ punctuation.separator.mapping.key-value.debian
-#        ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#       ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
+#         ^^^^^^^^^ meta.mapping.value.debian.control
 Test-Command: /usr/bin/test-backuppc
-#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
-#           ^ punctuation.separator.mapping.key-value.debian
-#             ^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#           ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
+#             ^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.control
+#             ^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.control
+#             ^ punctuation.separator.path.debian.control
+#                 ^ punctuation.separator.path.debian.control
+#                     ^ punctuation.separator.path.debian.control
 Classes: default
-#^^^^^^ meta.mapping.key.debian keyword.control.debian
-#      ^ punctuation.separator.mapping.key-value.debian
-#       ^^^^^^^^ meta.mapping.value.debian
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.control
+#      ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.control
+#        ^^^^^^^ meta.mapping.value.debian.control
 Architecture: amd64 arm64
 #^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #           ^ punctuation.separator.mapping.key-value.debian.control

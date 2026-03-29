@@ -129,11 +129,37 @@ contexts:
               scope: string.unquoted.debian.source.control
             - match: ''
               pop: true
-        - match: '(arch|profile|essential)(=)(\S+)'
+        - match: '(arch)(=)'
           captures:
             1: variable.parameter.debian.source.control
             2: punctuation.separator.mapping.key-value.debian.source.control
-            3: string.unquoted.debian.source.control
+          push:
+            - include: debian-common.sublime-syntax#architectures
+            - match: ','
+              scope: punctuation.separator.sequence.debian.source.control
+            - match: \S+
+              scope: string.unquoted.debian.source.control
+            - match: ''
+              pop: true
+        - match: '(essential)(=)'
+          captures:
+            1: variable.parameter.debian.source.control
+            2: punctuation.separator.mapping.key-value.debian.source.control
+          push:
+            - include: debian-common.sublime-syntax#booleans
+            - match: \S+
+              scope: string.unquoted.debian.source.control
+            - match: ''
+              pop: true
+        - match: '(profile)(=)'
+          captures:
+            1: variable.parameter.debian.source.control
+            2: punctuation.separator.mapping.key-value.debian.source.control
+          push:
+            - match: \S+
+              scope: string.unquoted.debian.source.control
+            - match: ''
+              pop: true
         - include: debian-common.sublime-syntax#package-name
     # Dgit field — commit hash and debian tag reference
     - match: ^(Dgit)(:)

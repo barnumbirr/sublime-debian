@@ -183,6 +183,18 @@ License: GPL-3.0-only WITH GCC-exception-3.1
 #                     ^^^^ keyword.operator.word.debian.copyright
 #                          ^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
 
+# Parenthesized SPDX expression tests
+License: (GPL-2+ or MIT) and Apache-2.0
+#        ^ punctuation.section.group.begin.debian.copyright
+#         ^^^^^^ support.constant.license.debian.copyright
+#                ^^ keyword.operator.word.debian.copyright
+#                   ^^^ support.constant.license.debian.copyright
+#                      ^ punctuation.section.group.end.debian.copyright
+#                        ^^^ keyword.operator.word.debian.copyright
+#                            ^^^^^^^^^^ support.constant.license.debian.copyright
+License: LGPL-2.1+
+#        ^^^^^^^^^ support.constant.license.debian.copyright
+
 # Copyright symbol tests
 Copyright: (c) 2020 John Doe
 #          ^^^ keyword.operator.copyright.debian.copyright

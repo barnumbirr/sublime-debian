@@ -73,8 +73,11 @@ contexts:
         - meta_scope: meta.mapping.debian.sources
         - meta_content_scope: meta.mapping.value.debian.sources
         - include: pop-next-content-line
-        - match: '(?:mirror(?:\+(?:file|https?|ftp))?|copy|file|cdrom|ssh|ftp):\S+'
+        - match: '(mirror(?:\+(?:file|https?|ftp))?|copy|file|cdrom|ssh|ftp)(:(?://)?)(\S+)'
           scope: markup.underline.link.debian.sources
+          captures:
+            1: markup.underline.link.scheme.debian.sources
+            2: markup.underline.link.separator.debian.sources
         - include: debian-common.sublime-syntax#url
 
     - match: ^(?i)(Signed-By)(:)

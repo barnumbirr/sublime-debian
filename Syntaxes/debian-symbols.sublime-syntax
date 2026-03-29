@@ -52,11 +52,26 @@ contexts:
 
   # Symbol tags: (optional), (arch=amd64), (c++), etc.
   symbol-tags:
-    - match: (\()([^)]+)(\))
+    - match: (\()
       captures:
         1: punctuation.section.group.begin.debian.symbols
-        2: storage.modifier.debian.symbols
-        3: punctuation.section.group.end.debian.symbols
+      push:
+        - match: ([\w+-]+)(=)
+          captures:
+            1: storage.modifier.debian.symbols variable.parameter.debian.symbols
+            2: punctuation.separator.mapping.key-value.debian.symbols
+        - include: debian-common.sublime-syntax#architectures
+        - match: \b(?:little|big)\b
+          scope: support.constant.debian.symbols
+        - match: \b\d+\b
+          scope: constant.numeric.integer.decimal.debian.symbols
+        - match: '!'
+          scope: keyword.operator.logical.debian.symbols
+        - match: '[^)=\s]+'
+          scope: storage.modifier.debian.symbols
+        - match: (\))
+          scope: punctuation.section.group.end.debian.symbols
+          pop: true
 
   #  symbol@Base 1.0
   #  #MISSING: ver# symbol@Base ver

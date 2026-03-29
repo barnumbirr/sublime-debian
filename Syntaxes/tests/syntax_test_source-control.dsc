@@ -183,7 +183,9 @@ Package-List:
 #                                    ^^^^^^^^ support.constant.priority.debian
 #                                             ^^^^ variable.parameter.debian.source.control
 #                                                 ^ punctuation.separator.mapping.key-value.debian.source.control
-#                                                  ^^^^^^^^^^^ string.unquoted.debian.source.control
+#                                                  ^^^^^ constant.other.architecture.debian
+#                                                       ^ punctuation.separator.sequence.debian.source.control
+#                                                        ^^^^^ constant.other.architecture.debian
 Checksums-Sha1:
 #^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.source.control
 #             ^ punctuation.separator.mapping.key-value.debian.source.control

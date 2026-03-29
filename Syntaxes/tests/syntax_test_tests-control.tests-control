@@ -30,7 +30,8 @@ Features: test-name=custom-feature
 
 Tests-Directory: debian/tests
 #^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.tests.control
-#              ^ punctuation.separator.mapping.key-value.debian.tests.control
+#              ^ meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.tests.control
+#                      ^ punctuation.separator.path.debian.tests.control
 
 Architecture: amd64 arm64
 #^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.tests.control
@@ -60,6 +61,9 @@ Test-Command: /usr/bin/test-backuppc --verbose
 #^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.tests.control
 #           ^ punctuation.separator.mapping.key-value.debian.tests.control
 #             ^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.tests.control
+#             ^ punctuation.separator.path.debian.tests.control
+#                 ^ punctuation.separator.path.debian.tests.control
+#                     ^ punctuation.separator.path.debian.tests.control
 
 Depends: @recommends@
 #        ^ punctuation.definition.variable.debian.tests.control

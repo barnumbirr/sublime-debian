@@ -1,0 +1,18 @@
+Debian Syntax 2.2.0
+====================
+
+New sub-component captures for color scheme authors:
+  - Symbol tags: (arch=amd64) now breaks into key, separator, and typed value
+  - Package-List: arch=, essential=, profile= values get typed scoping
+  - SPDX license expressions: parentheses now scoped for visual grouping
+  - URI schemes: non-HTTP URIs (cdrom, mirror, file, ftp, ssh) get scheme/separator captures
+  - Path separators: / now individually scoped across all path-containing syntaxes
+  - Build environment: escape sequences highlighted in quoted strings
+
+Fixed:
+  - Autopkgtest fields in debian/control now get proper scopes (were caught by catch-all)
+  - SPDX license + suffix (GPL-2+, LGPL-2.1+) now fully matched as license identifier
+  - Tests-Directory field now gets path scoping
+
+Full changelog:
+  https://github.com/barnumbirr/sublime-debian/blob/master/CHANGELOG.md

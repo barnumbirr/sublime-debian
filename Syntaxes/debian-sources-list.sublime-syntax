@@ -25,12 +25,21 @@ contexts:
       scope: punctuation.section.brackets.begin.debian.sources-list
       push: options-body
     # URIs (including cdrom with brackets)
-    - match: 'cdrom:\[[^\]]*\]\S*'
+    - match: (cdrom)(:\[)([^\]]*\]\S*)
       scope: markup.underline.link.debian.sources-list
-    - match: '(?:https?|ftp|ssh)://\S+'
+      captures:
+        1: markup.underline.link.scheme.debian.sources-list
+        2: markup.underline.link.separator.debian.sources-list
+    - match: (https?|ftp|ssh)(://)(\S+)
       scope: markup.underline.link.debian.sources-list
-    - match: '(?:mirror(?:\+(?:file|https?|ftp))?|copy|file):\S+'
+      captures:
+        1: markup.underline.link.scheme.debian.sources-list
+        2: markup.underline.link.separator.debian.sources-list
+    - match: (mirror(?:\+(?:file|https?|ftp))?|copy|file)(:)(\S+)
       scope: markup.underline.link.debian.sources-list
+      captures:
+        1: markup.underline.link.scheme.debian.sources-list
+        2: markup.underline.link.separator.debian.sources-list
     # Suite codenames and aliases
     - include: debian-common.sublime-syntax#suites
     # Components
@@ -44,8 +53,13 @@ contexts:
         2: punctuation.separator.mapping.key-value.debian.sources-list
     - match: \b(?:yes|no)\b
       scope: constant.language.boolean.debian.sources-list
-    - match: '/[^\]\s]+'
-      scope: string.unquoted.path.debian.sources-list
+    - match: (?=/)
+      push:
+        - meta_content_scope: string.unquoted.path.debian.sources-list
+        - match: /
+          scope: punctuation.separator.path.debian.sources-list
+        - match: (?=[\]\s]|$)
+          pop: true
     - match: ','
       scope: punctuation.separator.sequence.debian.sources-list
     - include: debian-common.sublime-syntax#architectures

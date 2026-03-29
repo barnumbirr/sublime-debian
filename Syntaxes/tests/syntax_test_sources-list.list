@@ -7,6 +7,8 @@
 deb http://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware
 # <- storage.type.debian.sources-list
 #   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list
+#   ^^^^ markup.underline.link.scheme.debian.sources-list
+#       ^^^ markup.underline.link.separator.debian.sources-list
 #                                 ^^^^^^^^ support.constant.debian
 #                                          ^^^^ support.constant.component.debian.sources-list
 #                                               ^^^^^^^ support.constant.component.debian.sources-list
@@ -55,6 +57,9 @@ deb [arch=amd64 signed-by=/usr/share/keyrings/example.gpg] https://packages.exam
 #               ^^^^^^^^^ variable.parameter.debian.sources-list
 #                        ^ punctuation.separator.mapping.key-value.debian.sources-list
 #                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.sources-list
+#                         ^ punctuation.separator.path.debian.sources-list
+#                             ^ punctuation.separator.path.debian.sources-list
+#                                   ^ punctuation.separator.path.debian.sources-list
 #                                                        ^ punctuation.section.brackets.end.debian.sources-list
 
 deb [arch=amd64,arm64 trusted=yes] http://local.example.com/repo stable main
@@ -73,11 +78,15 @@ deb [arch=amd64,arm64 trusted=yes] http://local.example.com/repo stable main
 
 deb file:/var/local/repo stable main
 #   ^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list
+#   ^^^^ markup.underline.link.scheme.debian.sources-list
+#       ^ markup.underline.link.separator.debian.sources-list
 #                        ^^^^^^ support.constant.debian
 #                               ^^^^ support.constant.component.debian.sources-list
 
 deb cdrom:[Debian GNU/Linux 12.0 _Bookworm_ - Official amd64 DVD]/ bookworm main contrib
 #   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list
+#   ^^^^^ markup.underline.link.scheme.debian.sources-list
+#        ^^ markup.underline.link.separator.debian.sources-list
 #                                                                  ^^^^^^^^ support.constant.debian
 #                                                                           ^^^^ support.constant.component.debian.sources-list
 #                                                                                ^^^^^^^ support.constant.component.debian.sources-list

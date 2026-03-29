@@ -6,6 +6,8 @@
 
 usr/bin/backuppc
 # <- string.unquoted.path.debian.debhelper
+#  ^ punctuation.separator.path.debian.debhelper
+#      ^ punctuation.separator.path.debian.debhelper
 
 usr/share/doc/backuppc/*.html
 # <- string.unquoted.path.debian.debhelper

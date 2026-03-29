@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 This file format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).\
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-03-29
+
+### New
+- Added sub-component captures for symbol tags in `debian-symbols`: key, `=` separator, and typed values (architectures, endianness constants, bit-widths) are now individually scoped
+- Added typed value matching for Package-List `arch=`, `essential=`, `profile=` fields in `debian-source-control`: architecture names, booleans, and comma separators now get proper scopes
+- Added parenthesis scoping for SPDX license expressions in `debian-copyright`: `(` and `)` now get `punctuation.section.group` scopes
+- Added URI scheme and separator sub-scoping in `debian-sources-list` and `debian-sources` for non-HTTP schemes (cdrom, mirror, file, ftp, ssh, copy)
+- Added path separator (`/`) scoping in `debian-control` (autopkgtest), `debian-tests-control`, `debian-debhelper`, `debian-triggers`, `debian-sources-list` (options)
+- Added `punctuation.separator.path` scoping for `Build-Path` field in `debian-buildinfo`
+- Added escape sequence highlighting (`constant.character.escape`) in `debian-buildinfo` Environment quoted strings
+
+### Fixes
+- Fixed autopkgtest fields (`Tests`, `Test-Command`, `Restrictions`, etc.) in `debian-control` being swallowed by the unknown-field catch-all instead of getting proper autopkgtest scopes — moved autopkgtest include before the catch-all in `fields`
+- Fixed SPDX license `+` suffix (e.g., `GPL-2+`, `LGPL-2.1+`) not being captured as part of the license identifier in `debian-copyright` — the trailing `\b` word boundary was firing before `+`
+- Fixed `Tests-Directory` field in `debian-tests-control` not getting path scoping — the field was in a separate handler that lacked the path context
+
 ## [2.1.0] - 2026-03-28
 
 ### Breaking

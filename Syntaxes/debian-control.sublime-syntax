@@ -13,7 +13,6 @@ contexts:
 
   main:
     - include: fields
-    - include: autopkgtest
 
   # https://www.debian.org/doc/debian-policy/ch-controlfields.html#source-package-control-files-debian-control
   fields:
@@ -213,6 +212,8 @@ contexts:
         - include: debian-common.sublime-syntax#url
         - match: \b\d+\b
           scope: constant.numeric.integer.decimal.debian.control
+    # Autopkgtest fields (before catch-all so they're not swallowed)
+    - include: autopkgtest
     # Catch-all for unknown fields
     - include: debian-common.sublime-syntax#deb822-unknown-field
 
@@ -314,8 +315,13 @@ contexts:
           pop: true
         - include: debian-common.sublime-syntax#restrictions
         - include: debian-common.sublime-syntax#architectures
-        - match: /\S+
-          scope: string.unquoted.path.debian.control
+        - match: (?=/)
+          push:
+            - meta_content_scope: string.unquoted.path.debian.control
+            - match: /
+              scope: punctuation.separator.path.debian.control
+            - match: (?=\s|$)
+              pop: true
         - match: \,|\|
           scope: punctuation.separator.sequence.debian.control
 

@@ -163,12 +163,20 @@ Exclude: backuppc-dbgsym
 # Non-HTTP URI schemes
 URIs: mirror+file:/path/to/mirror
 #     ^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources
+#     ^^^^^^^^^^^ markup.underline.link.scheme.debian.sources
+#                ^ markup.underline.link.separator.debian.sources
 URIs: file:/local/repo
 #     ^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources
+#     ^^^^ markup.underline.link.scheme.debian.sources
+#         ^ markup.underline.link.separator.debian.sources
 URIs: cdrom:[Debian-12.0]
 #     ^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources
+#     ^^^^^ markup.underline.link.scheme.debian.sources
+#          ^ markup.underline.link.separator.debian.sources
 URIs: https://custom.repo.example.com/apt
 #     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian
+#     ^^^^^ markup.underline.link.scheme.debian
+#          ^^^ markup.underline.link.separator.debian
 
 # Inline PGP key
 Signed-By:

@@ -80,6 +80,10 @@ contexts:
     - include: license-identifiers
     - include: license-operators
     - include: license-exceptions
+    - match: \(
+      scope: punctuation.section.group.begin.debian.copyright
+    - match: \)
+      scope: punctuation.section.group.end.debian.copyright
     - match: $\n?
       pop: true
 
@@ -102,9 +106,9 @@ contexts:
   license-identifiers:
     - match: |-
         (?x:\b(?:
-          GPL-[123](?:\.\d)?(?:-(?:only|or-later))?(?:\+)?
-          |LGPL-[23](?:\.\d)?(?:-(?:only|or-later))?(?:\+)?
-          |AGPL-[13](?:\.\d)?(?:-(?:only|or-later))?(?:\+)?
+          GPL-[123](?:\.\d)?(?:-(?:only|or-later))?
+          |LGPL-[23](?:\.\d)?(?:-(?:only|or-later))?
+          |AGPL-[13](?:\.\d)?(?:-(?:only|or-later))?
           |MPL-[12](?:\.\d)?
           |GFDL-1\.[123](?:-(?:only|or-later
             |(?:no-)?invariants-(?:only|or-later)))?
@@ -118,7 +122,7 @@ contexts:
           |Latex2e|NTP|OpenSSL|curl|FSFAP|PHP-3\.[01]
           |Sendmail(?:-8\.23)?|Unicode-(?:DFS-2016|TOU)
           |Xerox|X11|diffmark|Spencer-(?:86|94|99)
-        )\b)
+        )\b\+?)
       scope: support.constant.license.debian.copyright
 
   license-operators:

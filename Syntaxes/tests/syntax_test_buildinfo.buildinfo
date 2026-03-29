@@ -52,6 +52,8 @@ Build-Path: /build/backuppc-4.4.0
 #         ^ punctuation.separator.mapping.key-value.debian.buildinfo
 #          ^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.buildinfo
 #          ^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.buildinfo
+#           ^ punctuation.separator.path.debian.buildinfo
+#                 ^ punctuation.separator.path.debian.buildinfo
 Build-Tainted-By: merged-usr-via-aliased-dirs
 #^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
 #               ^ punctuation.separator.mapping.key-value.debian.buildinfo
@@ -99,6 +101,13 @@ Environment:
 #^^^^^^^^^^^^^^^^^ variable.parameter.debian.buildinfo
 #                 ^ punctuation.separator.mapping.key-value.debian.buildinfo
 #                  ^^^^^^^^^^^^ string.quoted.double.debian.buildinfo
+#                  ^ punctuation.definition.string.begin.debian.buildinfo
+#                             ^ punctuation.definition.string.end.debian.buildinfo
+ CFLAGS="escaped \"quotes\""
+#       ^^^^^^^^^^^^^^^^^^^^ string.quoted.double.debian.buildinfo
+#                ^^ constant.character.escape.debian.buildinfo
+#                        ^^ constant.character.escape.debian.buildinfo
+#                          ^ punctuation.definition.string.end.debian.buildinfo
 Checksums-Md5:
 #^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.buildinfo
 #            ^ punctuation.separator.mapping.key-value.debian.buildinfo

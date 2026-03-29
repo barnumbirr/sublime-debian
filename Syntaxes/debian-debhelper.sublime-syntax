@@ -48,5 +48,10 @@ contexts:
     - match: '[*?]'
       scope: keyword.operator.glob.debian.debhelper
     # File paths (absolute or relative containing /)
-    - match: (?:^|(?<=\s))\S*\/\S+
-      scope: string.unquoted.path.debian.debhelper
+    - match: (?:^|(?<=\s))(?=\S*/)
+      push:
+        - meta_content_scope: string.unquoted.path.debian.debhelper
+        - match: /
+          scope: punctuation.separator.path.debian.debhelper
+        - match: (?=\s|$)
+          pop: true

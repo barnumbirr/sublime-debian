@@ -8,18 +8,29 @@ interest /usr/share/icons/hicolor
 #^^^^^^^ meta.mapping.key.debian keyword.control.debian.triggers
 #        ^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.triggers
 #        ^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.triggers
+#        ^ punctuation.separator.path.debian.triggers
+#            ^ punctuation.separator.path.debian.triggers
+#                  ^ punctuation.separator.path.debian.triggers
+#                        ^ punctuation.separator.path.debian.triggers
 
 interest-await /usr/share/applications
 #^^^^^^^ keyword.control.debian.triggers
 #       ^^^^^^ storage.modifier.debian.triggers
 #              ^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.triggers
 #              ^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.triggers
+#              ^ punctuation.separator.path.debian.triggers
+#                  ^ punctuation.separator.path.debian.triggers
+#                        ^ punctuation.separator.path.debian.triggers
 
 interest-noawait /usr/share/mime/packages
 #^^^^^^^ keyword.control.debian.triggers
 #       ^^^^^^^^ storage.modifier.debian.triggers
 #                ^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value.debian.triggers
 #                ^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.triggers
+#                ^ punctuation.separator.path.debian.triggers
+#                    ^ punctuation.separator.path.debian.triggers
+#                          ^ punctuation.separator.path.debian.triggers
+#                               ^ punctuation.separator.path.debian.triggers
 
 activate ldconfig
 # <- keyword.control.debian.triggers

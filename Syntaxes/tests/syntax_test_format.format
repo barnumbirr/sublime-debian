@@ -30,3 +30,12 @@
 # ^ constant.numeric.integer.decimal.debian
 #    ^^^^^^ keyword.control.debian.source.format
 #          ^ punctuation.section.group.end.debian.source.format
+
+2.0 (quilt)
+#^ punctuation.separator.sequence.debian
+# ^ constant.numeric.integer.decimal.debian
+#    ^^^^^ keyword.control.debian.source.format
+
+# Invalid format type
+3.0 (dpkg)
+#    ^^^^ invalid.illegal.value.debian.source.format

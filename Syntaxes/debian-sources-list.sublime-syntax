@@ -47,6 +47,19 @@ contexts:
       scope: support.constant.component.debian.sources-list
 
   options-body:
+    # Known APT option keys (sources.list(5))
+    - match: |-
+        (?x:
+          (arch|signed-by|trusted
+            |allow-insecure|allow-weak|allow-downgrade-to-insecure
+            |check-valid-until|valid-until-min|valid-until-max
+            |check-date|date-max-future|inrelease-path|snapshot
+            |pdiffs|by-hash|lang|target|include|exclude
+        ))(=)
+      captures:
+        1: support.constant.option.debian.sources-list
+        2: punctuation.separator.mapping.key-value.debian.sources-list
+    # Unknown option keys
     - match: '([\w-]+)(=)'
       captures:
         1: variable.parameter.debian.sources-list

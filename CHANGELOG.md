@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 This file format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).\
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-03-31
+
+### New
+- Replaced `debian-gbp-conf` INI delegation with a full custom syntax: known section names (`DEFAULT`, `buildpackage`, `import-orig`, `dch`, `push`, `pull`, `clone`, `tag`, `pristine-tar`, `pq`, `create-remote-repo`) now get `entity.name.section` scoping; key=value pairs, boolean values (`True`/`False`/`Yes`/`No`), list syntax (`[...]`), and quoted strings are all distinctly scoped
+- Replaced `debian-metadata` YAML delegation with a full custom syntax: all 21 DEP-12 field names are recognized with `keyword.control` scoping; URL and email values are highlighted; YAML sequence items (`-`) and nested mapping keys (e.g., inside `Reference:` blocks) are supported
+- Added known APT option key highlighting in `debian-sources-list`: 18 documented option keys (`arch`, `signed-by`, `trusted`, `by-hash`, `pdiffs`, etc.) now get `support.constant.option` scoping, distinguishing them from unknown/vendor keys
+- Added sub-component captures for `debian-substvars`: namespaced variables like `misc:Depends` are now split into namespace (`variable.language.namespace`), separator (`punctuation.separator.namespace`), and type (`variable.language`) captures
+- Added locale suffix support to `debian-templates`: fields like `Description-de`, `Choices-fr`, `_Description-pt-BR` are now recognized as valid field names
+- Added `-R` (reverse-apply) flag highlighting in `debian-series`
+- Added `nodejs`, `percent`, `urlesc` to watch-constants in `debian-watch`
+- Added comprehensive tests for `debian-gbp-conf` and `debian-metadata` (previously had zero test coverage)
+- Added tests for copyright character-class glob patterns (`[Mm]`, `[A-Z]`), all 13 remaining SPDX license exceptions, debhelper character-class globs and redirection operator, watch `version=3` and additional closed-set constants, changelog negative tests for invalid distribution/urgency values, format `invalid.illegal` negative test
+
+### Fixes
+- Fixed version regex in `debian-format`: changed `[0-9]*` to `[0-9]+` to prevent matching `.0 (quilt)` with an empty major version
+- Fixed soversion matching in `debian-shlibs`: tightened from `\S+` to `\d[\d.]*` to only match numeric soversions
+- Added try-except error handling to `detect_copyright.py` for robustness
+
 ## [2.2.0] - 2026-03-29
 
 ### New

@@ -22,3 +22,13 @@ patches/03-debian-changes.diff -p0
 
 05-hardcode-rundir.patch
 #^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian.series
+
+06-reverse-change.patch -R
+#^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.filename.debian.series
+#                       ^^ variable.parameter.debian.series
+
+07-combined.patch -p1 -R
+#^^^^^^^^^^^^^^^^ string.unquoted.filename.debian.series
+#                 ^^ variable.parameter.debian.series
+#                   ^ constant.numeric.integer.decimal.debian.series
+#                     ^^ variable.parameter.debian.series

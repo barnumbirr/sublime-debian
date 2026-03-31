@@ -306,3 +306,10 @@ backuppc (0.7.0-1) trixie; urgency=medium
 #                                  ^ punctuation.section.group.end.debian
 
  -- Maintainer <maint@debian.org>  Fri, 01 Jan 2021 12:00:00 +0000
+
+# Negative tests — invalid values should NOT be highlighted as constants
+backuppc (1.0.0-1) notadistro; urgency=supercritical
+#                  ^^^^^^^^^^ - support.constant.debian
+#                                      ^^^^^^^^^^^^^ - support.constant.urgency.debian
+
+ -- Test <test@example.org>  Mon, 01 Jan 2024 00:00:00 +0000

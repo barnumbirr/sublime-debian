@@ -18,7 +18,7 @@ contexts:
 
   entries:
     # Optional type prefix: udeb: or private:
-    - match: ^((?:udeb|private)(:)\s+)?(\S+)\s+(\S+)\s+
+    - match: ^((?:udeb|private)(:)\s+)?(\S+)\s+(\d[\d.]*)\s+
       captures:
         1: storage.type.debian.shlibs
         2: punctuation.separator.mapping.key-value.debian.shlibs

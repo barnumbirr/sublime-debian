@@ -1,0 +1,103 @@
+# SYNTAX TEST "Packages/Debian Syntax/Syntaxes/debian-metadata.sublime-syntax"
+
+# This is a comment
+# <- punctuation.definition.comment.debian
+#^^^^^^^^^^^^^^^^^^^ comment.line.debian
+
+Bug-Database: https://github.com/backuppc/backuppc/issues
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.metadata
+#           ^ punctuation.separator.mapping.key-value.debian.metadata
+#             ^^^^^ markup.underline.link.scheme.debian
+#                  ^^^ markup.underline.link.separator.debian
+
+Bug-Submit: https://github.com/backuppc/backuppc/issues/new
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.metadata
+#         ^ punctuation.separator.mapping.key-value.debian.metadata
+
+Repository: https://salsa.debian.org/debian/backuppc.git
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.metadata
+#         ^ punctuation.separator.mapping.key-value.debian.metadata
+#           ^^^^^ markup.underline.link.scheme.debian
+
+Repository-Browse: https://salsa.debian.org/debian/backuppc
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.metadata
+#                ^ punctuation.separator.mapping.key-value.debian.metadata
+
+Security-Contact: mailto:security@debian.org
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.metadata
+#               ^ punctuation.separator.mapping.key-value.debian.metadata
+
+Documentation: https://example.com/docs
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.metadata
+#            ^ punctuation.separator.mapping.key-value.debian.metadata
+
+Donation: https://example.com/donate
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.metadata
+#       ^ punctuation.separator.mapping.key-value.debian.metadata
+
+FAQ: https://example.com/faq
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^ meta.mapping.key.debian keyword.control.debian.metadata
+#  ^ punctuation.separator.mapping.key-value.debian.metadata
+
+Changelog: https://example.com/changelog
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.metadata
+#        ^ punctuation.separator.mapping.key-value.debian.metadata
+
+Webservice: https://api.example.com
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.metadata
+#         ^ punctuation.separator.mapping.key-value.debian.metadata
+
+Screenshots: https://screenshots.debian.net/package/foo
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.metadata
+#          ^ punctuation.separator.mapping.key-value.debian.metadata
+
+Archive: CRAN
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.metadata
+#      ^ punctuation.separator.mapping.key-value.debian.metadata
+
+CPE: cpe:/a:vendor:product
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^ meta.mapping.key.debian keyword.control.debian.metadata
+#  ^ punctuation.separator.mapping.key-value.debian.metadata
+
+# Sequence items
+Registry:
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^^^^^^ meta.mapping.key.debian keyword.control.debian.metadata
+#       ^ punctuation.separator.mapping.key-value.debian.metadata
+ - Name: PyPI
+#^ punctuation.definition.list_item.debian.metadata
+
+# Nested mapping (Reference block)
+Reference:
+# <- meta.mapping.key.debian keyword.control.debian.metadata
+#^^^^^^^^ meta.mapping.key.debian keyword.control.debian.metadata
+#        ^ punctuation.separator.mapping.key-value.debian.metadata
+ Author: John Doe
+#^^^^^^ variable.parameter.debian.metadata
+#      ^ punctuation.separator.mapping.key-value.debian.metadata
+ Title: Some Paper
+#^^^^^ variable.parameter.debian.metadata
+#     ^ punctuation.separator.mapping.key-value.debian.metadata
+ URL: https://doi.org/10.1234/example
+#^^^ variable.parameter.debian.metadata
+#   ^ punctuation.separator.mapping.key-value.debian.metadata
+#     ^^^^^ markup.underline.link.scheme.debian
+
+# Unknown field (catch-all)
+X-Custom-Field: some value
+# <- meta.mapping.key.debian keyword.control.debian
+#^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian
+#             ^ punctuation.separator.mapping.key-value.debian

@@ -101,6 +101,30 @@ X-Custom: something
 #       ^ punctuation.separator.mapping.key-value.debian
 #        ^^^^^^^^^^ meta.mapping.value.debian
 
+# Localized field variants
+Description-de: Bitte wählen Sie den Webserver
+#^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#             ^ punctuation.separator.mapping.key-value.debian.templates
+
+Description-pt-BR: Por favor, escolha o servidor web
+#^^^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#                ^ punctuation.separator.mapping.key-value.debian.templates
+
+Choices-fr: apache2, lighttpd, nginx
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#         ^ punctuation.separator.mapping.key-value.debian.templates
+#           ^^^^^^^ meta.mapping.value.debian.templates
+#                  ^ punctuation.separator.sequence.debian.templates
+
+_Description-ja: 翻訳が必要なフィールド
+#^^^^^^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#              ^ punctuation.separator.mapping.key-value.debian.templates
+
+Default-en: true
+#^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.templates
+#         ^ punctuation.separator.mapping.key-value.debian.templates
+#           ^^^^ constant.language.boolean.true.debian.templates
+
 # Regression: invalid.illegal for Type field
 Type: dropdown
 #     ^^^^^^^^ invalid.illegal.value.debian.templates

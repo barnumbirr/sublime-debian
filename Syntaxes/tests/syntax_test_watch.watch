@@ -5,6 +5,11 @@ version=4
 #      ^ punctuation.separator.mapping.key-value.debian.watch
 #       ^ meta.mapping.value.debian.watch constant.numeric.integer.decimal.debian.watch
 
+version=3
+#^^^^^^ meta.mapping.key.debian keyword.control.debian.watch
+#      ^ punctuation.separator.mapping.key-value.debian.watch
+#       ^ meta.mapping.value.debian.watch constant.numeric.integer.decimal.debian.watch
+
 # Example watch file for uscan
 # <- punctuation.definition.comment.debian
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.debian
@@ -100,6 +105,21 @@ opts=gitmode=full
 opts=gitexport=all
 #    ^^^^^^^^^ meta.mapping.key.debian variable.parameter.debian.watch
 #             ^ punctuation.separator.mapping.key-value.debian.watch
+#              ^^^ support.constant.debian.watch
+
+# Additional closed-set value tests
+opts=compression=gzip
+#                ^^^^ support.constant.debian.watch
+opts=compression=bzip2
+#                ^^^^^ support.constant.debian.watch
+opts=compression=zstd
+#                ^^^^ support.constant.debian.watch
+opts=mode=svn
+#         ^^^ support.constant.debian.watch
+opts=ctype=perl
+#          ^^^^ support.constant.debian.watch
+opts=hrefdecode=percent
+#               ^^^^^^^ support.constant.debian.watch
 
 # Test string/path value options
 opts=component=libbackuppc-xs

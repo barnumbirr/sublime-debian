@@ -183,6 +183,34 @@ License: GPL-3.0-only WITH GCC-exception-3.1
 #                     ^^^^ keyword.operator.word.debian.copyright
 #                          ^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
 
+# Additional SPDX exception tests
+License: GPL-2+ WITH Bootloader-exception
+#                    ^^^^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+License: LGPL-2.1+ WITH Libtool-exception
+#                       ^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+License: GPL-2+ WITH Font-exception-2.0
+#                    ^^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+License: GPL-2+ WITH Autoconf-exception-2.0
+#                    ^^^^^^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+License: GPL-3+ WITH Autoconf-exception-generic-3.0
+#                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+License: GPL-2+ WITH Bison-exception-2.2
+#                    ^^^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+License: LGPL-2.1+ WITH OCaml-LGPL-linking-exception
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+License: GPL-2+ WITH OpenVPN-openssl-exception
+#                    ^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+License: LGPL-2.1+ WITH Qt-LGPL-exception-1.1
+#                       ^^^^^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+License: Apache-2.0 WITH Swift-exception
+#                        ^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+License: GPL-2+ WITH Universal-FOSS-exception-1.0
+#                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+License: LGPL-2+ WITH WxWindows-exception-3.1
+#                     ^^^^^^^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+License: GPL-2+ WITH PS-or-PDF-font-exception-20170817
+#                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ support.constant.license-exception.debian.copyright
+
 # Parenthesized SPDX expression tests
 License: (GPL-2+ or MIT) and Apache-2.0
 #        ^ punctuation.section.group.begin.debian.copyright
@@ -211,6 +239,15 @@ Files: src/*.c src/*.h
 #                  ^ keyword.operator.glob.debian.copyright
 Files: tests/?_test.py
 #            ^ keyword.operator.glob.debian.copyright
+Files: lib/[abc]*.c
+#          ^ punctuation.section.brackets.begin.debian.copyright keyword.operator.glob.debian.copyright
+#           ^^^ constant.other.character-class.debian.copyright
+#              ^ punctuation.section.brackets.end.debian.copyright keyword.operator.glob.debian.copyright
+#               ^ keyword.operator.glob.debian.copyright
+Files: src/[A-Z]*.h
+#          ^ punctuation.section.brackets.begin.debian.copyright keyword.operator.glob.debian.copyright
+#           ^^^ constant.other.character-class.debian.copyright
+#              ^ punctuation.section.brackets.end.debian.copyright keyword.operator.glob.debian.copyright
 
 # Regression: catch-all for unknown fields
 X-Custom: some value

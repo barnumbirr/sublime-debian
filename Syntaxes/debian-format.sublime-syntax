@@ -16,7 +16,7 @@ contexts:
 
   # https://manpages.debian.org/unstable/dpkg-dev/dpkg-source.1.en.html
   body:
-    - match: ^([0-9]*)(\.)([0-9]+)
+    - match: ^([0-9]+)(\.)([0-9]+)
       captures:
         1: constant.numeric.integer.decimal.debian
         2: punctuation.separator.sequence.debian

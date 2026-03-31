@@ -1,5 +1,16 @@
 Bug-Database: https://github.com/backuppc/backuppc/issues
 Bug-Submit: https://github.com/backuppc/backuppc/issues/new
+Changelog: https://github.com/backuppc/backuppc/blob/master/CHANGELOG.md
+Documentation: https://backuppc.github.io/backuppc/
 Repository: https://salsa.debian.org/debian/backuppc.git
 Repository-Browse: https://salsa.debian.org/debian/backuppc
 Security-Contact: mailto:security@debian.org
+Registry:
+ - Name: PyPI
+   Entry: backuppc
+ - Name: conda
+   Entry: backuppc
+Reference:
+ Author: Craig Barratt
+ Title: BackupPC - High-performance backup system
+ URL: https://backuppc.github.io/backuppc/

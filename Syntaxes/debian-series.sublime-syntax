@@ -25,3 +25,6 @@ contexts:
       captures:
         1: variable.parameter.debian.series
         2: constant.numeric.integer.decimal.debian.series
+    # Reverse-apply flag (quilt)
+    - match: -R\b
+      scope: variable.parameter.debian.series

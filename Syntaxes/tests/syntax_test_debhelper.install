@@ -26,3 +26,15 @@ ${DEB_HOST_MULTIARCH}/lib*.so
 usr/share/man/man?/*
 # <- string.unquoted.path.debian.debhelper
 #              ^^^^^ string.unquoted.path.debian.debhelper
+
+# Character class glob patterns (bare filenames, no path separators)
+[Mm]akefile
+# <- punctuation.section.brackets.begin.debian.debhelper keyword.operator.glob.debian.debhelper
+#^^ constant.other.character-class.debian.debhelper
+#  ^ punctuation.section.brackets.end.debian.debhelper keyword.operator.glob.debian.debhelper
+*.pyc
+# <- keyword.operator.glob.debian.debhelper
+
+# Redirection operator (compat 13+)
+usr/bin/foo => usr/bin/bar
+#           ^^ keyword.operator.assignment.debian.debhelper

@@ -51,10 +51,10 @@ deb http://deb.debian.org/debian/ bookworm-backports main contrib non-free
 
 deb [arch=amd64 signed-by=/usr/share/keyrings/example.gpg] https://packages.example.com/debian bookworm main
 #   ^ punctuation.section.brackets.begin.debian.sources-list
-#    ^^^^ variable.parameter.debian.sources-list
+#    ^^^^ support.constant.option.debian.sources-list
 #        ^ punctuation.separator.mapping.key-value.debian.sources-list
 #         ^^^^^ constant.other.architecture.debian
-#               ^^^^^^^^^ variable.parameter.debian.sources-list
+#               ^^^^^^^^^ support.constant.option.debian.sources-list
 #                        ^ punctuation.separator.mapping.key-value.debian.sources-list
 #                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted.path.debian.sources-list
 #                         ^ punctuation.separator.path.debian.sources-list
@@ -64,12 +64,12 @@ deb [arch=amd64 signed-by=/usr/share/keyrings/example.gpg] https://packages.exam
 
 deb [arch=amd64,arm64 trusted=yes] http://local.example.com/repo stable main
 #   ^ punctuation.section.brackets.begin.debian.sources-list
-#    ^^^^ variable.parameter.debian.sources-list
+#    ^^^^ support.constant.option.debian.sources-list
 #        ^ punctuation.separator.mapping.key-value.debian.sources-list
 #         ^^^^^ constant.other.architecture.debian
 #              ^ punctuation.separator.sequence.debian.sources-list
 #               ^^^^^ constant.other.architecture.debian
-#                     ^^^^^^^ variable.parameter.debian.sources-list
+#                     ^^^^^^^ support.constant.option.debian.sources-list
 #                            ^ punctuation.separator.mapping.key-value.debian.sources-list
 #                             ^^^ constant.language.boolean.debian.sources-list
 #                                ^ punctuation.section.brackets.end.debian.sources-list
@@ -82,6 +82,22 @@ deb file:/var/local/repo stable main
 #       ^ markup.underline.link.separator.debian.sources-list
 #                        ^^^^^^ support.constant.debian
 #                               ^^^^ support.constant.component.debian.sources-list
+
+deb [by-hash=yes pdiffs=no check-valid-until=no] http://snapshot.debian.org/archive/debian/20240101T000000Z bookworm main
+#    ^^^^^^^ support.constant.option.debian.sources-list
+#           ^ punctuation.separator.mapping.key-value.debian.sources-list
+#            ^^^ constant.language.boolean.debian.sources-list
+#                ^^^^^^ support.constant.option.debian.sources-list
+#                      ^ punctuation.separator.mapping.key-value.debian.sources-list
+#                       ^^ constant.language.boolean.debian.sources-list
+#                          ^^^^^^^^^^^^^^^^^ support.constant.option.debian.sources-list
+#                                           ^ punctuation.separator.mapping.key-value.debian.sources-list
+#                                            ^^ constant.language.boolean.debian.sources-list
+
+# Unknown option key (vendor extension)
+deb [custom-key=value] http://example.com/repo stable main
+#    ^^^^^^^^^^ variable.parameter.debian.sources-list
+#              ^ punctuation.separator.mapping.key-value.debian.sources-list
 
 deb cdrom:[Debian GNU/Linux 12.0 _Bookworm_ - Official amd64 DVD]/ bookworm main contrib
 #   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.underline.link.debian.sources-list

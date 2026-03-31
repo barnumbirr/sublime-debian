@@ -9,6 +9,79 @@ first_line_match: '^\[(?:DEFAULT|buildpackage|import-orig|dch)\]'
 scope: source.debian.gbp-conf
 
 contexts:
+  prototype:
+    - include: debian-common.sublime-syntax#comments
+
   main:
-    - match: ''
-      push: Packages/INI/INI.sublime-syntax
+    - include: sections
+    - include: options
+
+  sections:
+    # Known gbp section names
+    - match: |-
+        (?x:^\s*(\[)
+          (DEFAULT|buildpackage|import-orig|dch
+            |push|pull|clone|tag|pristine-tar|pq
+            |create-remote-repo
+          )(\])
+        )
+      captures:
+        1: punctuation.section.brackets.begin.debian.gbp-conf
+        2: entity.name.section.debian.gbp-conf
+        3: punctuation.section.brackets.end.debian.gbp-conf
+    # Unknown / custom sections (not flagged invalid — gbp supports arbitrary commands)
+    - match: ^\s*(\[)([^\]]+)(\])
+      captures:
+        1: punctuation.section.brackets.begin.debian.gbp-conf
+        2: entity.name.section.debian.gbp-conf
+        3: punctuation.section.brackets.end.debian.gbp-conf
+
+  options:
+    - match: ^([\w-]+)\s*(=)
+      captures:
+        1: meta.mapping.key.debian variable.parameter.debian.gbp-conf
+        2: punctuation.separator.mapping.key-value.debian.gbp-conf
+      push:
+        - meta_scope: meta.mapping.debian.gbp-conf
+        - meta_content_scope: meta.mapping.value.debian.gbp-conf
+        - include: debian-common.sublime-syntax#pop-eol
+        - include: boolean-values
+        - include: list-values
+        - include: quoted-strings
+
+  boolean-values:
+    - match: \b(?:True|Yes)\b
+      scope: constant.language.boolean.true.debian.gbp-conf
+    - match: \b(?:False|No)\b
+      scope: constant.language.boolean.false.debian.gbp-conf
+
+  list-values:
+    - match: '\['
+      scope: punctuation.section.brackets.begin.debian.gbp-conf
+      push:
+        - meta_content_scope: meta.sequence.debian.gbp-conf
+        - match: '\]'
+          scope: punctuation.section.brackets.end.debian.gbp-conf
+          pop: true
+        - match: ','
+          scope: punctuation.separator.sequence.debian.gbp-conf
+        - include: quoted-strings
+        - include: debian-common.sublime-syntax#pop-eol
+
+  quoted-strings:
+    - match: "'"
+      scope: punctuation.definition.string.begin.debian.gbp-conf
+      push:
+        - meta_scope: string.quoted.single.debian.gbp-conf
+        - match: "'"
+          scope: punctuation.definition.string.end.debian.gbp-conf
+          pop: true
+        - include: debian-common.sublime-syntax#pop-eol
+    - match: '"'
+      scope: punctuation.definition.string.begin.debian.gbp-conf
+      push:
+        - meta_scope: string.quoted.double.debian.gbp-conf
+        - match: '"'
+          scope: punctuation.definition.string.end.debian.gbp-conf
+          pop: true
+        - include: debian-common.sublime-syntax#pop-eol

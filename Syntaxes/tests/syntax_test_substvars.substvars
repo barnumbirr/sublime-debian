@@ -5,7 +5,9 @@
 #^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.debian
 
 misc:Depends=adduser, lsb-base (>= 3.0-6)
-#^^^^^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
+#^^^ meta.mapping.key.debian variable.language.namespace.debian.substvars
+#   ^ meta.mapping.key.debian punctuation.separator.namespace.debian.substvars
+#    ^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
 #           ^ punctuation.separator.mapping.key-value.debian.substvars
 #            ^^^^^^^ meta.mapping.value.debian.substvars
 #            ^^^^^^^ support.module.debian
@@ -22,11 +24,15 @@ misc:Depends=adduser, lsb-base (>= 3.0-6)
 #                                       ^ punctuation.section.group.end.debian.control
 
 misc:Pre-Depends=
-#^^^^^^^^^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
+#^^^ meta.mapping.key.debian variable.language.namespace.debian.substvars
+#   ^ meta.mapping.key.debian punctuation.separator.namespace.debian.substvars
+#    ^^^^^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
 #               ^ punctuation.separator.mapping.key-value.debian.substvars
 
 shlibs:Depends=libfoo1 (>= 1.0), libbar2 (>= 2.0)
-#^^^^^^^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
+#^^^^^ meta.mapping.key.debian variable.language.namespace.debian.substvars
+#     ^ meta.mapping.key.debian punctuation.separator.namespace.debian.substvars
+#      ^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
 #             ^ punctuation.separator.mapping.key-value.debian.substvars
 #              ^^^^^^^ support.module.debian
 #                      ^ punctuation.section.group.begin.debian.control
@@ -39,7 +45,9 @@ shlibs:Depends=libfoo1 (>= 1.0), libbar2 (>= 2.0)
 #                                               ^ punctuation.section.group.end.debian.control
 
 perl:Depends=perl (>= 5.28)
-#^^^^^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
+#^^^ meta.mapping.key.debian variable.language.namespace.debian.substvars
+#   ^ meta.mapping.key.debian punctuation.separator.namespace.debian.substvars
+#    ^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
 #           ^ punctuation.separator.mapping.key-value.debian.substvars
 #            ^^^^ support.module.debian
 #                 ^ punctuation.section.group.begin.debian.control
@@ -47,9 +55,17 @@ perl:Depends=perl (>= 5.28)
 #                         ^ punctuation.section.group.end.debian.control
 
 gir:Depends=gir1.2-foo-1.0 (>= 1.0)
-#^^^^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
+#^^ meta.mapping.key.debian variable.language.namespace.debian.substvars
+#  ^ meta.mapping.key.debian punctuation.separator.namespace.debian.substvars
+#   ^^^^^^^ meta.mapping.key.debian variable.language.debian.substvars
 #          ^ punctuation.separator.mapping.key-value.debian.substvars
-#           ^^^^^^^^^^^^^^ support.module.debian
-#                          ^ punctuation.section.group.begin.debian.control
-#                           ^^ keyword.operator.comparison.debian.control
-#                                 ^ punctuation.section.group.end.debian.control
+
+# Simple variable without namespace
+myvar=libfoo1 (>= 1.0)
+# <- meta.mapping.key.debian variable.language.debian.substvars
+#^^^^  meta.mapping.key.debian variable.language.debian.substvars
+#    ^ punctuation.separator.mapping.key-value.debian.substvars
+#     ^^^^^^^ support.module.debian
+#             ^ punctuation.section.group.begin.debian.control
+#              ^^ keyword.operator.comparison.debian.control
+#                    ^ punctuation.section.group.end.debian.control

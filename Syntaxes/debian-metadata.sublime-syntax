@@ -9,6 +9,58 @@ first_line_match: '^(?:Bug-Database|Bug-Submit|Repository|Repository-Browse|Secu
 scope: source.debian.metadata
 
 contexts:
+  prototype:
+    - include: debian-common.sublime-syntax#comments
+
   main:
-    - match: ''
-      push: Packages/YAML/YAML.sublime-syntax
+    - include: fields
+
+  fields:
+    # Known DEP-12 field names
+    - match: |-
+        ^(?x:
+          (Archive|ASCL-Id|Bug-Database|Bug-Submit
+            |Changelog|Cite-As|CPE|Documentation|Donation
+            |FAQ|Funding|Gallery|Other-References
+            |Reference|Registration|Registry
+            |Repository|Repository-Browse
+            |Screenshots|Security-Contact|Webservice
+        ))(:)
+      captures:
+        1: meta.mapping.key.debian keyword.control.debian.metadata
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.metadata
+      push:
+        - meta_scope: meta.mapping.debian.metadata
+        - meta_content_scope: meta.mapping.value.debian.metadata
+        - match: ^(?=\S)
+          pop: true
+        - include: nested-keys
+        - include: sequence-items
+        - include: debian-common.sublime-syntax#email-address
+        - include: debian-common.sublime-syntax#url
+    # Nested mapping keys at top level (before any field is pushed)
+    - include: nested-keys
+    # Unknown top-level fields
+    - include: debian-common.sublime-syntax#deb822-unknown-field
+
+  # Nested mapping keys (e.g., inside Reference: block)
+  nested-keys:
+    - match: ^\s+([\w-]+)(:)
+      captures:
+        1: meta.mapping.key.debian variable.parameter.debian.metadata
+        2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.metadata
+      push:
+        - meta_scope: meta.mapping.debian.metadata
+        - meta_content_scope: meta.mapping.value.debian.metadata
+        - include: debian-common.sublime-syntax#pop-eol
+        - include: debian-common.sublime-syntax#email-address
+        - include: debian-common.sublime-syntax#url
+
+  sequence-items:
+    - match: ^\s+(-)(?=\s)
+      captures:
+        1: punctuation.definition.list_item.debian.metadata
+      push:
+        - include: debian-common.sublime-syntax#pop-eol
+        - include: debian-common.sublime-syntax#email-address
+        - include: debian-common.sublime-syntax#url

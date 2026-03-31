@@ -16,16 +16,26 @@ contexts:
     - include: entries
 
   entries:
-    # variable=value, variable?=value, variable!=value, variable$=value
-    - match: ^([\w][\w:.-]*)([$?!]?=)
+    # Namespaced variables: namespace:type (e.g. misc:Depends, shlibs:Pre-Depends)
+    - match: ^([\w]+)(:)([\w.-]+)([$?!]?=)
+      captures:
+        1: meta.mapping.key.debian variable.language.namespace.debian.substvars
+        2: meta.mapping.key.debian punctuation.separator.namespace.debian.substvars
+        3: meta.mapping.key.debian variable.language.debian.substvars
+        4: punctuation.separator.mapping.key-value.debian.substvars
+      push: substvar-value
+    # Simple variables without namespace
+    - match: ^([\w][\w.-]*)([$?!]?=)
       captures:
         1: meta.mapping.key.debian variable.language.debian.substvars
         2: punctuation.separator.mapping.key-value.debian.substvars
-      push:
-        - meta_scope: meta.mapping.debian.substvars
-        - meta_content_scope: meta.mapping.value.debian.substvars
-        - include: debian-common.sublime-syntax#pop-eol
-        - include: debian-common.sublime-syntax#semver-flag
-        - match: ','
-          scope: punctuation.separator.sequence.debian.substvars
-        - include: debian-common.sublime-syntax#package-name
+      push: substvar-value
+
+  substvar-value:
+    - meta_scope: meta.mapping.debian.substvars
+    - meta_content_scope: meta.mapping.value.debian.substvars
+    - include: debian-common.sublime-syntax#pop-eol
+    - include: debian-common.sublime-syntax#semver-flag
+    - match: ','
+      scope: punctuation.separator.sequence.debian.substvars
+    - include: debian-common.sublime-syntax#package-name

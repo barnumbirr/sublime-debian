@@ -1,0 +1,25 @@
+Debian Syntax 2.3.0
+====================
+
+Full Debian-specific highlighting for gbp.conf and upstream/metadata:
+  - gbp.conf: known sections, key=value pairs, booleans, lists, quoted strings
+    (previously delegated to generic INI with no Debian-specific coloring)
+  - upstream/metadata: all 21 DEP-12 fields, URLs, emails, YAML sequences,
+    nested mappings (previously delegated to generic YAML)
+
+New highlighting:
+  - sources.list: known APT option keys (arch, signed-by, trusted, etc.)
+    now visually distinguished from unknown/vendor keys
+  - substvars: namespace:type sub-component captures (misc:Depends splits
+    into namespace, separator, and dependency type)
+  - templates: localized field variants (Description-de, Choices-fr, etc.)
+  - series: quilt -R (reverse-apply) flag
+  - watch: added nodejs, percent, urlesc to recognized constants
+
+Fixes:
+  - format: version regex no longer matches empty major version
+  - shlibs: soversion restricted to numeric values
+  - detect_copyright.py: added error handling for robustness
+
+Full changelog:
+  https://github.com/barnumbirr/sublime-debian/blob/master/CHANGELOG.md

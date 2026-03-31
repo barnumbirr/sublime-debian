@@ -252,7 +252,8 @@ contexts:
           |native|git|svn|gitlab|lwp|lwr|auto
           |next|previous|self|mangle|gensig|gittag|none
           |default|plain|css|sha256|sha512|md5
-          |perl|text|html
+          |perl|nodejs|text|html
+          |percent|urlesc
           |shallow|full|all
         )\b)
       scope: support.constant.debian.watch

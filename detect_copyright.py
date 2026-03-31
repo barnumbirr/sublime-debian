@@ -34,16 +34,19 @@ class DebianCopyrightDetectListener(sublime_plugin.EventListener):
         self._detect(view)
 
     def _detect(self, view):
-        filename = view.file_name()
-        if not filename:
-            return
-        basename = os.path.basename(filename)
-        if basename != "copyright":
-            return
-        # Already using our syntax
-        if view.syntax() and view.syntax().path == _COPYRIGHT_SYNTAX:
-            return
-        # Check first line for DEP-5 format marker
-        first_line = view.substr(view.line(0))
-        if first_line.startswith("Format:"):
-            view.assign_syntax(_COPYRIGHT_SYNTAX)
+        try:
+            filename = view.file_name()
+            if not filename:
+                return
+            basename = os.path.basename(filename)
+            if basename != "copyright":
+                return
+            # Already using our syntax
+            if view.syntax() and view.syntax().path == _COPYRIGHT_SYNTAX:
+                return
+            # Check first line for DEP-5 format marker
+            first_line = view.substr(view.line(0))
+            if first_line.startswith("Format:"):
+                view.assign_syntax(_COPYRIGHT_SYNTAX)
+        except Exception:
+            pass

@@ -31,7 +31,7 @@ contexts:
         - match: \b\w+\b
           scope: invalid.illegal.value.debian.templates
     # Choices fields — comma-separated values
-    - match: ^(_*Choices(?:-C)?)(:)
+    - match: ^(_*Choices(?:-C)?(?:-[a-zA-Z]{2,3}(?:-[a-zA-Z]{2,3})?)?)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.templates
         2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.templates
@@ -43,7 +43,7 @@ contexts:
         - match: ','
           scope: punctuation.separator.sequence.debian.templates
     # Other fields — Template, Default, Description
-    - match: ^(_*(?:Template|Default|Description))(:)
+    - match: ^(_*(?:Template|Default|Description)(?:-[a-zA-Z]{2,3}(?:-[a-zA-Z]{2,3})?)?)(:)
       captures:
         1: meta.mapping.key.debian keyword.control.debian.templates
         2: meta.mapping.key.debian punctuation.separator.mapping.key-value.debian.templates

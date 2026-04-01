@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 This file format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).\
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-04-01
+
+### New
+- Added field name completions for `control`, `copyright`, `watch`, and `sources` files — auto-completes field names with `: ` separator
+- Added snippets: `source` and `package` paragraphs (control), `entry` (changelog), `files` block (copyright)
+- Added syntax-specific view settings for `control`, `changelog`, and `copyright` — tabs-to-spaces, trailing newline, 79-char ruler
+- Added Goto Symbol support for `gbp.conf` section headers (`[DEFAULT]`, `[buildpackage]`, etc.)
+- Added multi-architecture support to dependency arch-spec in `debian-control`: `[amd64 i386]` and `[!amd64 !arm64]` are now properly scoped (previously only single architectures were recognized)
+
+### Fixes
+- Fixed arch-spec regex in `debian-control` that required a hyphen in architecture names (`\w+-\w+`), causing bare names like `amd64` in bracket specs to fall through to the package-name pattern instead of getting `constant.other.architecture` scoping
+
 ## [2.3.0] - 2026-03-31
 
 ### New

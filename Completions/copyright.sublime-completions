@@ -1,0 +1,14 @@
+{
+    "scope": "text.debian.license",
+    "completions": [
+        {"trigger": "Format", "contents": "Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/", "kind": "keyword"},
+        {"trigger": "Upstream-Name", "contents": "Upstream-Name: $0", "kind": "keyword"},
+        {"trigger": "Upstream-Contact", "contents": "Upstream-Contact: $0", "kind": "keyword"},
+        {"trigger": "Source", "contents": "Source: $0", "kind": "keyword"},
+        {"trigger": "Disclaimer", "contents": "Disclaimer: $0", "kind": "keyword"},
+        {"trigger": "Comment", "contents": "Comment: $0", "kind": "keyword"},
+        {"trigger": "Files", "contents": "Files: $0", "kind": "keyword"},
+        {"trigger": "Copyright", "contents": "Copyright: $0", "kind": "keyword"},
+        {"trigger": "License", "contents": "License: $0", "kind": "keyword"}
+    ]
+}

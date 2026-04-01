@@ -1,0 +1,29 @@
+{
+    "scope": "source.debian.watch",
+    "completions": [
+        {"trigger": "Version", "contents": "Version: $0", "kind": "keyword"},
+        {"trigger": "Source", "contents": "Source: $0", "kind": "keyword"},
+        {"trigger": "Matching-Pattern", "contents": "Matching-Pattern: $0", "kind": "keyword"},
+        {"trigger": "Compression", "contents": "Compression: $0", "kind": "keyword"},
+        {"trigger": "Mode", "contents": "Mode: $0", "kind": "keyword"},
+        {"trigger": "Pgp-Mode", "contents": "Pgp-Mode: $0", "kind": "keyword"},
+        {"trigger": "Search-Mode", "contents": "Search-Mode: $0", "kind": "keyword"},
+        {"trigger": "Ctype", "contents": "Ctype: $0", "kind": "keyword"},
+        {"trigger": "Hrefdecode", "contents": "Hrefdecode: $0", "kind": "keyword"},
+        {"trigger": "Git-Mode", "contents": "Git-Mode: $0", "kind": "keyword"},
+        {"trigger": "Git-Export", "contents": "Git-Export: $0", "kind": "keyword"},
+        {"trigger": "Compression-Level", "contents": "Compression-Level: $0", "kind": "keyword"},
+        {"trigger": "Template", "contents": "Template: $0", "kind": "keyword"},
+        {"trigger": "Repack", "contents": "Repack: $0", "kind": "keyword"},
+        {"trigger": "Bare", "contents": "Bare: $0", "kind": "keyword"},
+        {"trigger": "Decompress", "contents": "Decompress: $0", "kind": "keyword"},
+        {"trigger": "Component", "contents": "Component: $0", "kind": "keyword"},
+        {"trigger": "Repacksuffix", "contents": "Repacksuffix: $0", "kind": "keyword"},
+        {"trigger": "Owner", "contents": "Owner: $0", "kind": "keyword"},
+        {"trigger": "Project", "contents": "Project: $0", "kind": "keyword"},
+        {"trigger": "Dversion-Mangle", "contents": "Dversion-Mangle: $0", "kind": "keyword"},
+        {"trigger": "Filename-Mangle", "contents": "Filename-Mangle: $0", "kind": "keyword"},
+        {"trigger": "Uversion-Mangle", "contents": "Uversion-Mangle: $0", "kind": "keyword"},
+        {"trigger": "Version-Mangle", "contents": "Version-Mangle: $0", "kind": "keyword"}
+    ]
+}

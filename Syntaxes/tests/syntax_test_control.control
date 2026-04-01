@@ -255,7 +255,9 @@ Recommends: libfoo-doc [amd64],
 #^^^^^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #         ^ punctuation.separator.mapping.key-value.debian.control
 #           ^^^^^^^^^^ support.module.debian
-#                       ^^^^^ support.module.debian
+#                      ^ punctuation.section.group.begin.debian.control
+#                       ^^^^^ constant.other.architecture.debian
+#                            ^ punctuation.section.group.end.debian.control
 #                             ^ punctuation.separator.sequence.debian.control
             openssh-client | ssh-client
 #           ^^^^^^^^^^^^^^ support.module.debian
@@ -267,6 +269,28 @@ Suggests: certbot | acme-tiny [!i386]
 #         ^^^^^^^ support.module.debian
 #                 ^ punctuation.separator.sequence.debian.control
 #                   ^^^^^^^^^ support.module.debian
+#                             ^ punctuation.section.group.begin.debian.control
+#                              ^ keyword.operator.logical.debian
+#                               ^^^^ constant.other.architecture.debian
+#                                   ^ punctuation.section.group.end.debian.control
+
+# Multi-architecture arch-spec (Policy §7.1)
+Depends: libfoo [amd64 arm64]
+#               ^ punctuation.section.group.begin.debian.control
+#                ^^^^^ constant.other.architecture.debian
+#                      ^^^^^ constant.other.architecture.debian
+#                           ^ punctuation.section.group.end.debian.control
+Depends: libbar [!amd64 !i386]
+#               ^ punctuation.section.group.begin.debian.control
+#                ^ keyword.operator.logical.debian
+#                 ^^^^^ constant.other.architecture.debian
+#                       ^ keyword.operator.logical.debian
+#                        ^^^^ constant.other.architecture.debian
+#                            ^ punctuation.section.group.end.debian.control
+Depends: libbaz [linux-any]
+#               ^ punctuation.section.group.begin.debian.control
+#                ^^^^^^^^^ constant.other.architecture.debian
+#                         ^ punctuation.section.group.end.debian.control
 Breaks: backuppc-rsync (<< 3.0)
 #^^^^^ meta.mapping.key.debian keyword.control.debian.control
 #     ^ punctuation.separator.mapping.key-value.debian.control

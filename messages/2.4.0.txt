@@ -1,0 +1,15 @@
+Debian Syntax 2.4.0
+====================
+
+Editor integration for Debian package maintainers:
+  - Field name completions for control, copyright, watch, and sources files
+  - Snippets: source/package paragraphs, changelog entry, copyright files block
+  - Syntax-specific view settings (tabs-to-spaces, 79-char ruler)
+  - Goto Symbol now includes gbp.conf section headers
+
+Fixed:
+  - Multi-architecture arch-specs ([amd64 i386], [!amd64 !arm64]) now properly
+    scoped in dependency fields (previously only single architectures worked)
+
+Full changelog:
+  https://github.com/barnumbirr/sublime-debian/blob/master/CHANGELOG.md

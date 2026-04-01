@@ -120,6 +120,8 @@ opts=ctype=perl
 #          ^^^^ support.constant.debian.watch
 opts=hrefdecode=percent
 #               ^^^^^^^ support.constant.debian.watch
+opts=hrefdecode=urlesc
+#               ^^^^^^ support.constant.debian.watch
 
 # Test string/path value options
 opts=component=libbackuppc-xs

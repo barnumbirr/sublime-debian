@@ -1,0 +1,11 @@
+<snippet>
+    <content><![CDATA[Package: ${1:package-name}
+Architecture: ${2:any}
+Depends: \${misc:Depends}, \${shlibs:Depends}
+Description: ${3:short description}
+ ${4:long description}
+$0]]></content>
+    <tabTrigger>package</tabTrigger>
+    <scope>source.debian.control</scope>
+    <description>Binary paragraph (debian/control)</description>
+</snippet>

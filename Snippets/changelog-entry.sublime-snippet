@@ -1,0 +1,11 @@
+<snippet>
+    <content><![CDATA[${1:package} (${2:version}) ${3:UNRELEASED}; urgency=${4:medium}
+
+  * ${5:Change description}
+
+ -- ${6:Name} <${7:email@example.com}>  ${8:DATE}
+$0]]></content>
+    <tabTrigger>entry</tabTrigger>
+    <scope>source.debian.changelog</scope>
+    <description>Changelog entry (debian/changelog)</description>
+</snippet>

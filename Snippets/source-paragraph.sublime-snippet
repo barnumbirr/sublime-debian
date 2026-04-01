@@ -1,0 +1,14 @@
+<snippet>
+    <content><![CDATA[Source: ${1:package-name}
+Section: ${2:misc}
+Priority: ${3:optional}
+Maintainer: ${4:Name} <${5:email@example.com}>
+Build-Depends: debhelper-compat (= ${6:13})
+Standards-Version: ${7:4.7.0}
+Homepage: ${8:https://example.com}
+Rules-Requires-Root: no
+$0]]></content>
+    <tabTrigger>source</tabTrigger>
+    <scope>source.debian.control</scope>
+    <description>Source paragraph (debian/control)</description>
+</snippet>

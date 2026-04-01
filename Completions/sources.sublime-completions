@@ -1,0 +1,19 @@
+{
+    "scope": "source.debian.sources",
+    "completions": [
+        {"trigger": "Types", "contents": "Types: $0", "kind": "keyword"},
+        {"trigger": "URIs", "contents": "URIs: $0", "kind": "keyword"},
+        {"trigger": "Suites", "contents": "Suites: $0", "kind": "keyword"},
+        {"trigger": "Components", "contents": "Components: $0", "kind": "keyword"},
+        {"trigger": "Signed-By", "contents": "Signed-By: $0", "kind": "keyword"},
+        {"trigger": "Architectures", "contents": "Architectures: $0", "kind": "keyword"},
+        {"trigger": "Enabled", "contents": "Enabled: $0", "kind": "keyword"},
+        {"trigger": "Languages", "contents": "Languages: $0", "kind": "keyword"},
+        {"trigger": "Targets", "contents": "Targets: $0", "kind": "keyword"},
+        {"trigger": "PDiffs", "contents": "PDiffs: $0", "kind": "keyword"},
+        {"trigger": "By-Hash", "contents": "By-Hash: $0", "kind": "keyword"},
+        {"trigger": "Trusted", "contents": "Trusted: $0", "kind": "keyword"},
+        {"trigger": "Check-Valid-Until", "contents": "Check-Valid-Until: $0", "kind": "keyword"},
+        {"trigger": "Snapshot", "contents": "Snapshot: $0", "kind": "keyword"}
+    ]
+}

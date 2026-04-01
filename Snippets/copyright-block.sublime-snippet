@@ -1,0 +1,9 @@
+<snippet>
+    <content><![CDATA[Files: ${1:*}
+Copyright: ${2:YEAR} ${3:Name} <${4:email@example.com}>
+License: ${5:GPL-2+}
+$0]]></content>
+    <tabTrigger>files</tabTrigger>
+    <scope>text.debian.license</scope>
+    <description>Files block (debian/copyright)</description>
+</snippet>

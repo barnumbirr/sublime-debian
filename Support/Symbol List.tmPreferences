@@ -4,7 +4,8 @@
     <key>scope</key>
     <string>
         source.debian.changelog meta.number.version,
-        source.debian.control keyword.control
+        source.debian.control keyword.control,
+        source.debian.gbp-conf entity.name.section
     </string>
     <key>settings</key>
     <dict>

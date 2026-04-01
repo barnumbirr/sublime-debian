@@ -27,6 +27,12 @@ Provides syntax highlighting for the following Debian packaging files:
  - `/etc/apt/sources.list` (one-line format)
  - `/etc/apt/sources.list.d/*.sources` (deb822 format)
 
+#### Editor integration
+ - Field name completions for `control`, `copyright`, `watch`, and `sources` files
+ - Snippets: `source` / `package` paragraphs (control), `entry` (changelog), `files` block (copyright)
+ - Syntax-specific view settings for `control`, `changelog`, and `copyright`
+ - Goto Symbol support for changelog versions, control fields, and gbp.conf sections
+
 ## Preview
 
 Debian `changelog` and `control` files with Sublime Text's default `Monokai` color scheme:

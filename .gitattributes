@@ -1,0 +1,9 @@
+# Exclude from package
+.claude/            export-ignore
+.git*               export-ignore
+.github/            export-ignore
+CHANGELOG.md        export-ignore
+README.md           export-ignore
+examples/           export-ignore
+preview.png         export-ignore
+Syntaxes/tests/     export-ignore

@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 This file format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).\
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.1] - 2026-04-13
+
+### Removed
+- Removed syntax-specific view settings for `control`, `changelog`, and `copyright` — these were opinionated editor defaults (tabs-to-spaces, trailing newline, 79-char ruler) that don't match the convention of official Sublime Text syntax packages, which only set view settings when the language specification mandates it
+
+### New
+- Added `.gitattributes` to exclude non-essential files (tests, examples, images, CI config) from the installed package
+
 ## [2.4.0] - 2026-04-01
 
 ### New

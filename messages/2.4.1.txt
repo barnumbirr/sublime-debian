@@ -1,0 +1,15 @@
+Debian Syntax 2.4.1
+===================
+
+Removed:
+  - Syntax-specific view settings for control, changelog, and copyright
+    (tabs-to-spaces, trailing newline, 79-char ruler). These were opinionated
+    editor defaults that don't match the convention of official Sublime Text
+    syntax packages.
+
+New:
+  - Added .gitattributes to exclude non-essential files from the installed
+    package.
+
+Full changelog:
+  https://github.com/barnumbirr/sublime-debian/blob/master/CHANGELOG.md

@@ -30,7 +30,6 @@ Provides syntax highlighting for the following Debian packaging files:
 #### Editor integration
  - Field name completions for `control`, `copyright`, `watch`, and `sources` files
  - Snippets: `source` / `package` paragraphs (control), `entry` (changelog), `files` block (copyright)
- - Syntax-specific view settings for `control`, `changelog`, and `copyright`
  - Goto Symbol support for changelog versions, control fields, and gbp.conf sections
 
 ## Preview
